@@ -4,11 +4,8 @@
 ** http://www.apache.org/licenses/LICENSE-2.0
 ** Built by Jay Kanakiya ( @techiejayk )
 **/
-
 "use strict";
-
 var App = angular.module("example",[]);
-
-App.controller("ExmpCtrl",function  ($scope) {
-	//
+App.controller("ExmpCtrl",function ($scope) {
+//
 });
