@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="example">
+<html lang="en" ng-app="LivingWeb">
 <head>
 	<title>Angular and Javascript playground</title>
 	<meta charset="UTF-8" />
@@ -21,26 +21,24 @@
 <body ng-controller="ExmpCtrl">		
 	<div class="container" id="playground">			
 		<div>
-			<ul>
-				<li ng-repeat="listing in listings">
-					{{listing.location.address.streetAddress}}
-				</li>
-			</ul>
-
-			<div class="debug">
-				<p class="text-info">{{ listings | json}}</p>
+			<div ng-repeat="listing in listings" >
+				<div ng-click="openUrl(listing.url)" id="listItemContainer">
+					<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
+					<img src='{{listing.imageUrl}}' />
+					<div id="listItemInfo">
+					<ul> 
+						<li>Typ      : {{listing.objectType}} </li>
+						<li>Pris     : {{listing.listPrice}} </li>
+						<li>Rum     : {{listing.rooms}} </li>
+						<li>Area     : {{listing.livingArea}} </li>
+						<li>Hyra     : {{listing.rent}} </li>
+					</div>
+					</div>
+				</div>
+				<div class="debug">
+					<p class="text-info">{{ listings | json}}</p>
+				</div>
 			</div>
-		</div>
-		
-		<div>
-			<ul>
-				<li ng-repeat="todo in todos">{{todo.taskName}}</li>
-			</ul>
-
-			<div class="debug">
-				<p class="text-info">{{ todos | json}}</p>
-			</div>
-		</div>
-	</div>			
-</body>
-</html>
+		</div>			
+	</body>
+	</html>

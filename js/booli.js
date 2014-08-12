@@ -3,7 +3,7 @@
 var $getResult = function($scope, $http) {
 	
 	var auth = $auth();
-	var booliAPI = "api.booli.se//listings?q=nacka&" + auth;
+	var booliAPI = "api.booli.se//listings?q=malmö&" + auth;
 	
 	$http(
 		{ method: 'GET', 
@@ -12,6 +12,12 @@ var $getResult = function($scope, $http) {
 		headers: {'Accept': 'application/json' }
 	}).success(function(data, status, headers, config) {
 		$scope.listings =  data.listings;
+		$.each($scope.listings, function(i, item) {
+			var temp = $imageUrl(item.booliId);
+			console.log(temp);
+			item.imageUrl = temp;
+		})
+		
 	}).error(function(data, status, headers, config) {
 		
 	});
@@ -19,8 +25,7 @@ var $getResult = function($scope, $http) {
 
 	var $imageUrl = function(booliId) {
 		var url = "http://api.bcdn.se/cache/primary_" + booliId +"_140x94.jpg";
-		console.log(url);
-		return $("<img>" ).attr( "src", url );	
+		return url;	
 	}
 
 	var $auth = function() {
