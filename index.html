@@ -16,29 +16,45 @@
 	<script src="js/libs/angular.min.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/booli.js"></script>
+	<script src="js/auth.js"></script>
 	
 </head>
 <body ng-controller="ExmpCtrl">		
 	<div class="container" id="playground">			
 		<div>
-			<div ng-repeat="listing in listings" >
+			<div class="search">
+				Sök: <input ng-model="query">   
+				Sort by:
+				<select ng-model="orderProp">
+					<option value="location.address.streetAddress">A - Ö</option>
+					<option value="-location.address.streetAddress">Ö - A</option>
+					<option value="-published">Nyaste</option>
+					<option value="published">Äldsta</option>
+				</select>
+			</div>
+			
+			<div ng-repeat="listing in listings | filter:query | orderBy:orderProp"  >
 				<div ng-click="openUrl(listing.url)" id="listItemContainer">
-					<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
+					<div>
+						<a href="#/phones/{{phone.booliId}}">
+							<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
+						</a>
+						<p id="listItemDate">{{listing.published}} </p>
+					</div>
 					<img src='{{listing.imageUrl}}' />
 					<div id="listItemInfo">
-					<ul> 
-						<li>Typ      : {{listing.objectType}} </li>
-						<li>Pris     : {{listing.listPrice}} </li>
-						<li>Rum     : {{listing.rooms}} </li>
-						<li>Area     : {{listing.livingArea}} </li>
-						<li>Hyra     : {{listing.rent}} </li>
+						<br>Typ        : {{listing.objectType}} 
+						<br>Pris       : {{listing.listPrice}}
+						<br>Rum        : {{listing.rooms}} 
+						<br>Area       : {{listing.livingArea}} 
+						<br>Hyra       : {{listing.rent}}						
 					</div>
-					</div>
-				</div>
-				<div class="debug">
-					<p class="text-info">{{ listings | json}}</p>
 				</div>
 			</div>
-		</div>			
-	</body>
-	</html>
+			<div class="debug">
+				<p class="text-info">{{ listings | json}}</p>
+			</div>
+		</div>
+	</div>			
+</body>
+</html>

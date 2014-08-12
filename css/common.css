@@ -19,12 +19,19 @@ div#listItemContainer img {
 
 
 div#listItemInfo {
-	left: 150px;
+	left: 170px;
 	position: absolute;
-	top: 42px;
+	top: 22px;
 	font-size: 12px;
 	margin-top: auto;
 	margin-bottom: auto;
+}
+
+p#listItemDate {
+	right: 10px;
+	position: absolute;
+	top: 12px;
+	font-size: 10px;
 }
 
 p#listItemTitle {
