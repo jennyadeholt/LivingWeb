@@ -6,7 +6,6 @@ var App = angular.module('livingWebApp', [
   'phonecatControllers'
 ]);
 
-
 App.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.

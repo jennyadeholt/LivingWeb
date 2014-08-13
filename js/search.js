@@ -1,8 +1,5 @@
 
 function SearchCtrl($scope, $http) {
-	$scope.url = 'search.php'; // The url of our search
-	
-	
 		
 	// The function that will be executed on button click (ng-click="search()")
 	$scope.search = function() {

@@ -1,24 +1,21 @@
-detail view for <span>{{booliId}}</span>
+<div data-ng-init="init()">
+	detail view for <span>{{booliId}}</span>
 
-<div >
-	<div ng-click="openUrl(listing.url)" id="listItemContainer">
-		<div>
-						
-			<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
-			<p id="listItemDate">{{listing.published}} </p>
-		</div>
-		<img src='{{listing.imageUrl}}' />
-		<div id="listItemInfo">
-			<br>Typ        : {{listing.objectType}} 
-			<br>Pris       : {{listing.listPrice}}
-			<br>Rum        : {{listing.rooms}} 
-			<br>Area       : {{listing.livingArea}} 
-			<br>Hyra       : {{listing.rent}}						
+	<div >
+		<div ng-click="openUrl(listing.url)" id="listItemContainer">
+			<div>
+				<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
+				<p id="listItemDate">{{listing.published}} </p>
+			</div>
+			<img src='{{listing.imageUrl}}' />
+			<div id="listItemInfo">
+				<br>Typ        : {{listing.objectType}} 
+				<br>Pris       : {{listing.listPrice}}
+				<br>Rum        : {{listing.rooms}} 
+				<br>Area       : {{listing.livingArea}} 
+				<br>Hyra       : {{listing.rent}}	
+					
+			</div>
 		</div>
 	</div>
-	
-	<div class="debug">
-		<p class="text-info">{{ listing | json}}</p>
-	</div>
-	
 </div>
