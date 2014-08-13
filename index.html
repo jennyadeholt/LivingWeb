@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="LivingWeb">
+<html lang="en" ng-app="livingWebApp">
 <head>
 	<title>Angular and Javascript playground</title>
 	<meta charset="UTF-8" />
@@ -9,52 +9,27 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/jquery-ui.min.css">
 	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/booli.css">
 
 	<script src="js/libs/jquery.min.js"></script>
 	<script src="js/libs/jquery-ui.min.js"></script>
 	<script src="js/libs/bootstrap.min.js"></script>
-	<script src="js/libs/angular.min.js"></script>
+	<script src="js/libs/angular.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+	
+	
+	
 	<script src="js/app.js"></script>
+	<script src="js/controllers.js"></script>
 	<script src="js/booli.js"></script>
 	<script src="js/auth.js"></script>
+	<script src="js/search.js"></script>
 	
 </head>
-<body ng-controller="ExmpCtrl">		
-	<div class="container" id="playground">			
-		<div>
-			<div class="search">
-				Sök: <input ng-model="query">   
-				Sort by:
-				<select ng-model="orderProp">
-					<option value="location.address.streetAddress">A - Ö</option>
-					<option value="-location.address.streetAddress">Ö - A</option>
-					<option value="-published">Nyaste</option>
-					<option value="published">Äldsta</option>
-				</select>
-			</div>
-			
-			<div ng-repeat="listing in listings | filter:query | orderBy:orderProp"  >
-				<div ng-click="openUrl(listing.url)" id="listItemContainer">
-					<div>
-						<a href="#/phones/{{phone.booliId}}">
-							<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
-						</a>
-						<p id="listItemDate">{{listing.published}} </p>
-					</div>
-					<img src='{{listing.imageUrl}}' />
-					<div id="listItemInfo">
-						<br>Typ        : {{listing.objectType}} 
-						<br>Pris       : {{listing.listPrice}}
-						<br>Rum        : {{listing.rooms}} 
-						<br>Area       : {{listing.livingArea}} 
-						<br>Hyra       : {{listing.rent}}						
-					</div>
-				</div>
-			</div>
-			<div class="debug">
-				<p class="text-info">{{ listings | json}}</p>
-			</div>
-		</div>
-	</div>			
+
+<body>
+
+	<div ng-view class="container" id="playground" />
+
 </body>
 </html>

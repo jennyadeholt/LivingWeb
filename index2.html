@@ -1,0 +1,351 @@
+<!--<![endif]-->
+<div class=" show" style="height: 689px; background-image: url(&quot;http://bcdn.se/images/bg/1.8fe51.jpg&quot;);" id="coverImage"></div>
+<div id="page" class="index">
+	<div class="row panoramaWrap fadein">
+		<div class="panorama adunit desktop" id="Index_Panorama_980x240"><div style="border: 0pt none;" id="google_ads_iframe_/1053572/Index_Panorama_980x240_0__container__"><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" scrolling="no" name="google_ads_iframe_/1053572/Index_Panorama_980x240_0" id="google_ads_iframe_/1053572/Index_Panorama_980x240_0" frameborder="0" height="240" width="980"></iframe></div><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom; visibility: hidden; display: none;" marginheight="0" marginwidth="0" scrolling="no" name="google_ads_iframe_/1053572/Index_Panorama_980x240_0__hidden__" id="google_ads_iframe_/1053572/Index_Panorama_980x240_0__hidden__" frameborder="0" height="0" width="0"></iframe></div>
+		<div class="panorama adunit tablet" id="Index_Panorama_728x90"></div>
+	</div>
+	
+	<form id="searchForm" action="/redirect/searchListings" class="Listings showLatest">
+		<div class="barWrap row">
+			<div id="scrollPoint" class="bar">
+				<div class="disable"></div>
+				<div class="searchField">
+					<div id="customInput">
+						<div id="customInputText">
+							<div id="hint">Gata, ort eller kommun</div>
+							<input size="2" name="searchField" autocorrect="off" autocapitalize="on" autocomplete="off" autofocus="" title="Gata, ort eller kommun" tabindex="1" type="text">
+						</div>
+					</div>
+					<div class="toggle-type tablet desktop">
+						<select>
+							<option value="listings">Till salu</option>
+							<option value="sold">Slutpriser</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="buttonNav refine">
+					<div class="nav first toggleRefine">Förfina</div>
+				</div>
+
+				<a class="indexMapSearch listing desktop tablet" href="/search/map">Kartsök</a>
+
+				<div class="buttonNav hits desktop tablet">
+					<div class="nav first showHits">Visa <span class="countNr"></span> träffar</div>
+				</div>
+				<div class="buttonNav desktop tablet">
+					<div class="nav first monitor">Bevaka sökning</div>
+				</div>
+				<div class="buttonNav desktop tablet">
+					<div class="nav first saved">
+						<svg class="icon" viewBox="0 0 20 20">
+							<use xlink:href="#star"></use>
+						</svg>
+						<span>Sparade</span>
+					</div>
+				</div>
+
+			
+				<a href="/" title="Startsidan" class="logo right desktop tablet"></a>
+
+				<div class="buttonNav phone">
+					<div class="nav first toggleHitlist" data-toggle="Lista">Karta</div>
+				</div>
+			</div>
+			<div class="dashed"></div>
+		</div>
+
+		<div class="row noPadding">
+			<div class="refineSuggestWrap">
+				<ul id="suggest"></ul>
+				<div id="drawHelp" style="display:none"></div>
+				<div id="refineWrap">
+					<div id="refineBox" class="twelvecol">
+						<div class="twelvecol phone">
+							<a href="#" class="typeOfSearch toggleListings">Till salu</a>
+							<a href="#" class="typeOfSearch toggleSold">Slutpriser</a>
+						</div>
+						<div class="objectTypes">
+							<div class="col1">
+								<strong>Bostadstyp</strong>
+								<input name="objectType" id="objectType1" value="lägenhet" tabindex="2" type="checkbox">
+								<label for="objectType1">Lägenheter</label>
+								<input name="objectType" id="objectType2" value="villa" tabindex="3" type="checkbox">
+								<label for="objectType2">Villor</label>
+								<input name="objectType" id="objectType3" value="parhus,radhus,kedjehus" tabindex="4" type="checkbox">
+								<label for="objectType3">Par/Rad/Kedjehus</label>
+							</div>
+							<div class="col2">
+								<strong class="ghostHead">&nbsp;</strong>
+								<input name="objectType" id="objectType4" value="fritidshus" tabindex="5" type="checkbox">
+								<label for="objectType4">Fritidshus</label>
+								<input name="objectType" id="objectType5" value="gård" tabindex="6" type="checkbox">
+								<label for="objectType5">Gårdar</label>
+								<input name="objectType" id="objectType6" value="tomt/mark" tabindex="7" type="checkbox">
+								<label for="objectType6">Tomt/Mark</label>
+							</div>
+						</div>
+
+						<div class="listings col3">
+							<strong>Pris</strong>
+							<input name="minListPrice" placeholder="Min" autocomplete="off" class="listings price autocomplete" tabindex="8" type="tel">
+							<input name="maxListPrice" placeholder="Max" autocomplete="off" class="listings price autocomplete" tabindex="9" type="tel">
+							<em>kr</em>
+							<div class="twelvecol">
+								<input name="priceDecrease" id="priceDecrease" value="1" tabindex="10" type="checkbox">
+								<label for="priceDecrease">Endast prissänkta</label>
+							</div>
+						</div>
+
+						<div class="sold col3">
+							<strong>Slutpris</strong>
+							<input name="minSoldPrice" placeholder="Min" autocomplete="off" class="sold price autocomplete" tabindex="11" type="tel">
+							<input name="maxSoldPrice" placeholder="Max" autocomplete="off" class="sold price autocomplete" tabindex="12" type="tel">
+							<em>kr</em>
+						</div>
+
+						<div class="listings col4">
+							<strong>Boendekostnad</strong>
+							<input name="monthlyPayment" placeholder="Max" class="listings monthlyPayment autocomplete" tabindex="13" type="tel">
+							<em>kr/mån</em>
+						</div>
+
+						<div class="sold col4">
+							<strong>Avgift</strong>
+							<input name="maxRent" placeholder="Max" class="sold rent autocomplete" tabindex="14" type="tel">
+							<em>kr/mån</em>
+						</div>
+
+						<div class="rooms col5">
+							<strong>Rum</strong>
+							<input name="rooms" id="rooms1" value="1" tabindex="15" type="checkbox">
+							<label for="rooms1">1</label>
+							<input name="rooms" id="rooms2" value="2" tabindex="16" type="checkbox">
+							<label for="rooms2">2</label>
+							<input name="rooms" id="rooms3" value="3" tabindex="17" type="checkbox">
+							<label for="rooms3">3</label>
+							<input name="rooms" id="rooms4" value="4" tabindex="18" type="checkbox">
+							<label for="rooms4">4</label>
+							<input name="rooms" id="rooms5" value="5" tabindex="19" type="checkbox">
+							<label for="rooms5">5+</label>
+						</div>
+
+						<div class="col6">
+							<strong>Boarea</strong>
+							<input name="minLivingArea" placeholder="Min" class="short" tabindex="20" type="tel">
+							<input name="maxLivingArea" placeholder="Max" class="short" tabindex="21" type="tel">
+							<em>m²</em>
+							<div class="twelvecol desktop tablet">
+								<a class="extendRefine" href="#" data-toggle="Visa färre sökfält -">Visa alla sökfält +</a>
+							</div>
+						</div>
+						<div class="twelvecol extendRefineWrap phone">
+							<a class="extendRefine" href="#" data-toggle="Visa färre sökfält -">Visa alla sökfält +</a>
+						</div>
+
+						<div id="extendedRefine" style="display:none">
+							<div class="listings col1">
+								<strong>Nyproduktion</strong>
+								<select name="isNewConstruction" tabindex="22" class="listings">
+									<option value="">Allt</option>
+									<option value="0">Visa inte nyprod.</option>
+									<option value="1">Visa endast nyprod.</option>
+								</select>
+							</div>
+							<div class="sold col1">
+								<strong>Byggår</strong>
+								<input name="minConstructionYear" placeholder="Min" class="sold short" tabindex="23" type="tel">
+								<input name="maxConstructionYear" placeholder="Max" class="sold short" tabindex="24" type="tel">
+							</div>
+
+							<div class="empty col2">&nbsp;</div>
+
+							<div class="listings col3">
+								<strong>Kvadratmeterpris</strong>
+								<input name="minListSqmPrice" placeholder="Min" class="listings sqmPrice autocomplete" tabindex="25" type="tel">
+								<input name="maxListSqmPrice" placeholder="Max" class="listings sqmPrice autocomplete" tabindex="26" type="tel">
+								<em>kr/m²</em>
+							</div>
+							<div class="sold col3">
+								<strong>Kvadratmeterpris</strong>
+								<input name="minSoldSqmPrice" placeholder="Min" class="sold sqmPrice autocomplete" tabindex="27" type="tel">
+								<input name="maxSoldSqmPrice" placeholder="Max" class="sold sqmPrice autocomplete" tabindex="28" type="tel">
+								<em>kr/m²</em>
+							</div>
+
+							<div class="listings col4">
+								<strong>Avgift</strong>
+								<input name="maxRent" placeholder="Max" class="listings rent autocomplete" tabindex="29" type="tel">
+								<em>kr/mån</em>
+							</div>
+							<div class="sold col4">
+								<strong>Tomtarea</strong>
+								<input name="minPlotArea" placeholder="Min" class="sold short" tabindex="30" type="tel">
+								<input name="maxPlotArea" placeholder="Max" class="sold short" tabindex="31" type="tel">
+								<em>m²</em>
+							</div>
+
+							<div class="listings col5">
+								<strong>Tomtarea</strong>
+								<input name="minPlotArea" placeholder="Min" class="listings short" tabindex="32" type="tel">
+								<input name="maxPlotArea" placeholder="Max" class="listings short" tabindex="33" type="tel">
+								<em>m²</em>
+							</div>
+							<div class="sold col5">
+								<strong>Slutprisdatum</strong>
+								<input name="minSoldDate" placeholder="2010-01-01" tabindex="34" class="sold" type="text">
+								<input name="maxSoldDate" placeholder="2010-01-03" tabindex="35" class="sold" type="text">
+							</div>
+
+							<div class="listings col6">
+								<strong>Avstånd till hav</strong>
+								<select name="maxDistanceToOcean" tabindex="36" class="listings">
+									<option value="">Alla</option>
+									<option value="100">100m</option>
+									<option value="500">500m</option>
+									<option value="1000">1km</option>
+									<option value="5000">5km</option>
+								</select>
+							</div>
+
+							<div class="listings col1">
+								<strong>Privatsålda</strong>
+								<input name="private" value="0" tabindex="37" class="listings" id="private" type="checkbox">
+								<label for="private">Inte privatsålda</label>
+							</div>
+
+							<div class="empty col2">&nbsp;</div>
+
+							<div class="listings constYear col3">
+								<strong>Byggår</strong>
+								<input name="minConstructionYear" placeholder="Min" class="listings short" tabindex="38" type="tel">
+								<input name="maxConstructionYear" placeholder="Max" class="listings short" tabindex="39" type="tel">
+							</div>
+
+							<div class="listings col4">
+								<strong>Inkommet</strong>
+								<select name="daysActive" tabindex="40" class="listings">
+									<option value="">Alla</option>
+									<option value="1">Senaste dygnet</option>
+									<option value="3">Senaste tre dagarna</option>
+									<option value="7">Senaste veckan</option>
+									<option value="14">Senaste två veckorna</option>
+									<option value="31">Senaste månaden</option>
+								</select>
+							</div>
+						</div>
+						<div id="closeRefine" class="closeRefine phone">×</div>
+					</div>
+					<div id="latestSearches" class="latestsSearch twelvecol">
+						<div id="latestSearchesList"><b>Tidigare sökningar</b><ul><li><a href="/lund/97/?sort=published&amp;direction=desc">Lund<span></span></a></li><li><a href="/skane+lan/64/?direction=desc&amp;sort=published&amp;objectType=villa,fritidshus">Skåne län<span> - fritidshus, villor</span></a></li><li><a href="/search/map?direction=desc&amp;sort=published&amp;type=listings&amp;objectType=villa,fritidshus">Kartsök<span> - fritidshus, villor</span></a></li></ul></div>
+					</div>
+				</div>
+			</div>
+			<div id="phoneRefineControl" class="phone twelvecol">
+				<div class="buttonNav submitSearch">
+					<div class="showHits nav blue first">Visa <em class="countNr"></em> träffar</div>
+				</div>
+			</div>
+		</div>
+		<input style="position: absolute; left: -9999px; width: 1px; height: 1px;" type="submit">
+	</form>
+	<div class="wallpaperMessage adunit desktop tablet fadein"></div>			<div class="footerContainer">
+		<p class="punch">
+			<span>
+				<strong class="blue">Booli.se är Sveriges största oberoende söktjänst för att hitta bostäder till salu. </strong>
+				<strong class="orange">Vi tror på en schysstare bostadsmarknad</strong> 
+				där öppen information vinner över taktiker och säljknep. Vi vill ge trygghet i vad som ofta är ett av livets<br>största beslut.
+			</span>
+		</p>
+
+		<footer class="desktop tablet">
+			<div class="links"><a href="http://support.booli.se/">Kontakta oss, frågor och förslag</a> &nbsp;|&nbsp; <a href="/p/om-booli/">Om Booli</a> &nbsp;|&nbsp; <a href="/maklare/">Hitta Mäklare</a> &nbsp;|&nbsp; <a href="/inspiration/">Inspiration</a> &nbsp;|&nbsp; <a href="http://www.booli.se/blogg">Blogg</a> &nbsp;|&nbsp; <a href="/p/annonsera/">Annonsera</a> <br> <a href="/api/">API</a> &nbsp;|&nbsp; <a href="/Alla_bostader/Hela_landet">Alla bostäder</a> &nbsp;|&nbsp; <a href="/p/cookies/">Cookies</a> &nbsp;|&nbsp; <a href="/p/jobb/">Jobba med oss!</a> &nbsp;|&nbsp; <a href="http://www.twitter.com/Boolise" rel="nofollow">Twitter</a> &nbsp;|&nbsp; <a href="http://www.facebook.com/booli.se" rel="nofollow">Facebook</a></div>
+			<p class="copyright">Ansvarig utgivare: Anders Kyhlstedt&nbsp;&nbsp;&copy; 2014 Booli Search Technologies AB</p>				</footer>
+			<footer class="phone">
+				<div class="links"><a href="/p/om-booli/">Om Booli</a>&nbsp;&nbsp;<a href="http://support.booli.se/">Kontakt</a>&nbsp;&nbsp;		 		<a href="http://www.booli.se/blogg">Blogg</a></div>
+				<p class="copyright">Ansvarig utgivare: Anders Kyhlstedt&nbsp;&nbsp;</p>
+				<p class="copyright">&copy; 2014 Booli Search Technologies AB</p>				</footer>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+		(function() {
+			window.Booli = window.Booli || {};
+
+			window.Booli.Server = {};
+			window.Booli.Server.controller =  "index";
+			window.Booli.Server.action = "index";
+		})();
+
+		!function(){"use strict";var a=[],b=!1;window.Booli.onInitializedTrigger=function(){for(var c=0;c<a.length;c++)a[c].call(window);b=!0},window.Booli.onInitialized=function(c){b===!0?c.call(window):a.push(c)}}();		!function(){if(window.Modernizr["is-phone"]!==!0){var f=document.querySelector("#coverImage"),e=window.Booli.Config.bg[Math.floor(Math.random()*window.Booli.Config.bg.length)];if(window.Modernizr["show-wallpaper"]===!0){var h=Math.floor(Math.random()*window.Booli.Config.wallpaperbg.length);document.querySelectorAll(".wallpaperMessage")[0].id="Index_WallpaperMessage_310x122_"+h,e=window.Booli.Config.wallpaperbg[h],document.querySelector("#page").onclick=function(b){b.target&&"page"==b.target.id&&window.open("http://bit.ly/booli_bg_"+h,"_blank")}}var g=new Image;g.src=e,g.onload=function(){f.style.backgroundImage="url("+e+")",f.className+=" show"},f.style.height=document.body.scrollHeight+"px"}}();	</script>
+
+		<script type="text/javascript" data-main="/scripts/index/config" src="http://bcdn.se/dist/require/index.30ab0.js"></script>
+		<div id="fb-root"></div><!-- fb needs this -->
+		<script type="text/javascript">
+
+		window.Booli.onInitialized(function() {
+
+			require([
+				'underscore',
+				'jquery',
+				'bjs',
+				'common/utils/events'
+				], function(
+					_,
+					$,
+					bjs,
+					eventLoop
+				) {
+
+					var crtg_nid="1254";
+					var crtg_cookiename="cto_booli";
+					function crtg_getCookie(c_name){var i,x,y,ARRcookies=document.cookie.split(";");for(i=0;i<ARRcookies.length;i++) {x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);x=x.replace(/^\s+|\s+$/g,"");if(x==c_name){return unescape(y);}}return'';}var crtg_content=crtg_getCookie(crtg_cookiename);var crtg_rnd=Math.floor(Math.random()*99999999999);
+			
+					window._adftrack = {
+						pm: 131011
+					};
+					var trackObj = false;
+					window._adftrack.id = 3359873;
+					if (Booli.Server.params) {
+						trackObj = {
+							sv8: _.pluck(_.values(Booli.Server.areas), 'areaName').toString(),
+							sv9: Booli.Server.params.objectType && Booli.Server.params.objectType.toString(),
+							sv10: Booli.Server.params.rooms && Booli.Server.params.rooms.toString()
+						};
+					}
+					if (trackObj !== false) {
+						window._adftrack.order = [trackObj];
+					}
+			
+					window.google_conversion_id = 1019729409;
+					window.google_custom_params = window.google_tag_params;
+					window.google_remarketing_only = true;
+			
+					bjs.dom.script(('https:' == document.location.protocol ? 'https://' : '//') + 'stats.g.doubleclick.net/dc.js');
+					bjs.dom.script(('https:' == document.location.protocol ? 'https://' : '//') + 'www.googletagservices.com/tag/js/gpt.js');
+					bjs.dom.script('//dis.eu.criteo.com/dis/rtt.js?networkId='+escape(crtg_nid)+'&cookieName='+escape(crtg_cookiename)+'&rnd='+crtg_rnd+'&varName=crtg_content', {
+						onload: function() {
+							eventLoop.notify('criteo:loaded');
+						}
+					});
+					bjs.dom.iframe('//de17a.com/t/6703.iframe');
+					bjs.dom.script('https://track.adform.net/serving/scripts/trackpoint/async/');
+						
+				}); // require
+			}); // oninit
+
+			</script>
+			<noscript>
+				<p style="margin:0;padding:0;border:0;">
+					<img src="https://track.adform.net/Serving/TrackPoint/?pm=131011&amp;lid=3359874" width="1" height="1" alt="" />
+				</p>
+			</noscript>
+			<noscript>
+				<div style="display:inline;">
+					<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1019729409/?value=0&amp;guid=ON&amp;script=0"/>
+				</div>
+			</noscript>
+	
+
+			<script src="//stats.g.doubleclick.net/dc.js" async="" id="bjsdl_2032451801"></script><script src="//www.googletagservices.com/tag/js/gpt.js" async="" id="bjsdl_1583878121"></script><script src="//dis.eu.criteo.com/dis/rtt.js?networkId=1254&amp;cookieName=cto_booli&amp;rnd=63915755048&amp;varName=crtg_content" async="" id="bjsdl_1608801896"></script><iframe style="position: absolute; left: -2000px; top: -2000px;" src="//de17a.com/t/6703.iframe" id="bjsdl_-666886607" height="1" width="1"></iframe><script src="https://track.adform.net/serving/scripts/trackpoint/async/" async="" id="bjsdl_-923055764"></script><iframe style="display: none; width: 0px; height: 0px;" name="google_osd_static_frame" id="google_osd_static_frame_8056625544875"></iframe>

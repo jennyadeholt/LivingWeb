@@ -1,11 +1,24 @@
 
 "use strict";
-var App = angular.module("LivingWeb",[]);
 
-App.controller("ExmpCtrl",function ($scope, $http) {	
-	$getResult($scope, $http);
-	
-    $scope.openUrl = function(url){
-       window.open(url), "_blank";
-     };	
-});
+var App = angular.module('livingWebApp', [
+  'ngRoute',
+  'phonecatControllers'
+]);
+
+
+App.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/bostad', {
+        templateUrl: 'partials/phone-list.html',
+        controller: 'PhoneListCtrl'
+      }).
+      when('/bostad/:booliId', {
+        templateUrl: 'partials/object-detail.html',
+        controller: 'PhoneDetailCtrl'
+      }).
+      otherwise({
+        redirectTo: '/bostad'
+      });
+  }]);
