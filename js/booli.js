@@ -1,6 +1,12 @@
 
 var $getListings = function($scope, $http) {	
-	console.log("search");
+	
+	if (isEmpty($scope.keywords)){
+		$scope.keywords = 'Malmö';
+	}
+	
+	console.log("search " + $scope.keywords);
+	
 	var booliAPI = "api.booli.se//listings?q=" + $scope.keywords + "&";
 
 	$http({ 
@@ -17,6 +23,8 @@ var $getListings = function($scope, $http) {
 		})
 	
 		$scope.orderProp = '-published';
+		
+		google.maps.event.addDomListener(window, 'load', $initializeListMap($scope.listings));
 	
 	}).error(function(data, status, headers, config) {
 	
@@ -38,7 +46,7 @@ var $getListing = function($scope, $routeParams, $http) {
 		$scope.listing.imageUrl = $getImageUrl($scope.booliId);
 		console.log($scope.listing);
 		
-		google.maps.event.addDomListener(window, 'load', $initialize($scope));
+		google.maps.event.addDomListener(window, 'load', $initializeMap($scope.listing));
 		
 	}).error(function(data, status, headers, config) {
 		console.log("search on id ERROR");
@@ -57,11 +65,15 @@ var $auth = function() {
 	var unique = Math.random().toString(36).slice(2);
 	var hash = sha1(callerId + time + privateKey + unique);
  
- 	return "callerId=" + callerId + "&time=" + time + "&unique=" + unique + "&hash=" + hash;
+	return "callerId=" + callerId + "&time=" + time + "&unique=" + unique + "&hash=" + hash;
 };
 
 
 var $time = Date.now || function() {
 	return +new Date;
 };
+
+function isEmpty(str) {
+	return (!str || 0 === str.length);
+}
 

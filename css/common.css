@@ -3,17 +3,31 @@
 }
 
 .listThumbnail {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    display: block;
-position:relative;
-    height: 170px;
-    line-height: 1.42857;
-    margin-bottom: 20px;
-    max-width: 100%;
-    padding: 20px;
-    transition: all 0.2s ease-in-out 0s;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	display: block;
+	position:relative;
+	height: 170px;
+	line-height: 1.42857;
+	margin-bottom: 20px;
+	width: 100%;
+	padding: 20px;
+	transition: all 0.2s ease-in-out 0s;
+}
+
+.detailsThumbnail {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	display: block;
+	position:relative;
+	height: 500px;
+	line-height: 1.42857;
+	margin-bottom: 20px;
+	max-width: 100%;
+	padding: 20px;
+	transition: all 0.2s ease-in-out 0s;
 }
 
 
@@ -27,10 +41,9 @@ div#listItemInfo {
 }
 
 p#listItemDate {
-	right: 10px;
+	right: 20px;
 	position: absolute;
-	top: 12px;
-	font-size: 10px;
+	top: 22px;
 }
 
 p#listItemTitle {
@@ -42,9 +55,32 @@ p#listItemTitle {
 }
 
 #map-canvas {
-       height: 400px;
-	   width: 400px;
-       margin: 0px;
-       padding: 0px
-     }
+	height: 400px;
+	width: 400px;
+	margin: 0;
+	padding: 0px
+}
+
+#map-canvas-list {
+	height: 545px;
+	width: 545px;
+	margin: 0;
+	padding: 0px
+}
+
+#mapContainer {
+	position:absolute; 
+	top: 53px; 
+	right: 20px;
+}
+
+#mapContainerList {
+	position:absolute; 
+	top: 0px; 
+	right: 0px;
+}
+
+.nopadding {
+	padding: 0;
+}
 

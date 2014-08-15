@@ -3,9 +3,12 @@ var controllers = angular.module('controllers', []);
 controllers.controller('ListCtrl', ['$scope', '$http',
 function ($scope, $http) {
 	
+	
 	$scope.search = function() {	
 		$getListings($scope, $http);
 	};
+	
+	$getListings($scope, $http);
 }]);
     
 
@@ -17,7 +20,4 @@ function($scope, $routeParams, $http) {
 	};	
 	  
 	$getListing($scope, $routeParams, $http);
-	
-	console.log("Add map ");
-	
 }]);
