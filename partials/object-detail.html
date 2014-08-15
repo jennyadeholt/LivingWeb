@@ -1,8 +1,9 @@
-<div data-ng-init="init()">
+
+<div>
 	detail view for <span>{{booliId}}</span>
 
 	<div >
-		<div ng-click="openUrl(listing.url)" id="listItemContainer">
+		<div ng-click="openUrl(listing.url)" class="listThumbnail search-listing" >
 			<div>
 				<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
 				<p id="listItemDate">{{listing.published}} </p>
@@ -13,9 +14,9 @@
 				<br>Pris       : {{listing.listPrice}}
 				<br>Rum        : {{listing.rooms}} 
 				<br>Area       : {{listing.livingArea}} 
-				<br>Hyra       : {{listing.rent}}	
-					
 			</div>
+			
+			<div id="map-canvas"></div>
 		</div>
-	</div>
+	</div>	
 </div>

@@ -3,7 +3,8 @@
 
 var App = angular.module('livingWebApp', [
   'ngRoute',
-  'phonecatControllers'
+  'controllers',
+  'animations'
 ]);
 
 App.config(['$routeProvider',
@@ -11,11 +12,11 @@ App.config(['$routeProvider',
     $routeProvider.
       when('/bostad', {
         templateUrl: 'partials/phone-list.html',
-        controller: 'PhoneListCtrl'
+        controller: 'ListCtrl'
       }).
       when('/bostad/:booliId', {
         templateUrl: 'partials/object-detail.html',
-        controller: 'PhoneDetailCtrl'
+        controller: 'DetailCtrl'
       }).
       otherwise({
         redirectTo: '/bostad'

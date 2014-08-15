@@ -22,8 +22,8 @@
 		<div class="col-md-10">
 			<!--Body content-->
 
-			<div ng-repeat="listing in listings | filter:query | orderBy:orderProp"  >
-				<div ng-click="openUrl(listing.url)" id="listItemContainer">
+			<div ng-repeat="listing in listings | filter:query | orderBy:orderProp"  class="listThumbnail search-listing"  >
+				<div ng-click="openUrl(listing.url)">
 					<div>
 						<a href="#/bostad/{{listing.booliId}}">
 							<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>

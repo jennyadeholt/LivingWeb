@@ -1,63 +1,23 @@
-var phonecatControllers = angular.module('phonecatControllers', []);
+var controllers = angular.module('controllers', []);
 
-phonecatControllers.controller('PhoneListCtrl', ['$scope', '$http',
+controllers.controller('ListCtrl', ['$scope', '$http',
 function ($scope, $http) {
 	
 	$scope.search = function() {	
-		console.log("search");
-		var booliAPI = "api.booli.se//listings?q=" + $scope.keywords + "&";
-
-		$http({ 
-			method: 'GET', 
-			url: 'http://www.corsproxy.com/' + booliAPI + $auth(),  
-			params : { format: "json" }, 
-			headers: {'Accept': 'application/json' }
-		}).success(function(data, status, headers, config) {
-			$scope.data = data;
-			$scope.listings =  data.listings;
-		
-			$.each($scope.listings, function(i, item) {
-				var temp = "http://api.bcdn.se/cache/primary_" + item.booliId +"_140x94.jpg";
-				item.imageUrl = temp;
-			})
-		
-			$scope.orderProp = '-published';
-		
-		}).error(function(data, status, headers, config) {
-		
-		});
+		$getListings($scope, $http);
 	};
 }]);
-  
-  
+    
 
-phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', '$http', 
+controllers.controller('DetailCtrl', ['$scope', '$routeParams', '$http', 
 function($scope, $routeParams, $http) {
 	
 	$scope.openUrl = function(url){
 		window.open(url), "_blank";
 	};	
 	  
-	$scope.init = function() {
+	$getListing($scope, $routeParams, $http);
 	
-		console.log("search on id");		
-		
-		$scope.booliId = $routeParams.booliId;
-		var booliAPI = "api.booli.se/listings/" + $scope.booliId + "?" + $auth();
+	console.log("Add map ");
 	
-		$http({ 
-			method: 'GET', 
-			url: 'http://www.corsproxy.com/' + booliAPI,  
-			params : { format: "json" }, 
-			headers: {'Accept': 'application/json' }
-		}).success(function(data, status, headers, config) {
-			$scope.listing =  data.listings[0];
-			$scope.listing.imageUrl = "http://api.bcdn.se/cache/primary_" + $scope.booliId +"_140x94.jpg"
-			console.log($scope.listing);
-		
-		}).error(function(data, status, headers, config) {
-			console.log("search on id ERROR");
-		});
-	}
-}
-]);
+}]);
