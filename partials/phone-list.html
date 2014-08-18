@@ -1,50 +1,284 @@
 <div class="container-fluid">
 	<div>
 	
+		<div class="barWrap row">
+			<div id="scrollPoint" class="bar">
+				<div class="disable"></div>
+				<div class="searchField">
+					<div id="customInput">
+						<div id="customInputText">
+							<div id="hint">Gata, ort eller kommun</div>
+							<input size="2" name="searchField" autocorrect="off" autocapitalize="on" autocomplete="off" autofocus="" title="Gata, ort eller kommun" tabindex="1" type="text">
+						</div>
+					</div>
+					<div class="toggle-type tablet desktop">
+						<select>
+							<option value="listings">Till salu</option>
+							<option value="sold">Slutpriser</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="buttonNav refine">
+					<div class="nav first toggleRefine">Förfina</div>
+				</div>
+
+				<a class="indexMapSearch listing desktop tablet" href="/search/map">Kartsök</a>
+
+				<div class="buttonNav hits desktop tablet">
+					<div class="nav first showHits">Visa <span class="countNr"></span> träffar</div>
+				</div>
+				<div class="buttonNav desktop tablet">
+					<div class="nav first monitor">Bevaka sökning</div>
+				</div>
+				<div class="buttonNav desktop tablet">
+					<div class="nav first saved">
+						<svg class="icon" viewBox="0 0 20 20">
+							<use xlink:href="#star"></use>
+						</svg>
+						<span>Sparade</span>
+					</div>
+				</div>
+
+			
+				<a href="/" title="Startsidan" class="logo right desktop tablet"></a>
+
+				<div class="buttonNav phone">
+					<div class="nav first toggleHitlist" data-toggle="Lista">Karta</div>
+				</div>
+			</div>
+			<div class="dashed"></div>
+		</div>
+
+		<div class="row noPadding">
+			<div class="refineSuggestWrap">
+				<ul id="suggest"></ul>
+				<div id="drawHelp" style="display:none"></div>
+				<div id="refineWrap">
+					<div id="refineBox" class="twelvecol">
+						<div class="twelvecol phone">
+							<a href="#" class="typeOfSearch toggleListings">Till salu</a>
+							<a href="#" class="typeOfSearch toggleSold">Slutpriser</a>
+						</div>
+						<div class="objectTypes">
+							<div class="col1">
+								<strong>Bostadstyp</strong>
+								<input name="objectType" id="objectType1" value="lägenhet" tabindex="2" type="checkbox">
+								<label for="objectType1">Lägenheter</label>
+								<input name="objectType" id="objectType2" value="villa" tabindex="3" type="checkbox">
+								<label for="objectType2">Villor</label>
+								<input name="objectType" id="objectType3" value="parhus,radhus,kedjehus" tabindex="4" type="checkbox">
+								<label for="objectType3">Par/Rad/Kedjehus</label>
+							</div>
+							<div class="col2">
+								<strong class="ghostHead">&nbsp;</strong>
+								<input name="objectType" id="objectType4" value="fritidshus" tabindex="5" type="checkbox">
+								<label for="objectType4">Fritidshus</label>
+								<input name="objectType" id="objectType5" value="gård" tabindex="6" type="checkbox">
+								<label for="objectType5">Gårdar</label>
+								<input name="objectType" id="objectType6" value="tomt/mark" tabindex="7" type="checkbox">
+								<label for="objectType6">Tomt/Mark</label>
+							</div>
+						</div>
+
+						<div class="listings col3">
+							<strong>Pris</strong>
+							<input name="minListPrice" placeholder="Min" autocomplete="off" class="listings price autocomplete" tabindex="8" type="tel">
+							<input name="maxListPrice" placeholder="Max" autocomplete="off" class="listings price autocomplete" tabindex="9" type="tel">
+							<em>kr</em>
+							<div class="twelvecol">
+								<input name="priceDecrease" id="priceDecrease" value="1" tabindex="10" type="checkbox">
+								<label for="priceDecrease">Endast prissänkta</label>
+							</div>
+						</div>
+
+						<div class="sold col3">
+							<strong>Slutpris</strong>
+							<input name="minSoldPrice" placeholder="Min" autocomplete="off" class="sold price autocomplete" tabindex="11" type="tel">
+							<input name="maxSoldPrice" placeholder="Max" autocomplete="off" class="sold price autocomplete" tabindex="12" type="tel">
+							<em>kr</em>
+						</div>
+
+						<div class="listings col4">
+							<strong>Boendekostnad</strong>
+							<input name="monthlyPayment" placeholder="Max" class="listings monthlyPayment autocomplete" tabindex="13" type="tel">
+							<em>kr/mån</em>
+						</div>
+
+						<div class="sold col4">
+							<strong>Avgift</strong>
+							<input name="maxRent" placeholder="Max" class="sold rent autocomplete" tabindex="14" type="tel">
+							<em>kr/mån</em>
+						</div>
+
+						<div class="rooms col5">
+							<strong>Rum</strong>
+							<input name="rooms" id="rooms1" value="1" tabindex="15" type="checkbox">
+							<label for="rooms1">1</label>
+							<input name="rooms" id="rooms2" value="2" tabindex="16" type="checkbox">
+							<label for="rooms2">2</label>
+							<input name="rooms" id="rooms3" value="3" tabindex="17" type="checkbox">
+							<label for="rooms3">3</label>
+							<input name="rooms" id="rooms4" value="4" tabindex="18" type="checkbox">
+							<label for="rooms4">4</label>
+							<input name="rooms" id="rooms5" value="5" tabindex="19" type="checkbox">
+							<label for="rooms5">5+</label>
+						</div>
+
+						<div class="col6">
+							<strong>Boarea</strong>
+							<input name="minLivingArea" placeholder="Min" class="short" tabindex="20" type="tel">
+							<input name="maxLivingArea" placeholder="Max" class="short" tabindex="21" type="tel">
+							<em>m²</em>
+							<div class="twelvecol desktop tablet">
+								<a class="extendRefine" href="#" data-toggle="Visa färre sökfält -">Visa alla sökfält +</a>
+							</div>
+						</div>
+						<div class="twelvecol extendRefineWrap phone">
+							<a class="extendRefine" href="#" data-toggle="Visa färre sökfält -">Visa alla sökfält +</a>
+						</div>
+
+						<div id="extendedRefine" style="display:none">
+							<div class="listings col1">
+								<strong>Nyproduktion</strong>
+								<select name="isNewConstruction" tabindex="22" class="listings">
+									<option value="">Allt</option>
+									<option value="0">Visa inte nyprod.</option>
+									<option value="1">Visa endast nyprod.</option>
+								</select>
+							</div>
+							<div class="sold col1">
+								<strong>Byggår</strong>
+								<input name="minConstructionYear" placeholder="Min" class="sold short" tabindex="23" type="tel">
+								<input name="maxConstructionYear" placeholder="Max" class="sold short" tabindex="24" type="tel">
+							</div>
+
+							<div class="empty col2">&nbsp;</div>
+
+							<div class="listings col3">
+								<strong>Kvadratmeterpris</strong>
+								<input name="minListSqmPrice" placeholder="Min" class="listings sqmPrice autocomplete" tabindex="25" type="tel">
+								<input name="maxListSqmPrice" placeholder="Max" class="listings sqmPrice autocomplete" tabindex="26" type="tel">
+								<em>kr/m²</em>
+							</div>
+							<div class="sold col3">
+								<strong>Kvadratmeterpris</strong>
+								<input name="minSoldSqmPrice" placeholder="Min" class="sold sqmPrice autocomplete" tabindex="27" type="tel">
+								<input name="maxSoldSqmPrice" placeholder="Max" class="sold sqmPrice autocomplete" tabindex="28" type="tel">
+								<em>kr/m²</em>
+							</div>
+
+							<div class="listings col4">
+								<strong>Avgift</strong>
+								<input name="maxRent" placeholder="Max" class="listings rent autocomplete" tabindex="29" type="tel">
+								<em>kr/mån</em>
+							</div>
+							<div class="sold col4">
+								<strong>Tomtarea</strong>
+								<input name="minPlotArea" placeholder="Min" class="sold short" tabindex="30" type="tel">
+								<input name="maxPlotArea" placeholder="Max" class="sold short" tabindex="31" type="tel">
+								<em>m²</em>
+							</div>
+
+							<div class="listings col5">
+								<strong>Tomtarea</strong>
+								<input name="minPlotArea" placeholder="Min" class="listings short" tabindex="32" type="tel">
+								<input name="maxPlotArea" placeholder="Max" class="listings short" tabindex="33" type="tel">
+								<em>m²</em>
+							</div>
+							<div class="sold col5">
+								<strong>Slutprisdatum</strong>
+								<input name="minSoldDate" placeholder="2010-01-01" tabindex="34" class="sold" type="text">
+								<input name="maxSoldDate" placeholder="2010-01-03" tabindex="35" class="sold" type="text">
+							</div>
+
+							<div class="listings col6">
+								<strong>Avstånd till hav</strong>
+								<select name="maxDistanceToOcean" tabindex="36" class="listings">
+									<option value="">Alla</option>
+									<option value="100">100m</option>
+									<option value="500">500m</option>
+									<option value="1000">1km</option>
+									<option value="5000">5km</option>
+								</select>
+							</div>
+
+							<div class="listings col1">
+								<strong>Privatsålda</strong>
+								<input name="private" value="0" tabindex="37" class="listings" id="private" type="checkbox">
+								<label for="private">Inte privatsålda</label>
+							</div>
+
+							<div class="empty col2">&nbsp;</div>
+
+							<div class="listings constYear col3">
+								<strong>Byggår</strong>
+								<input name="minConstructionYear" placeholder="Min" class="listings short" tabindex="38" type="tel">
+								<input name="maxConstructionYear" placeholder="Max" class="listings short" tabindex="39" type="tel">
+							</div>
+
+							<div class="listings col4">
+								<strong>Inkommet</strong>
+								<select name="daysActive" tabindex="40" class="listings">
+									<option value="">Alla</option>
+									<option value="1">Senaste dygnet</option>
+									<option value="3">Senaste tre dagarna</option>
+									<option value="7">Senaste veckan</option>
+									<option value="14">Senaste två veckorna</option>
+									<option value="31">Senaste månaden</option>
+								</select>
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+			</div>
+			<div id="phoneRefineControl" class="phone twelvecol">
+				<div class="buttonNav submitSearch">
+					<div class="showHits nav blue first">Visa <em class="countNr"></em> träffar</div>
+				</div>
+			</div>
+		</div>
+		<input style="position: absolute; left: -9999px; width: 1px; height: 1px;" type="submit">
+	</form>
 	<form class="well form-search">
 		<div id="customInputText">
 			<input ng-model="keywords" class="input-medium search-query" size="12" name="searchField" type="text">
 		</div>
 		<button type="submit" class="btn" ng-click="search()">Search</button>
 		<p class="help-block"></p>		
-	</form>
-	
+	</form>	
 </div>
-	<div class="row" style="padding: 0px">
-		<div class="col-md-6" style="padding: 0px">
-			<!--Body content-->
-
-			<div ng-repeat="listing in listings | filter:query | orderBy:orderProp"  class="listThumbnail search-listing"  >
-				<div ng-click="openUrl(listing.url)">
-					<div>
-						<a href="#/bostad/{{listing.booliId}}">
-							<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
-						</a>
-						<p id="listItemDate">{{listing.published}} </p>
-					</div>
-					<img src='{{listing.imageUrl}}' />
-					<div id="listItemInfo">
-						<br>Typ        : {{listing.objectType}} 
-						<br>Pris       : {{listing.listPrice}}
-						<br>Rum        : {{listing.rooms}} 
-						<br>Area       : {{listing.livingArea}} 
-						<br>Hyra       : {{listing.rent}}						
-					</div>
-				</div>				
-			</div>
-
-		
+<div class="row" style="padding: 0px">
+	<div class="col-md-6" style="padding: 0px">
+		<!--Body content-->
+		<div ng-repeat="listing in listings | filter:query | orderBy:orderProp"  class="listThumbnail search-listing"  >
+			<div ng-click="openUrl(listing.url)">
+				<div>
+					<a href="#/bostad/{{listing.booliId}}">
+						<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
+					</a>
+					<p id="listItemDate">{{listing.published}} </p>
+				</div>
+				<img src='{{listing.imageUrl}}' />
+				<div id="listItemInfo">
+					<br>Typ        : {{listing.objectType}} 
+					<br>Pris       : {{listing.listPrice}}
+					<br>Rum        : {{listing.rooms}} 
+					<br>Area       : {{listing.livingArea}} 
+					<br>Hyra       : {{listing.rent}}						
+				</div>
+			</div>				
 		</div>
-		
-		<div class="col-md-6">
-			<div id="mapContainerList">
-				<div id="map-canvas-list"></div>
-			</div>
-			
+	</div>		
+	<div class="col-md-6">
+		<div id="mapContainerList">
+			<div id="map-canvas-list"></div>
 		</div>
 	</div>
-	
-	<div class="debug">
-		<p class="text-info">{{ listings | json}}</p>
-	</div>
+</div>
+<div class="debug">
+	<p class="text-info">{{ listings | json}}</p>
+</div>
 </div>

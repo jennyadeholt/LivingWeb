@@ -30,7 +30,7 @@ var $initializeListMap = function($listings) {
 	var position = new google.maps.LatLng(lat / size, long / size);
 	
 	var mapOptions = {
-		zoom: 11,
+		zoom: 13,
 		center: position
 	};
 	

@@ -1,0 +1,40 @@
+
+
+
+​<div class="header">
+	<form class="well form-search">
+		<div id="customInputText">
+			<input ng-model="keywords" class="input-medium search-query" size="12" name="searchField" type="text">
+		</div>
+		<button type="submit" id="searchButton" ng-click="search()">Search</button>
+		<p class="help-block"></p>		
+	</form>	
+</div>
+
+<div class="container content">
+	<div ng-repeat="listing in listings | filter:query | orderBy:orderProp"  class="listThumbnail search-listing"  >
+		<div ng-click="openUrl(listing.url)">
+			
+			<img src='{{listing.imageUrl}}' id="listItemImage" />
+			
+			<div>
+				<a href="#/bostad/{{listing.booliId}}">
+					<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
+				</a>
+				<p id="listItemDate">{{listing.published}} </p>
+			</div>
+			<div id="listItemInfo">
+				Pris       : {{listing.listPrice}}
+				<br>Rum        : {{listing.rooms}} 
+				<br>Area       : {{listing.livingArea}} 
+				<br>Hyra       : {{listing.rent}}						
+			</div>
+		</div>				
+	</div>
+</div>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+
+<div id="mapContainerList">
+	<div id="map-canvas-list"></div>
+</div>
+
+

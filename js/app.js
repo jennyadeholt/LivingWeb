@@ -11,7 +11,7 @@ App.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/bostad', {
-        templateUrl: 'partials/phone-list.html',
+        templateUrl: 'test.html',
         controller: 'ListCtrl'
       }).
       when('/bostad/:booliId', {
