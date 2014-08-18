@@ -110,8 +110,27 @@ p#listItemTitle {
 	height: 50px;
 }
 
+.header input {
+	font-size: 20px;
+	height: 30px;
+	width: 400px;
+}
+
+button {
+    position: absolute;
+    top: 107px;
+    right: 407px;
+    width: 200px;
+}
+
+#autocomplete.ui-autocomplete-loading {
+	background-image: url(loading.gif);
+	background-position: right center;
+	background-repeat: no-repeat;
+}
+
 .container .content {
-	position:absolute;
+	position: absolute;
 	top: 200px;
 	left: 0px;
 	width: 565px;
@@ -122,19 +141,3 @@ p#listItemTitle {
 	}​
 	
 	
-.header #searchButton {
-	    -moz-user-select: none;
-	    background-image: none;
-	    border: 1px solid transparent;
-	    border-radius: 4px;
-	    cursor: pointer;
-	    display: inline-block;
-	    font-size: 14px;
-	    font-weight: normal;
-	    line-height: 1.42857;
-	    margin-bottom: 0;
-	    padding: 6px 12px;
-	    text-align: center;
-	    vertical-align: middle;
-	    white-space: nowrap;
-	}

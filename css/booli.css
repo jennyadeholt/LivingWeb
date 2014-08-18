@@ -373,8 +373,10 @@ button:active, .buttonNav .nav:active, .buttonNav .active, .buttonNav .active:ho
 .buttonNav .nav.blue:hover, .buttonNav .blue:active, button.blue:hover, button.blue:active, input.blue[type="submit"]:focus {
 	background-color: #0163cd;
 }
+
 button {
 }
+
 .buttonNav .nav:first-child {
 	border-bottom-left-radius: 0.2em;
 	border-top-left-radius: 0.2em;

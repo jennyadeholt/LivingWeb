@@ -1,4 +1,3 @@
-
 var $getListings = function($scope, $http) {	
 	
 	if (isEmpty($scope.keywords)){
@@ -53,6 +52,24 @@ var $getListing = function($scope, $routeParams, $http) {
 	});
 }
 
+
+var $getAreas = function() { 
+	return function(request, response) {
+		console.log("autocomplete " + request.term);
+		var api = "http://www.corsproxy.com/api.booli.se/areas?q=" + request.term + "&" + $auth();
+		console.log("autocomplete " + request.term  + " on " + api);
+		$.getJSON(api, {}, 
+			function(data) {
+				var array = data.error ? [] : $.map(data.areas, function(m) {
+					return {
+						label: m.fullName
+					};
+				});
+				response(array);
+			});
+	}
+}			
+			
 var $getImageUrl = function(booliId) {
 	return "http://api.bcdn.se/cache/primary_" + booliId +"_140x94.jpg";
 }
