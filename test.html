@@ -4,14 +4,14 @@
 ​<div class="header">
 	<form class="well form-search">
 		<div id="customInputText">
-			<input ng-model="keywords" class="input-medium search-query" id="autocomplete" size="12" name="searchField" type="text">
+			<input ng-model="keywords" class="input-medium search-query" id="autocomplete" size="12" name="searchField" type="text" hint="Gata, ort eller kommun">
 		</div>
 		<button type="submit" id="searchButton" ng-click="search()">Search</button>
 		<p class="help-block"></p>		
 	</form>	
 </div>
 
-<div class="container content">
+<div class="list">
 	<div ng-repeat="listing in listings | filter:query | orderBy:orderProp"  class="listThumbnail search-listing"  >
 		<div ng-click="openUrl(listing.url)">
 			
@@ -21,13 +21,13 @@
 				<a href="#/bostad/{{listing.booliId}}">
 					<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
 				</a>
-				<p id="listItemDate">{{listing.published}} </p>
+				<p id="listItemDate">{{listing.published | date }} </p>
 			</div>
 			<div id="listItemInfo">
-				Pris       : {{listing.listPrice}}
+				Pris       : {{listing.listPrice | currency }}
 				<br>Rum        : {{listing.rooms}} 
 				<br>Area       : {{listing.livingArea}} 
-				<br>Hyra       : {{listing.rent}}						
+				<br>Hyra       : {{listing.rent | currency }}					
 			</div>
 		</div>				
 	</div>

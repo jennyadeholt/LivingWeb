@@ -8,6 +8,7 @@ function ($scope, $http) {
 	};
 	
 	$getListings($scope, $http);
+	
 	setUpAutoComplete($scope, $http);
 }]);
     
