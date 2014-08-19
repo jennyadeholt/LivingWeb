@@ -8,18 +8,7 @@ function ($scope, $http) {
 	};
 	
 	$getListings($scope, $http);
-	
-	$("#autocomplete").autocomplete({
-		delay: 100,
-		minLength: 1,
-		source: $getAreas(),
-		focus: function(event, ui) {
-			event.preventDefault();
-		},
-		select: function(event, ui) {
-			$scope.keywords = ui.item.label;
-		}
-	});
+	setUpAutoComplete($scope, $http);
 }]);
     
 
@@ -32,3 +21,6 @@ function($scope, $routeParams, $http) {
 	  
 	$getListing($scope, $routeParams, $http);	
 }]);
+
+
+

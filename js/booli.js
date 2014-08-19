@@ -53,9 +53,10 @@ var $getListing = function($scope, $routeParams, $http) {
 }
 
 
-var $getAreas = function() { 
+var $getAreas = function($scope) { 
 	return function(request, response) {
 		console.log("autocomplete " + request.term);
+		$scope.keywords = request.term;
 		var api = "http://www.corsproxy.com/api.booli.se/areas?q=" + request.term + "&" + $auth();
 		console.log("autocomplete " + request.term  + " on " + api);
 		$.getJSON(api, {}, 
