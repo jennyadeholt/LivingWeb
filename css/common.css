@@ -177,9 +177,10 @@ p#listItemTitle {
 }
 
 #mapContainerList {
-	position:absolute; 
-	right: 377px;
-	top: 200px;
+    float: right;
+    position: relative;
+    right: 0;
+    top: -577px;
 }
 
 .nopadding {
@@ -187,16 +188,10 @@ p#listItemTitle {
 }
 
 .list {
-	position: absolute;
-	top: 200px;
-	left: 377px;
 	width: 565px;
 	height: 577px;
-	right: 0px;
-	bottom: 0px;
 	overflow-y: scroll; 
 }
-
 
 .header {
 	height: 50px;
@@ -204,28 +199,37 @@ p#listItemTitle {
 	margin: auto;
 }
 
-.header input {
+.header input[type="text"] {
 	font-size: 20px;
 	height: 30px;
 	width: 400px;
 }
 
-button {
-	position: absolute;
-	top: 107px;
-	background-color: #317dec;
-	color: #fff;
-	font-size: 20px;
-	right: 407px;
-	border-color: #d6d0c8;
-	line-height: 1.25em;
-	width: 200px;
-	margin: 0;
-	border-image: none;
-	border-style: solid solid solid none;
-	border-width: 1px 1px 1px 0;
-	border-radius: 6px;
-	padding: 6px 0.5em 7px;
+
+.content {
+	padding: 50px 0 0 0 ;
+	height: 577px;
+	width: 1170px;
+	margin: auto;
+}
+
+button#searchButton {
+    background-color: #317dec;
+    border-color: #d6d0c8;
+    border-image: none;
+    border-radius: 6px;
+    border-style: solid solid solid none;
+    border-width: 1px 1px 1px 0;
+    color: #fff;
+    float: right;
+    font-size: 20px;
+    line-height: 1.25em;
+    margin: 0;
+    padding: 6px 0.5em 7px;
+    position: relative;
+    right: 0;
+    top: -34px;
+    width: 200px;
 }
 
 #autocomplete.ui-autocomplete-loading {

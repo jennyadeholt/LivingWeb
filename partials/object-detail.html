@@ -11,9 +11,9 @@
 			<img src='{{listing.imageUrl}}' />
 			<div id="listItemInfo">
 				<br>Typ        : {{listing.objectType}} 
-				<br>Pris       : {{listing.listPrice}}
+				<br>Pris       : {{listing.listPrice | nfcurrency }}
 				<br>Rum        : {{listing.rooms}} 
-				<br>Area       : {{listing.livingArea}} 
+				<br>Area       : {{listing.livingArea}} kvm 
 			</div>
 			
 			<div id="mapContainer">

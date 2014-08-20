@@ -1,0 +1,41 @@
+
+
+
+​<div class="header">
+	<form class="well form-search">
+		<div id="customInputText">
+			<input ng-model="keywords" class="input-medium search-query" id="autocomplete" size="12" name="searchField" type="text" placeholder="Gata, ort eller kommun">
+			
+		</div>
+		<input type="checkbox" ng-model="soldObjects" name="soldItems" id="sold-checkbox" ng-change="search()" > Visa slutpriser
+		<button type="submit" id="searchButton" ng-click="search()">Search</button>
+	   	<p class="help-block"></p>		
+	</form>	
+</div>
+
+<div class="content">
+	<div class="list">
+		<div ng-repeat="listing in listings | filter:query | orderBy:orderProp"  class="listThumbnail search-listing"  >
+			<a href="#/bostad/{{listing.booliId}}">
+			<div>
+				<img src='{{listing.imageUrl}}' id="listItemImage" />
+				<div>
+					<a href="#/bostad/{{listing.booliId}}">
+						<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
+					</a>
+					<p id="listItemDate">{{listing.published | date }} </p>
+				</div>
+				<div id="listItemInfo">
+					Pris : {{listing.listPrice | nfcurrency }} <br>
+					Rum : {{listing.rooms}}  <br>
+					Area : {{listing.livingArea}} kvm <br>
+					Hyra : {{listing.rent | nfcurrency }}					
+				</div>
+			</div>				
+		</div>
+	</div>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+
+	<div id="mapContainerList">
+		<div id="map-canvas-list"></div>
+	</div>
+</div>
