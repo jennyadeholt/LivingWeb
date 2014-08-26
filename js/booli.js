@@ -1,4 +1,4 @@
-var $getListings = function($scope, $http) {	
+var $getListings = function($scope, $http, $filter) {	
 	
 	var booliAPI;
 	
@@ -28,7 +28,7 @@ var $getListings = function($scope, $http) {
 	
 		$scope.orderProp = '-published';
 		
-		google.maps.event.addDomListener(window, 'load', $initializeListMap($scope.listings));
+		google.maps.event.addDomListener(window, 'load', $initializeListMap($scope.listings, $filter));
 	
 	}).error(function(data, status, headers, config) {
 	
@@ -67,27 +67,20 @@ var $getListing = function($scope, $routeParams, $http, sold) {
 	});
 }
 
-var $getSoldListing = function($scope, $routeParams, $http) {
-	$scope.booliId = $routeParams.booliId;
-	var booliAPI = "api.booli.se/sold/" + $scope.booliId + "?" + $auth();
-	
-	$http({ 
-		method: 'GET', 
-		url: 'http://www.corsproxy.com/' + booliAPI,  
-		params : { format: "json" }, 
-		headers: {'Accept': 'application/json' }
-	}).success(function(data, status, headers, config) {
-		console.log("search on id " + $scope.booliId);
-		$scope.listing =  data.sold[0];
-		$scope.listing.imageUrl = $getImageUrl($scope.booliId);
-		
-		google.maps.event.addDomListener(window, 'load', $initializeMap($scope.listing));
-		
-	}).error(function(data, status, headers, config) {
-		console.log("search on id ERROR");
-	});
+var $getImageUrl = function(booliId) {
+	return "http://api.bcdn.se/cache/primary_" + booliId +"_140x94.jpg";
 }
 
+
+var $auth = function() {
+	var callerId = "EasyLiving";
+	var time = $time();
+	var privateKey = "fN9u8gmUFMvXCgNS8SAWkE96535Ttul5lNzpWeP2";
+	var unique = Math.random().toString(36).slice(2);
+	var hash = sha1(callerId + time + privateKey + unique);
+
+	return "callerId=" + callerId + "&time=" + time + "&unique=" + unique + "&hash=" + hash;
+};
 
 var $getAreas = function($scope) { 
 	return function(request, response) {
@@ -102,30 +95,16 @@ var $getAreas = function($scope) {
 				});
 				response(array);
 			});
-		}
-	}			
+	}
+}	
+
+var $time = Date.now || function() {
+	return +new Date;
+};
+
+function isEmpty(str) {
+	return (!str || 0 === str.length);
+}		
 			
-	var $getImageUrl = function(booliId) {
-		return "http://api.bcdn.se/cache/primary_" + booliId +"_140x94.jpg";
-	}
-
-
-	var $auth = function() {
-		var callerId = "EasyLiving";
-		var time = $time();
-		var privateKey = "fN9u8gmUFMvXCgNS8SAWkE96535Ttul5lNzpWeP2";
-		var unique = Math.random().toString(36).slice(2);
-		var hash = sha1(callerId + time + privateKey + unique);
- 
-		return "callerId=" + callerId + "&time=" + time + "&unique=" + unique + "&hash=" + hash;
-	};
-
-
-	var $time = Date.now || function() {
-		return +new Date;
-	};
-
-	function isEmpty(str) {
-		return (!str || 0 === str.length);
-	}
+	
 

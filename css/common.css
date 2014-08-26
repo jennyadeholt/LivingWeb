@@ -181,6 +181,7 @@ p#listItemTitle {
     position: relative;
     right: 0;
     top: -577px;
+	border: 1px solid #505050;
 }
 
 .nopadding {
@@ -213,6 +214,18 @@ p#listItemTitle {
 	margin: auto;
 }
 
+#infoWindow {
+	margin: 10px;
+	min-width: 300px;
+	white-space: nowrap;
+}
+
+#infoWindow #textInfo {
+	position: absolute;
+	left: 165px;
+	top: 55px;
+		white-space: nowrap;
+}
 
 #searchButton {
     background-color: #317dec;
