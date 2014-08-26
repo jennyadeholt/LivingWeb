@@ -107,7 +107,7 @@ function getInfoWindow(listing, $filter) {
 	return new google.maps.InfoWindow({
 		content: '<div id="infoWindow">'+
 		'<a href="#/bostad/' + listing.booliId + '">' +	
-		'<h1 id="firstHeading" class="firstHeading">'+ listing.location.address.streetAddress + '</h1>'+
+		'<h2 id="firstHeading" class="firstHeading">'+ listing.location.address.streetAddress + '</h2>'+
 		'</a>' +
 		'<div id="bodyContent">'+
 		'<img src="'+ listing.imageUrl + '"></img>'+ 

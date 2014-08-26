@@ -21,14 +21,14 @@ var $getListings = function($scope, $http, $filter) {
 		} else {
 			$scope.listings =  data.listings;
 		}
+		
+		google.maps.event.addDomListener(window, 'load', $initializeListMap($scope.listings, $filter));
 	
 		$.each($scope.listings, function(i, item) {
 			item.imageUrl =$getImageUrl(item.booliId);
 		})
 	
 		$scope.orderProp = '-published';
-		
-		google.maps.event.addDomListener(window, 'load', $initializeListMap($scope.listings, $filter));
 	
 	}).error(function(data, status, headers, config) {
 	

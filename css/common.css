@@ -89,8 +89,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
 
 .listThumbnail {
 	background-color: #fff;
-	border: 1px solid #ddd;
-	border-radius: 4px;
+    border-bottom: 1px solid #ddd;
 	display: block;
 	position:relative;
 	height: 96px;
@@ -181,7 +180,8 @@ p#listItemTitle {
     position: relative;
     right: 0;
     top: -577px;
-	border: 1px solid #505050;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 .nopadding {
@@ -192,6 +192,8 @@ p#listItemTitle {
 	width: 565px;
 	height: 577px;
 	overflow-y: scroll; 
+	border-radius: 4px;
+	border: 1px solid #ddd;
 }
 
 .header {
