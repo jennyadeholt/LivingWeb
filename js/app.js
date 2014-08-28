@@ -2,11 +2,11 @@
 "use strict";
 
 var App = angular.module('livingWebApp', [
-'ngRoute',
-'controllers',
-'animations',
-'filters',
-'services'
+	'ngRoute',
+	'controllers',
+	'animations',
+	'filters',
+	'services'
 ])
 		
 App.config(['$routeProvider',
@@ -24,6 +24,7 @@ function($routeProvider) {
 		redirectTo: '/bostad'
 	});
 }]);
+
 
 
 

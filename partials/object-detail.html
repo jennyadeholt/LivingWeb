@@ -1,26 +1,35 @@
 
-<div>
-	detail view for <span>{{booliId}}</span>
-
-	<div>
-		<div ng-click="openUrl(listing.url)" class="detailsThumbnail search-listing" >
-			<div>
-				<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
-				<p id="listItemDate">{{listing.published}} </p>
-			</div>
-			<img src='{{listing.imageUrl}}' />
-			<div id="listItemInfo">
-				<br>Typ        : {{listing.objectType}} 
-				<br>Pris       : {{listing.listPrice | nfcurrency }}
-				<br>Rum        : {{listing.rooms}} 
-				<br>Area       : {{listing.livingArea}} kvm 
-			</div>
-			
-			<div id="mapContainer">
-				<div id="map-canvas"></div>
-				<div>
-				</div>
-			</div>	
+<div class="content">
+	<div class="detailsThumbnail search-listing" >
+		<div>
+			<h1 id="listItemTitle">
+				{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}
+			</h1>
+			<p id="listItemDate">
+				{{listing.published}} 
+			</p>
 		</div>
+		<img src='{{listing.imageUrl}}' />
+		<div id="listItemInfo">
+			<br><b>Typ: </b> {{listing.objectType}} 
+			<br><b>Pris: </b> {{listing.listPrice | nfcurrency }}
+			<br><b>Rum: </b> {{listing.rooms}} 
+			<br><b>Boyta: </b> {{listing.livingArea | kvm }}  
+			<br><b>Biyta: </b> {{listing.additionalArea | kvm }}  
+			<br><b>Tomt: </b> {{listing.plotArea | kvm }}  
+			<br><b>Byggår: </b> {{listing.constructionYear}}
+			<br><b>Våning: </b> {{listing.floor}}
+			<br><b>Hyra: </b>{{listing.rent | nfcurrency }}
+			<br><b>Källa: </b>{{listing.source.name}}
+			<br>
+			<a href="{{listing.url}}" target="_blank">
+				Mäklarbeskrivning
+			</a>
+		</div>			
+		<div id="mapContainer">
+			<div id="map-canvas"></div>
+			<div>
+			</div>
+		</div>	
 	</div>
 </div>

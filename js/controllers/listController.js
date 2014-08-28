@@ -4,6 +4,15 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 	$scope.soldObjects = false;
 	$scope.keywords = 'Malmö Centrum, Centrum Malmö, Malmö';
 	
+    $scope.currentPage = 0;
+    $scope.pageSize = 25;
+    $scope.listings = [];
+	$scope.totalCount = 0;
+    $scope.numberOfPages = function(){
+		console.log("numberOfPages " + $scope.totalCount);
+        return Math.ceil($scope.totalCount/$scope.pageSize);                
+    }
+		
 	setUpAutoComplete($scope, $http, BooliService);
 	
 	$scope.search = function(){
@@ -13,7 +22,7 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 	$scope.search();
 } 
 	
-function setUpAutoComplete($scope) {
+function setUpAutoComplete($scope, BooliService) {
 	var autocomplete = 	$("#autocomplete");
 	autocomplete.autocomplete({
 		delay: 0,

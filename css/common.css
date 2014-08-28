@@ -114,13 +114,20 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
 }
 
 
-div#listItemInfo {
-	left: 170px;
+.detailsThumbnail #listItemInfo {
+	left: 200px;
 	position: absolute;
-	top: 33px;
+	top: 90px;
 	font-size: 12px;
 	margin-top: auto;
 	margin-bottom: auto;
+}
+
+.detailsThumbnail #listItemTitle {
+	color: 666;
+	font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
+	line-height: 1.42857;
+	padding-bottom: 10px;
 }
 
 p#listItemDate {
@@ -130,7 +137,7 @@ p#listItemDate {
 	font-size: 9px;
 }
 
-p#listItemTitle {
+.listThumbnail #listItemTitle {
 	color: 666;
 	font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
 	font-size: 16px;
@@ -138,7 +145,7 @@ p#listItemTitle {
 	padding-bottom: 10px;
 }
 
-.listThumbnail p#listItemTitle{
+.listThumbnail #listItemTitle {
 	position: absolute;
 	left: 150px;
 	top: 5px;
@@ -153,6 +160,16 @@ p#listItemTitle {
 .listThumbnail #listItemInfo {
 	left: 150px;
 	top: 25px;
+	position: absolute;
+	font-size: 12px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+#paginationView {
+	position: absolute;
+	top: 10px;
+	left: 15px;
 }
 
 #map-canvas {
@@ -225,8 +242,8 @@ p#listItemTitle {
 #infoWindow #textInfo {
 	position: absolute;
 	left: 165px;
-	top: 55px;
-		white-space: nowrap;
+	top: 45px;
+	white-space: nowrap;
 }
 
 #searchButton {
@@ -244,13 +261,23 @@ p#listItemTitle {
     padding: 6px 0.5em 7px;
     position: relative;
     right: 0;
-    top: -34px;
+    top: -26px;
     width: 200px;
 }
 
 #searchButton:hover {
     background-color: #2764BC;
     cursor: pointer;
+}
+
+#sortingDiv {
+    float: right;
+    font-size: 12px;
+    margin: 0;
+    padding: 6px 0.5em 7px;
+    position: relative;
+    right: 16px;
+    top: -30px;
 }
 
 #autocomplete.ui-autocomplete-loading {

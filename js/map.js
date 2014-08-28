@@ -103,6 +103,7 @@ function getLocation(listing) {
 	return new google.maps.LatLng(location.latitude, location.longitude);	 
 }
 
+
 function getInfoWindow(listing, $filter) {
 	return new google.maps.InfoWindow({
 		content: '<div id="infoWindow">'+
@@ -112,10 +113,9 @@ function getInfoWindow(listing, $filter) {
 		'<div id="bodyContent">'+
 		'<img src="'+ listing.imageUrl + '"></img>'+ 
 		'<div id="textInfo">'+
-		'<p><b>Pris: </b>' + $filter("nfcurrency")(listing.listPrice) + '</p>' + 
-		'<p><b>Typ: </b>' + listing.objectType + '</p>' +
-		'<p><b>Rum: </b>' + listing.rooms + '</p>' +
-		'<p><b>Boyta: </b> ' + listing.livingArea + ' kvm </p>' + 
+		'<p>'+ $filter("nfcurrency")(listing.listPrice) + '</p>' + 
+		'<p>' + listing.objectType + '</p>' +
+		'<p>' + $filter("kvm")(listing.livingArea) + ", " + $filter("room")(listing.rooms) +'</p>' +
 		'</div>'+	
 		'<p><a href="'+ listing.url + '" target="_blank">Mäklarbeskrivning</a></p>'+
 		'</div>'+

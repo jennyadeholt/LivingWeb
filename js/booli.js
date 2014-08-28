@@ -1,3 +1,6 @@
+
+
+
 var $getListings = function($scope, $http, $filter) {	
 	
 	var booliAPI;
@@ -16,11 +19,15 @@ var $getListings = function($scope, $http, $filter) {
 		headers: {'Accept': 'application/json' }
 	}).success(function(data, status, headers, config) {
 		$scope.data = data;
+		$scope.totalCount = data.totalCount;
+
+		
 		if ($scope.soldObjects) {
 			$scope.listings =  data.sold;
 		} else {
 			$scope.listings =  data.listings;
 		}
+		
 		
 		google.maps.event.addDomListener(window, 'load', $initializeListMap($scope.listings, $filter));
 	
@@ -28,7 +35,8 @@ var $getListings = function($scope, $http, $filter) {
 			item.imageUrl =$getImageUrl(item.booliId);
 		})
 	
-		$scope.orderProp = '-published';
+		$scope.orderProp = 'published';
+		
 	
 	}).error(function(data, status, headers, config) {
 	
@@ -58,9 +66,10 @@ var $getListing = function($scope, $routeParams, $http, sold) {
 		} else {
 			$scope.listing =  data.listings[0];
 		}
-		$scope.listing.imageUrl = $getImageUrl($scope.booliId);
-		
 		google.maps.event.addDomListener(window, 'load', $initializeMap($scope.listing));
+		
+		$scope.listing.imageUrl = $getImageUrl($scope.booliId);
+			
 		
 	}).error(function(data, status, headers, config) {
 		$getListing($scope, $routeParams, $http, true);
@@ -79,7 +88,7 @@ var $auth = function() {
 	var unique = Math.random().toString(36).slice(2);
 	var hash = sha1(callerId + time + privateKey + unique);
 
-	return "callerId=" + callerId + "&time=" + time + "&unique=" + unique + "&hash=" + hash;
+	return "callerId=" + callerId + "&time=" + time + "&unique=" + unique + "&hash=" + hash + "&limit=500";
 };
 
 var $getAreas = function($scope) { 

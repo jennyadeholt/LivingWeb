@@ -9,33 +9,48 @@
 		</div>
 		<input type="checkbox" ng-model="soldObjects" name="soldItems" id="sold-checkbox" ng-change="search()" > Visa slutpriser
 		<button type="submit" id="searchButton" ng-click="search()">Search</button>
-	   	<p class="help-block"></p>		
-	</form>	
+		
+		<div id="sortingDiv"> 
+			Sortering: 
+			<select ng-model="orderProp">
+				<option value="location.address.streetAddress">A-Ö</option>
+				<option value="published">Längst på Booli</option>
+				<option value="-published">Senast publicerad</option>
+			</select>
+		</div>
+	</div>
+</form>	
 </div>
 
 <div class="content">
-	<div class="list">
-		<div ng-repeat="listing in listings | filter:query | orderBy:orderProp"  class="listThumbnail search-listing"  >
-			<a href="#/bostad/{{listing.booliId}}">
+<div class="list">
+	<div ng-repeat="listing in listings | filter:query | orderBy:orderProp | offset:(currentPage-1)*pageSize | limitTo:pageSize "  class="listThumbnail search-listing"  >		
+		<div>
+			<img src='{{listing.imageUrl}}' id="listItemImage" />
 			<div>
-				<img src='{{listing.imageUrl}}' id="listItemImage" />
-				<div>
-					<a href="#/bostad/{{listing.booliId}}">
-						<p id="listItemTitle">{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}</p>
-					</a>
-					<p id="listItemDate">{{listing.published | date }} </p>
-				</div>
-				<div id="listItemInfo">
-					<b>Pris:</b> {{listing.listPrice | nfcurrency }} <br>
-					<b>Rum:</b> {{listing.rooms}}  <br>
-					<b>Area:</b> {{listing.livingArea}} kvm <br>
-					<b>Hyra:</b> {{listing.rent | nfcurrency }}					
-				</div>
-			</div>				
-		</div>
-	</div>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
-
-	<div id="mapContainerList">
-		<div id="map-canvas-list"></div>
+				<a href="#/bostad/{{listing.booliId}}">
+					<p id="listItemTitle">{{listing.location.address.streetAddress}}</p>
+				</a>
+				<p id="listItemDate">{{listing.published | date }} </p>
+			</div>
+			<div id="listItemInfo">
+				{{listing.location.namedAreas[0]}} <br>
+				{{listing.listPrice | nfcurrency }} <br>
+				{{listing.livingArea | kvm }},  {{listing.rooms | room}} 		
+			</div>
+		</div>				
 	</div>
+	<div id="paginationView">
+		<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button>
+		{{currentPage+1}}/{{numberOfPages()}}
+		<button ng-disabled="currentPage >= totalCount/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button>
+	</div>
+</div>
+	
+	
+
+<div id="mapContainerList">
+	<div id="map-canvas-list"></div>
+</div>
+</div>
 </div>

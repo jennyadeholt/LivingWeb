@@ -12,6 +12,24 @@ filters.filter('nfcurrency', [ '$filter', '$locale', function ($filter, $locale)
 	}       
 }]);
 
+filters.filter('kvm', function() {
+	return function(input) {
+		return isEmpty(input) ? '- kvm' : input + ' kvm';
+	};
+});
+
+filters.filter('room', function() {
+	return function(input) {
+		return isEmpty(input) ? '- rum' : input + ' rum';
+	};
+});
+
+filters.filter('offset', function () {
+	return function (input, offset) {
+		return (input instanceof Array) ? input.slice(+offset) : input;
+	}
+});
+
 
 function isEmpty(str) {
 	return (!str || 0 === str.length);
