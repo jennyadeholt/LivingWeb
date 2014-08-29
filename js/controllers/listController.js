@@ -54,31 +54,25 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 	$scope.nextPage = function(){
 		pageListings($scope, $filter, true);
 		
-	};	
+	};
 	
-	$scope.mySortFunction = function(item) {
-		console.log($scope.orderProp);
-		$scope.data = $filter('orderBy')($scope.data, $scope.orderProp);
-		return item[$scope.sortExpression];	
-	}
+	$scope.listItemClicked = function($listing) {
+		console.log("Listitem clicked " + $listing.location.address.streetAddress);
+		$updateInfoWindow($listing, $filter);
+	}	
 } 
 
 function pageListings($scope, $filter, next) {
 	$scope.currentPage = $scope.currentPage + (next ? 1 : -1);
-	showListings($scope, $filter);	
+	$updateListMap($scope, $filter);
 }
 
 function showListings($scope, $filter) {
 	console.log("showListings " + $scope.data.length);
 	
-	$scope.data = $filter('orderBy')($scope.data, $scope.orderProp);
-	
-	var offset = $scope.currentPage === 0 ? 0 : $scope.currentPage * $scope.pageSize;	
-	var objects = $scope.data;
+	$scope.listings = $scope.data;
 
-	$scope.listings = objects.slice(offset, offset + $scope.pageSize);
-
-	google.maps.event.addDomListener(window, 'load', $initializeListMap($scope.listings, $filter));
+	google.maps.event.addDomListener(window, 'load', $initializeListMap($scope, $filter));
 
 	$.each($scope.listings, function(i, item) {
 		item.imageUrl = $getImageUrl(item.booliId);

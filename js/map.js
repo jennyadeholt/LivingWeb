@@ -3,6 +3,9 @@ var mapOptions;
 
 var currentInfoWindow;
 
+var markers = [];
+var ids = [];
+
 var featureOpts = [{
 	stylers: [ { hue: '#317dec' },
 	{ visibility: 'simplified' },
@@ -35,13 +38,15 @@ var $initializeMap = function($listing) {
 }
 
 
-var $initializeListMap = function($listings, $filter) {
+var $initializeListMap = function($scope, $filter) {
+	
+	var objects = getObjects($scope);
 
 	var long = 0;
 	var lat = 0;
-	var size = $listings.length;
+	var size = objects.length;
 	
-	$.each($listings, function(i, listing) {
+	$.each(objects, function(i, listing) {
 		long += listing.location.position.longitude;
 		lat += listing.location.position.latitude;
 	})
@@ -68,17 +73,7 @@ var $initializeListMap = function($listings, $filter) {
 	});
 	
 
-	$.each($listings, function(i, listing) {
-		var marker = addLocation(listing);		
-		
-		google.maps.event.addListener(marker, 'click', function() {
-			if (currentInfoWindow) {
-				currentInfoWindow.close();
-			}
-			currentInfoWindow = getInfoWindow(listing, $filter);
-			currentInfoWindow.open(marker.get('map'), marker);
-		});		
-	})
+	addMarkers(objects, $filter);
 	
 	var styledMapOptions = {
 		name: 'Vatten'
@@ -88,6 +83,60 @@ var $initializeListMap = function($listings, $filter) {
 
 	map.mapTypes.set(MY_MAPTYPE_ID, customMapType);	
 }
+
+var $updateListMap = function($scope, $filter) {
+
+	$.each(markers, function(i, marker) {
+	    marker.setMap(null);
+	});
+	ids = [];
+
+	addMarkers(getObjects($scope), $filter);
+}
+
+var $updateInfoWindow = function($listing, $filter) {
+	var marker;
+	$.each(ids, function(i, id) {
+		if (id == $listing.booliId) {
+			console.log("We found marker for " + id);
+			marker = markers[i];
+		}
+	})
+	
+	if (marker) {
+		console.log("We have marker ");
+		showInfoWindow($listing, $filter, marker);
+	}
+}
+
+function showInfoWindow($listing, $filter, marker) {
+	if (currentInfoWindow) {
+		currentInfoWindow.close();
+	}
+	
+	currentInfoWindow = getInfoWindow($listing, $filter);
+	currentInfoWindow.open(marker.get('map'), marker);	
+}
+
+function getObjects($scope) {
+	var offset = $scope.currentPage === 0 ? 0 : $scope.currentPage * $scope.pageSize;	
+	return $scope.listings.slice(offset, offset + $scope.pageSize);
+}
+
+function addMarkers(objects, $filter) {
+
+	$.each(objects, function(i, listing) {
+		var marker = addLocation(listing);		
+	
+		markers.push(marker);	
+		ids.push(listing.booliId);
+			
+		google.maps.event.addListener(marker, 'click', function() {
+			showInfoWindow(listing, $filter, marker);
+		});		
+	})
+}
+
 
 function addLocation(listing) {
 	return new google.maps.Marker({

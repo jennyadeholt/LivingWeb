@@ -46,7 +46,7 @@ function BooliService(){
 
 function getBooliAPI($scope, param) {	
 	
-	var offset = $scope.nbr === 0 ? 0 : $scope.nbr * 500;
+	var offset = $scope.nbr === 0 ? 0 : $scope.nbr * 100;
 	console.log("Offset " + offset);
 	
 	switch(param) {
@@ -75,7 +75,7 @@ var $auth = function($scope) {
 	var offset = 0;
 	
 
-	return "callerId=" + callerId + "&time=" + time + "&unique=" + unique + "&hash=" + hash + "&limit=500";
+	return "callerId=" + callerId + "&time=" + time + "&unique=" + unique + "&hash=" + hash + "&limit=100";
 };
 
 var $getAreas = function($scope) { 

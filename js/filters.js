@@ -24,9 +24,9 @@ filters.filter('room', function() {
 	};
 });
 
-filters.filter('offset', function () {
+filters.filter('pagination', function () {
 	return function (input, offset) {
-		return (input instanceof Array) ? input.slice(+offset) : input;
+		return (input instanceof Array) ? input.slice(offset) : input;
 	}
 });
 

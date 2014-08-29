@@ -24,7 +24,7 @@
 
 <div class="content">
 <div class="list">
-	<div ng-repeat="listing in listings | filter:query | orderBy:mySortFunction"  class="listThumbnail search-listing"  >		
+	<div ng-repeat="listing in listings | filter:query | orderBy:orderProp | pagination: currentPage * pageSize | limitTo: pageSize"  class="listThumbnail search-listing"  ng-click=listItemClicked(listing)>		
 		<div>
 			<img src='{{listing.imageUrl}}' id="listItemImage" />
 			<div>
