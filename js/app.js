@@ -26,5 +26,25 @@ function($routeProvider) {
 }]);
 
 
+App.factory('db', function() {
+  var listings = [];
+
+  var modify = {};
+  var modify.addListing = function(listing) {
+    listings.push(listing);
+  };  
+  var modify.addListings = function(listings) {
+    listings.push(listings);
+  };
+  var modify.deleteListings = function() {
+    listings = [];
+  };
+  var modify.getListings = function() {
+    return listings;
+  }
+  return modify; 
+});
+
+
 
 
