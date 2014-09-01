@@ -12,7 +12,7 @@
 		
 		<div id="sortingDiv"> 
 			Sortering: 
-			<select ng-model="orderProp">
+			<select ng-model="orderProp" ng-click="newSearchOrder()">
 				<option value="location.address.streetAddress">A-Ö</option>
 				<option value="published">Längst på Booli</option>
 				<option value="-published">Senast publicerad</option>
@@ -24,9 +24,9 @@
 
 <div class="content">
 <div class="list">
-	<div ng-repeat="listing in listings | filter:query | orderBy:orderProp | pagination: currentPage * pageSize | limitTo: pageSize"  class="listThumbnail search-listing"  ng-click=listItemClicked(listing)>		
+	<div ng-repeat="listing in listings | filter:query | orderBy:orderProp | pagination: currentPage * pageSize | limitTo: pageSize" class="listThumbnail search-listing"  ng-click=listItemClicked(listing)>		
 		<div>
-			<img src='{{listing.imageUrl}}' id="listItemImage" />
+			<img src="http://api.bcdn.se/cache/primary_{{listing.booliId}}_140x94.jpg" id="listItemImage" />
 			<div>
 				<a href="#/bostad/{{listing.booliId}}">
 					<p id="listItemTitle">{{listing.location.address.streetAddress}}</p>

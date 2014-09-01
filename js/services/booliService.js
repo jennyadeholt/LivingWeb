@@ -6,7 +6,6 @@ function BooliService(){
 	soldObjects = false;
 	
 	this.showSoldObjects = function () {
-		console.log("Show sold objects " + soldObjects );
 		return soldObjects;
 	}
 		
@@ -45,9 +44,7 @@ function BooliService(){
 }
 
 function getBooliAPI($scope, param) {	
-	
-	var offset = $scope.nbr === 0 ? 0 : $scope.nbr * 100;
-	console.log("Offset " + offset);
+	var offset = $scope.nbr === 0 ? 0 : $scope.nbr * 250;
 	
 	switch(param) {
 	case 0:
@@ -61,11 +58,6 @@ function getBooliAPI($scope, param) {
 	}	
 }
 
-var $getImageUrl = function(booliId) {
-	return "http://api.bcdn.se/cache/primary_" + booliId +"_140x94.jpg";
-}
-
-
 var $auth = function($scope) {
 	var callerId = "EasyLiving";
 	var time = $time();
@@ -75,7 +67,7 @@ var $auth = function($scope) {
 	var offset = 0;
 	
 
-	return "callerId=" + callerId + "&time=" + time + "&unique=" + unique + "&hash=" + hash + "&limit=100";
+	return "callerId=" + callerId + "&time=" + time + "&unique=" + unique + "&hash=" + hash + "&limit=250";
 };
 
 var $getAreas = function($scope) { 

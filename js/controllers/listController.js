@@ -23,23 +23,26 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 	
 	$scope.search = function(){
 		BooliService.getListings($scope, $http).then(function(response){			
-			if (response.data.offset === 0) {
-				$scope.data = $scope.soldObjects ? response.data.sold : response.data.listings;
-				$scope.currentPage = 0;
-				showListings($scope, $filter);
-			} else {
-				$scope.data.push($scope.soldObjects ? response.data.sold : response.data.listings);
-			}
-			$scope.count = $scope.count + response.data.count;
-			$scope.nbr++;			
-			$scope.totalCount = response.data.totalCount;
 			
-			if ($scope.totalCount - $scope.count << 0) {
+			var objects = $scope.soldObjects ? response.data.sold : response.data.listings;
+			
+			if (response.data.offset === 0) {
+				$scope.totalCount = response.data.totalCount;
+				$scope.listings = objects;
+				$scope.currentPage = 0;
+				google.maps.event.addDomListener(window, 'load', $initializeListMap($scope, $filter));
+			} else {
+				$.each(objects, function(i, object) {
+					$scope.listings.push(object);
+				});
+			}	
+			$scope.nbr++;			
+			
+			if ($scope.totalCount - $scope.listings.length << 0) {
 				$scope.search();				
 			} else {
-				$scope.count = 0;
 				$scope.nbr = 0;
-			}
+			}			
 		}, function(response) {
 			
 		});
@@ -50,35 +53,26 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 	$scope.previousPage = function() {
 		pageListings($scope, $filter, false);		
 	}
-	
 	$scope.nextPage = function(){
 		pageListings($scope, $filter, true);
 		
-	};
-	
+	};	
 	$scope.listItemClicked = function($listing) {
-		console.log("Listitem clicked " + $listing.location.address.streetAddress);
 		$updateInfoWindow($listing, $filter);
-	}	
+	}
+	
+	$scope.newSearchOrder = function() {
+		if (sortOrder != $scope.orderProp ) {
+			$scope.currentPage = 0;
+			sortOrder = $scope.orderProp;
+			$updateListMap($scope, $filter);
+		}
+	}
 } 
 
 function pageListings($scope, $filter, next) {
 	$scope.currentPage = $scope.currentPage + (next ? 1 : -1);
 	$updateListMap($scope, $filter);
-}
-
-function showListings($scope, $filter) {
-	console.log("showListings " + $scope.data.length);
-	
-	$scope.listings = $scope.data;
-
-	google.maps.event.addDomListener(window, 'load', $initializeListMap($scope, $filter));
-
-	$.each($scope.listings, function(i, item) {
-		item.imageUrl = $getImageUrl(item.booliId);
-	});
-
-	return $scope.listings;
 }
 	
 function setUpAutoComplete($scope, BooliService) {

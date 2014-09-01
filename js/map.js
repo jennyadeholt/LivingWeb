@@ -5,6 +5,7 @@ var currentInfoWindow;
 
 var markers = [];
 var ids = [];
+var position;
 
 var featureOpts = [{
 	stylers: [ { hue: '#317dec' },
@@ -40,22 +41,11 @@ var $initializeMap = function($listing) {
 
 var $initializeListMap = function($scope, $filter) {
 	
-	var objects = getObjects($scope);
+	var objects = getObjects($scope, $filter);
 
-	var long = 0;
-	var lat = 0;
-	var size = objects.length;
-	
-	$.each(objects, function(i, listing) {
-		long += listing.location.position.longitude;
-		lat += listing.location.position.latitude;
-	})
-	
-	var position = new google.maps.LatLng(lat / size, long / size);
-	
 	var mapOptions = {
 		zoom: 13,
-		center: position,
+		center: findCenter(objects),
 		mapTypeControlOptions: {
 			mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
 		},
@@ -82,16 +72,21 @@ var $initializeListMap = function($scope, $filter) {
 	var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
 
 	map.mapTypes.set(MY_MAPTYPE_ID, customMapType);	
+	
 }
 
 var $updateListMap = function($scope, $filter) {
 
 	$.each(markers, function(i, marker) {
-	    marker.setMap(null);
+		marker.setMap(null);
 	});
+	markers = [];
 	ids = [];
+	
+	var objects = getObjects($scope, $filter);
+    map.panTo(findCenter(objects));
 
-	addMarkers(getObjects($scope), $filter);
+	addMarkers(objects, $filter);
 }
 
 var $updateInfoWindow = function($listing, $filter) {
@@ -109,6 +104,19 @@ var $updateInfoWindow = function($listing, $filter) {
 	}
 }
 
+var findCenter = function(listings) {
+	var long = 0;
+	var lat = 0;
+	var size = listings.length;
+	
+	$.each(listings, function(i, listing) {
+		long += listing.location.position.longitude;
+		lat += listing.location.position.latitude;
+	})
+	
+	return new google.maps.LatLng(lat / size, long / size);
+}
+
 function showInfoWindow($listing, $filter, marker) {
 	if (currentInfoWindow) {
 		currentInfoWindow.close();
@@ -118,13 +126,13 @@ function showInfoWindow($listing, $filter, marker) {
 	currentInfoWindow.open(marker.get('map'), marker);	
 }
 
-function getObjects($scope) {
+function getObjects($scope, $filter) {
 	var offset = $scope.currentPage === 0 ? 0 : $scope.currentPage * $scope.pageSize;	
+	$scope.listings = $filter('orderBy')($scope.listings, $scope.orderProp);
 	return $scope.listings.slice(offset, offset + $scope.pageSize);
 }
 
 function addMarkers(objects, $filter) {
-
 	$.each(objects, function(i, listing) {
 		var marker = addLocation(listing);		
 	
@@ -136,7 +144,6 @@ function addMarkers(objects, $filter) {
 		});		
 	})
 }
-
 
 function addLocation(listing) {
 	return new google.maps.Marker({
@@ -160,7 +167,7 @@ function getInfoWindow(listing, $filter) {
 		'<h2 id="firstHeading" class="firstHeading">'+ listing.location.address.streetAddress + '</h2>'+
 		'</a>' +
 		'<div id="bodyContent">'+
-		'<img src="'+ listing.imageUrl + '"></img>'+ 
+		'<img src="http://api.bcdn.se/cache/primary_' + listing.booliId + '_140x94.jpg"></img>'+ 
 		'<div id="textInfo">'+
 		'<p>'+ $filter("nfcurrency")(listing.listPrice) + '</p>' + 
 		'<p>' + listing.objectType + '</p>' +
