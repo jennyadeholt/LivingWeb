@@ -25,26 +25,20 @@ var featureOpts = [{
 var MY_MAPTYPE_ID = 'custom_style';
 
 var $initializeMap = function($listing) {
-	
-	var position = getLocation($listing)
-	
 	var mapOptions = {
 		zoom: 13,
-		center: position
+		center: getLocation($listing)
 	};
-  
-	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-	  
+	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);	  
 	addLocation($listing);  
 }
-
 
 var $initializeListMap = function($scope, $filter) {
 	
 	var objects = getObjects($scope, $filter);
 
 	var mapOptions = {
-		zoom: 13,
+		zoom: 12,
 		center: findCenter(objects),
 		mapTypeControlOptions: {
 			mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
@@ -53,26 +47,10 @@ var $initializeListMap = function($scope, $filter) {
 	};
 	
 	map = new google.maps.Map(document.getElementById('map-canvas-list'), mapOptions);
-	
-	google.maps.event.addListener(map, 'click', function() {
-		// 3 seconds after the center of the map has changed, pan back to the
-		// marker.
-		window.setTimeout(function() {
-			map.panTo(marker.getPosition());
-		}, 3000);
-	});
-	
 
 	addMarkers(objects, $filter);
-	
-	var styledMapOptions = {
-		name: 'Vatten'
-	};
-
-	var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
-
-	map.mapTypes.set(MY_MAPTYPE_ID, customMapType);	
-	
+	map.mapTypes.set(MY_MAPTYPE_ID, new google.maps.StyledMapType(featureOpts, { name: 'Vatten'}));	
+	setBounds(objects);
 }
 
 var $updateListMap = function($scope, $filter) {
@@ -84,27 +62,19 @@ var $updateListMap = function($scope, $filter) {
 	ids = [];
 	
 	var objects = getObjects($scope, $filter);
-    map.panTo(findCenter(objects));
-
 	addMarkers(objects, $filter);
+	setBounds(objects);
 }
 
 var $updateInfoWindow = function($listing, $filter) {
-	var marker;
 	$.each(ids, function(i, id) {
 		if (id == $listing.booliId) {
-			console.log("We found marker for " + id);
-			marker = markers[i];
+			showInfoWindow($listing, $filter, markers[i]);
 		}
-	})
-	
-	if (marker) {
-		console.log("We have marker ");
-		showInfoWindow($listing, $filter, marker);
-	}
+	});	
 }
 
-var findCenter = function(listings) {
+function findCenter(listings) {
 	var long = 0;
 	var lat = 0;
 	var size = listings.length;
@@ -154,11 +124,19 @@ function addLocation(listing) {
 	});
 }
 
+function setBounds(listings) {
+	var bounds = new google.maps.LatLngBounds();
+	$.each(listings, function(i, listing) {
+		bounds.extend(getLocation(listing));
+		
+	})
+	map.fitBounds(bounds);
+}
+
 function getLocation(listing) {
 	var location  = listing.location.position;
 	return new google.maps.LatLng(location.latitude, location.longitude);	 
 }
-
 
 function getInfoWindow(listing, $filter) {
 	return new google.maps.InfoWindow({
@@ -180,7 +158,6 @@ function getInfoWindow(listing, $filter) {
 }
 
 function toggleBounce() {
-
 	if (marker.getAnimation() != null) {
 		marker.setAnimation(null);
 	} else {
