@@ -16,5 +16,5 @@ function DetailsController($scope, $routeParams, $http, $location, BooliService)
 		});
 	}
 		
-	$scope.search($scope, $routeParams, $http, false);		
+	$scope.search($scope, $routeParams, $http);		
 }
