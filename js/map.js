@@ -25,12 +25,13 @@ var featureOpts = [{
 var MY_MAPTYPE_ID = 'custom_style';
 
 var $initializeMap = function($listing) {
+	var location = getLocation($listing);
 	var mapOptions = {
 		zoom: 13,
-		center: getLocation($listing)
+		center: location
 	};
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);	  
-	addLocation($listing);  
+	addLocation(location);  
 }
 
 var $initializeListMap = function($scope, $filter) {
@@ -38,8 +39,6 @@ var $initializeListMap = function($scope, $filter) {
 	var objects = getObjects($scope, $filter);
 
 	var mapOptions = {
-		zoom: 12,
-		center: findCenter(objects),
 		mapTypeControlOptions: {
 			mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
 		},
@@ -50,7 +49,6 @@ var $initializeListMap = function($scope, $filter) {
 
 	addMarkers(objects, $filter);
 	map.mapTypes.set(MY_MAPTYPE_ID, new google.maps.StyledMapType(featureOpts, { name: 'Vatten'}));	
-	setBounds(objects);
 }
 
 var $updateListMap = function($scope, $filter) {
@@ -63,7 +61,6 @@ var $updateListMap = function($scope, $filter) {
 	
 	var objects = getObjects($scope, $filter);
 	addMarkers(objects, $filter);
-	setBounds(objects);
 }
 
 var $updateInfoWindow = function($listing, $filter) {
@@ -72,19 +69,6 @@ var $updateInfoWindow = function($listing, $filter) {
 			showInfoWindow($listing, $filter, markers[i]);
 		}
 	});	
-}
-
-function findCenter(listings) {
-	var long = 0;
-	var lat = 0;
-	var size = listings.length;
-	
-	$.each(listings, function(i, listing) {
-		long += listing.location.position.longitude;
-		lat += listing.location.position.latitude;
-	})
-	
-	return new google.maps.LatLng(lat / size, long / size);
 }
 
 function showInfoWindow($listing, $filter, marker) {
@@ -103,34 +87,32 @@ function getObjects($scope, $filter) {
 }
 
 function addMarkers(objects, $filter) {
+	var bounds = new google.maps.LatLngBounds();
+	
 	$.each(objects, function(i, listing) {
-		var marker = addLocation(listing);		
+		var location = getLocation(listing);
+		var marker = addLocation(location);		
 	
 		markers.push(marker);	
 		ids.push(listing.booliId);
 			
 		google.maps.event.addListener(marker, 'click', function() {
 			showInfoWindow(listing, $filter, marker);
-		});		
+		});	
+		
+		bounds.extend(location);	
 	})
+	
+	map.fitBounds(bounds);
 }
 
-function addLocation(listing) {
+function addLocation(location) {
 	return new google.maps.Marker({
-		position: getLocation(listing),
+		position: location,
 		map: map,
 		draggable: true,
 		animation: google.maps.Animation.DROP,
 	});
-}
-
-function setBounds(listings) {
-	var bounds = new google.maps.LatLngBounds();
-	$.each(listings, function(i, listing) {
-		bounds.extend(getLocation(listing));
-		
-	})
-	map.fitBounds(bounds);
 }
 
 function getLocation(listing) {

@@ -12,34 +12,23 @@ function BooliService(){
 	this.getListings = function($scope, $http) {	
 		soldObjects = $scope.soldObjects;
 		
-		var promise = $http({ 
+		return $http({ 
 			method: 'GET', 
 			url: 'http://www.corsproxy.com/' + getBooliAPI($scope, this.showSoldObjects() ? 1 : 0),  
 			params : { format: "json" }, 
 			headers: {'Accept': 'application/json' }
-		}).success(function(data, status, headers, config) {
-			return data;	
-		}).error(function(data, status, headers, config) {
-			return data;
 		});
-		
-		return promise;
 	};
 	
 	this.getListing = function($scope, $routeParams, $http) { 
 		$scope.booliId = $routeParams.booliId;
 
-		var promise = $http({ 
+		return $http({ 
 			method: 'GET', 
 			url: 'http://www.corsproxy.com/' + getBooliAPI($scope, this.showSoldObjects() ? 3 : 2),  
 			params : { format: "json" }, 
 			headers: {'Accept': 'application/json' }
-		}).success(function(data, status, headers, config) {
-			return data;			
-		}).error(function(data, status, headers, config) {
-			return data;
 		});
-		return promise;			
 	};
 }
 

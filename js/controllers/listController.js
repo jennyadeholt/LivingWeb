@@ -43,8 +43,8 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 			} else {
 				$scope.nbr = 0;
 			}			
-		}, function(response) {
-			
+		}, function(error) {
+			console.log(error);
 		});
 	}
 	
