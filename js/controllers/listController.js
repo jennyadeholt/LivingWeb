@@ -57,7 +57,7 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 		pageListings($scope, $filter, true);
 		
 	};	
-	$scope.listItemClicked = function($listing) {
+	$scope.itemClicked = function($listing) {
 		$updateInfoWindow($listing, $filter);
 	}
 	
@@ -68,6 +68,10 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 			$updateListMap($scope, $filter);
 		}
 	}
+	$scope.getPagination = function() {
+		return $scope.currentPage * $scope.pageSize;
+	}
+	
 } 
 
 function pageListings($scope, $filter, next) {

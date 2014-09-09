@@ -1,0 +1,14 @@
+<div>
+	<img src="http://api.bcdn.se/cache/primary_{{listing.booliId}}_140x94.jpg" id="listItemImage" />
+	<div>
+		<a href="#/bostad/{{listing.booliId}}">
+			<p id="listItemTitle">{{listing.location.address.streetAddress}}</p>
+		</a>
+		<p id="listItemDate">{{listing.published | date }} </p>
+	</div>
+	<div id="listItemInfo">
+		{{listing.location.namedAreas[0]}} <br>
+		{{listing.listPrice | nfcurrency }} <br>
+		{{listing.livingArea | kvm }},  {{listing.rooms | room}} 		
+	</div>
+</div>		
