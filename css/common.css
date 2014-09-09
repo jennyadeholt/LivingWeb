@@ -285,6 +285,19 @@ p#listItemDate {
     top: -30px;
 }
 
+.negative {
+	color: #B80000 ;
+}
+
+#price {
+	right: 20px;
+	bottom: 20px;
+	position: absolute;
+	font-size: 18px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
 #autocomplete.ui-autocomplete-loading {
 	background-image: url(loading.gif);
 	background-position: right center;

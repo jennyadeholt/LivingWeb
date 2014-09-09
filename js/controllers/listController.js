@@ -72,6 +72,15 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 		return $scope.currentPage * $scope.pageSize;
 	}
 	
+	$scope.getView = function(listing) {
+		var template;
+		if (!listing.soldPrice || 0 === listing.soldPrice.length) {
+			template = 'listing';
+		} else {
+			template = 'sold';
+		}
+		return "templates/" + template + ".html";
+	}	
 } 
 
 function pageListings($scope, $filter, next) {

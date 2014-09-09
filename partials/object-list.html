@@ -4,7 +4,7 @@
 			<input ng-model="keywords" class="input-medium search-query" id="autocomplete" size="12" name="searchField" type="text" placeholder="Gata, ort eller kommun">
 			
 		</div>
-		<input type="checkbox" ng-model="soldObjects" name="soldItems" id="sold-checkbox" ng-change="search()" >Visa slutpriser
+		<input type="checkbox" ng-model="soldObjects" name="soldItems" id="sold-checkbox" ng-change="search()" >Visa slutpriser </input>
 		<button type="submit" id="searchButton" ng-click="search()">Search</button>
 		
 		<div id="sortingDiv"> 
@@ -21,8 +21,9 @@
 </div>
 <div class="content">
 	<div class="list">
-		<content-item ng-repeat="listing in listings | filter:query | orderBy:orderProp | pagination: getPagination() | limitTo: pageSize" class="listThumbnail" ng-click=itemClicked(listing) 			content="listing">							
-		</content-item>
+		<div ng-repeat="listing in listings | filter:query | orderBy:orderProp | pagination: getPagination() | limitTo: pageSize" class="listThumbnail" ng-click=itemClicked(listing) ng-include src="getView(listing)"> 
+		
+		</div>
 	</div>	
 
 	<div id="mapContainerList">

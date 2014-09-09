@@ -1,7 +1,7 @@
 
 var filters = angular.module('filters', []);
 
-filters.filter('nfcurrency', [ '$filter', '$locale', function ($filter, $locale) {
+filters.filter('nfcurrency', ['$filter', '$locale', function ($filter, $locale) {
 	var currency = $filter('currency'), formats = $locale.NUMBER_FORMATS;
 	return function (amount, symbol) {
 		var value = currency(amount, symbol);
@@ -14,13 +14,19 @@ filters.filter('nfcurrency', [ '$filter', '$locale', function ($filter, $locale)
 
 filters.filter('kvm', function() {
 	return function(input) {
-		return isEmpty(input) ? '- kvm' : input + ' kvm';
+		return setString(input, ' kvm');
+	};
+});
+
+filters.filter('procent', function($filter) {
+	return function(input) {
+		return setString($filter('number')(input * 100, 2), '%');
 	};
 });
 
 filters.filter('room', function() {
 	return function(input) {
-		return isEmpty(input) ? '- rum' : input + ' rum';
+		return setString(input, ' rum');
 	};
 });
 
@@ -30,6 +36,9 @@ filters.filter('pagination', function () {
 	}
 });
 
+function setString(input, text) {
+	return isEmpty(input) ? ' - ' + text : input + text;
+}
 
 function isEmpty(str) {
 	return (!str || 0 === str.length);

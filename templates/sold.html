@@ -11,4 +11,7 @@
 		{{listing.listPrice | nfcurrency }} - {{listing.soldPrice | nfcurrency }} <br>
 		{{listing.livingArea | kvm }},  {{listing.rooms | room}} 		
 	</div>
+	<div id="price" ng-class="{negative: ((listing.soldPrice-listing.listPrice) < 0)}">
+			{{((listing.soldPrice-listing.listPrice)/listing.listPrice) | procent}}
+	</div>
 </div>		
