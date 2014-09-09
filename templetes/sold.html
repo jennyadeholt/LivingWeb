@@ -1,14 +1,14 @@
 <div>
-	<img src="http://api.bcdn.se/cache/primary_{{sold.booliId}}_140x94.jpg" id="listItemImage" />
+	<img src="http://api.bcdn.se/cache/primary_{{content.booliId}}_140x94.jpg" id="listItemImage" />
 	<div>
-		<a href="#/bostad/{{listing.booliId}}">
-			<p id="listItemTitle">{{sold.location.address.streetAddress}}</p>
+		<a href="#/bostad/{{content.booliId}}">
+			<p id="listItemTitle">{{content.location.address.streetAddress}}</p>
 		</a>
-		<p id="listItemDate">{{sold.published | date }} </p>
+		<p id="listItemDate">{{content.published | date }} </p>
 	</div>
 	<div id="listItemInfo">
-		{{sold.location.namedAreas[0]}} <br>
-		{{sold.listPrice | nfcurrency }} - {{sold.soldPrice | nfcurrency }} <br>
-		{{sold.livingArea | kvm }},  {{listing.rooms | room}} 		
+		{{content.location.namedAreas[0]}} <br>
+		{{content.listPrice | nfcurrency }} - {{content.soldPrice | nfcurrency }} <br>
+		{{content.livingArea | kvm }},  {{content.rooms | room}} 		
 	</div>
 </div>		
