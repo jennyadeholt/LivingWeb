@@ -170,6 +170,15 @@ p#listItemDate {
 	margin-bottom: auto;
 }
 
+.listThumbnail #price {
+	right: 20px;
+	bottom: 20px;
+	position: absolute;
+	font-size: 18px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
 #paginationView {
     left: 390px;
 	position: relative;
@@ -240,7 +249,7 @@ p#listItemDate {
 
 #infoWindow {
 	margin: 10px;
-	min-width: 300px;
+	min-width: 330px;
 	white-space: nowrap;
 }
 
@@ -249,6 +258,13 @@ p#listItemDate {
 	left: 165px;
 	top: 45px;
 	white-space: nowrap;
+}
+
+#infoWindow #price {
+	right: 0px;
+	bottom: 8px;
+	position: absolute;
+	font-size: 18px;
 }
 
 #searchButton {
@@ -287,15 +303,6 @@ p#listItemDate {
 
 .negative {
 	color: #B80000 ;
-}
-
-#price {
-	right: 20px;
-	bottom: 20px;
-	position: absolute;
-	font-size: 18px;
-	margin-top: auto;
-	margin-bottom: auto;
 }
 
 #autocomplete.ui-autocomplete-loading {

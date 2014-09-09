@@ -8,7 +8,7 @@
 	</div>
 	<div id="listItemInfo">
 		{{listing.location.namedAreas[0]}} <br>
-		{{listing.listPrice | nfcurrency }} - {{listing.soldPrice | nfcurrency }} <br>
+        <b ng-class="{negative: ((listing.soldPrice-listing.listPrice) < 0)}"> {{listing.soldPrice | nfcurrency }} </b>  - {{listing.listPrice | nfcurrency }} <br>
 		{{listing.livingArea | kvm }},  {{listing.rooms | room}} 		
 	</div>
 	<div id="price" ng-class="{negative: ((listing.soldPrice-listing.listPrice) < 0)}">

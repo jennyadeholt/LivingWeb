@@ -122,21 +122,39 @@ function getLocation(listing) {
 
 function getInfoWindow(listing, $filter) {
 	return new google.maps.InfoWindow({
-		content: '<div id="infoWindow">'+
-		'<a href="#/bostad/' + listing.booliId + '">' +	
-		'<h2 id="firstHeading" class="firstHeading">'+ listing.location.address.streetAddress + '</h2>'+
-		'</a>' +
-		'<div id="bodyContent">'+
-		'<img src="http://api.bcdn.se/cache/primary_' + listing.booliId + '_140x94.jpg"></img>'+ 
-		'<div id="textInfo">'+
-		'<p>'+ $filter("nfcurrency")(listing.listPrice) + '</p>' + 
+		content: getContent(listing, $filter)
+	});
+}
+
+function getContent(listing, $filter) {
+	var content = '<div id="infoWindow">'+
+	'<a href="#/bostad/' + listing.booliId + '">' +	
+	'<h2 id="firstHeading" class="firstHeading">'+ listing.location.address.streetAddress + '</h2>'+
+	'</a>' +
+	'<div id="bodyContent">'+
+	'<img src="http://api.bcdn.se/cache/primary_' + listing.booliId + '_140x94.jpg"></img>'+ 
+	'<div id="textInfo">' ;
+		
+	if (!listing.soldPrice || 0 === listing.soldPrice.length) {
+		content += '<p>'+ $filter("nfcurrency")(listing.listPrice) + '</p>' + 
+		'<p>' + listing.objectType + '</p>' +
+		'<p>' + $filter("kvm")(listing.livingArea) + ", " + $filter("room")(listing.rooms) +'</p>' +
+		'</div>';
+	} else {
+		var negative = ((listing.soldPrice-listing.listPrice) < 0);	
+		
+		content += '<div><b ' + (negative ? " class=negative" : "") + '>'+ $filter("nfcurrency")(listing.soldPrice) + '</b> - '+ $filter("nfcurrency")(listing.listPrice) + '</div>' + 
 		'<p>' + listing.objectType + '</p>' +
 		'<p>' + $filter("kvm")(listing.livingArea) + ", " + $filter("room")(listing.rooms) +'</p>' +
 		'</div>'+	
-		'<p><a href="'+ listing.url + '" target="_blank">Mäklarbeskrivning</a></p>'+
-		'</div>'+
-		'</div>'
-	});
+		'<div id="price" ' + (negative ? " class=negative" : "") +'><p>' + $filter("procent")((listing.soldPrice-listing.listPrice)/listing.listPrice) + '</p></div>';
+	}
+		
+	content +=  '<p><a href="'+ listing.url + '" target="_blank">Mäklarbeskrivning</a></p>'+
+	'</div>'+
+	'</div>';
+	
+	return content;	
 }
 
 function toggleBounce() {
