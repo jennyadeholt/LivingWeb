@@ -1,54 +1,19 @@
 
-var sortOrder = '-published';
-
 function ListController($scope, $http, $filter, $q, BooliService) {
-
-	$scope.soldObjects = true;
-	$scope.keywords = 'Lund, Lund';
-	
-	$scope.currentPage = 0;
-	$scope.pageSize = 25;
-	$scope.count = 0;
-	$scope.listings = [];
-	$scope.data = [];
-	$scope.nbr = 0;
-	$scope.totalCount = 0;
 		
 	$scope.numberOfPages = function(){
 		return Math.ceil($scope.totalCount/$scope.pageSize);                
 	}
 		
-	setUpAutoComplete($scope, $http, BooliService);
-	$scope.orderProp = sortOrder;
-	
 	$scope.search = function(){
-		BooliService.getListings($scope, $http).then(function(response){			
-			
-			var objects = $scope.soldObjects ? response.data.sold : response.data.listings;
-			
-			if (response.data.offset === 0) {
-				$scope.totalCount = response.data.totalCount;
-				$scope.listings = objects;
-				$scope.currentPage = 0;
-				google.maps.event.addDomListener(window, 'load', $initializeListMap($scope, $filter));
-			} else {
-				$.each(objects, function(i, object) {
-					$scope.listings.push(object);
-				});
-			}	
-			$scope.nbr++;			
-			
-			if ($scope.totalCount - $scope.listings.length << 0) {
-				$scope.search();				
-			} else {
-				$scope.nbr = 0;
-			}			
-		}, function(error) {
-			console.log(error);
-		});
+		runSearch($scope, $http, $filter, BooliService);
 	}
 	
-	$scope.search();
+	$scope.updateSoldStatus = function() {
+		$scope.options = getOptions($scope);
+		$scope.orderProp = $scope.options[2].value;
+		$scope.search();	
+	}	
 	
 	$scope.previousPage = function() {
 		pageListings($scope, $filter, false);		
@@ -62,12 +27,10 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 	}
 	
 	$scope.newSearchOrder = function() {
-		if (sortOrder != $scope.orderProp ) {
-			$scope.currentPage = 0;
-			sortOrder = $scope.orderProp;
-			$updateListMap($scope, $filter);
-		}
+		$scope.currentPage = 0;
+		$updateListMap($scope, $filter);
 	}
+	
 	$scope.getPagination = function() {
 		return $scope.currentPage * $scope.pageSize;
 	}
@@ -81,11 +44,76 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 		}
 		return "templates/" + template + ".html";
 	}	
+	
+	$scope.init = function () {
+		$scope.soldObjects = true;
+		$scope.keywords = 'Lund, Lund';
+		$scope.orderProp = '-listPrice';
+		$scope.currentPage = 0;
+		$scope.pageSize = 25;
+		$scope.count = 0;
+		$scope.listings = [];
+		$scope.data = [];
+		$scope.nbr = 0;
+		$scope.totalCount = 0;
+	
+		$scope.options = getOptions($scope);
+        $scope.orderProp = '-listPrice';
+		
+		setUpAutoComplete($scope, $http, BooliService);	
+		$scope.search();
+	}	
 } 
+
+function runSearch($scope, $http, $filter, BooliService) {
+	BooliService.getListings($scope, $http).then(function(response){			
+		
+		var objects = $scope.soldObjects ? response.data.sold : response.data.listings;
+		
+		if (response.data.offset === 0) {
+			$scope.totalCount = response.data.totalCount;
+			$scope.listings = objects;
+			$scope.currentPage = 0;
+			google.maps.event.addDomListener(window, 'load', $initializeListMap($scope, $filter));
+		} else {
+			$.each(objects, function(i, object) {
+				$scope.listings.push(object);
+			});
+		}	
+		$scope.nbr++;			
+		
+		if ($scope.totalCount - $scope.listings.length << 0) {
+			$scope.search();				
+		} else {
+			$scope.nbr = 0;
+		}			
+	}, function(error) {
+		console.log(error);
+	});
+}
+
 
 function pageListings($scope, $filter, next) {
 	$scope.currentPage = $scope.currentPage + (next ? 1 : -1);
 	$updateListMap($scope, $filter);
+}
+
+function getOptions($scope){
+	if ($scope.soldObjects) {
+		return [
+		{'name': 'A-Ö', 'value' : 'location.address.streetAddress'},
+		{'name': 'Pris - stigande',  'value' : 'listPrice'},
+		{'name': 'Pris - fallande',  'value' : '-listPrice'}
+		];
+	} else { 
+		return  [
+		{'name': 'A-Ö', 'value' : 'location.address.streetAddress'},
+		{'name': 'Längst på Booli',  'value' : 'published'},
+		{'name': 'Senast publicerad',  'value' : '-published'},
+		{'name': 'Pris - stigande',  'value' : 'listPrice'},
+		{'name': 'Pris - fallande',  'value' : '-listPrice'}
+		];
+	}
 }
 	
 function setUpAutoComplete($scope, BooliService) {

@@ -1,20 +1,17 @@
-<div class="header">
+<div class="header" data-ng-init="init()">
 	<form class="well form-search">
 		<div id="customInputText">
 			<input ng-model="keywords" class="input-medium search-query" id="autocomplete" size="12" name="searchField" type="text" placeholder="Gata, ort eller kommun"></input>
 			
 		</div>
-		<input type="checkbox" ng-model="soldObjects" name="soldItems" id="sold-checkbox" ng-change="search()" >Visa slutpriser </input>
+		<input type="checkbox" ng-model="soldObjects" name="soldItems" id="sold-checkbox" ng-change="updateSoldStatus()">Visa slutpriser </input>
 		<button type="submit" id="searchButton" ng-click="search()">Search</button>
 		
 		<div id="sortingDiv"> 
 			Sortering: 
-			<select ng-model="orderProp" ng-change="newSearchOrder()">
-				<option value="location.address.streetAddress">A-Ö</option>
-				<option value="published">Längst på Booli</option>
-				<option value="-published">Senast publicerad</option>
-				<option value="listPrice ">Pris - stigande</option>
-				<option value="-listPrice ">Pris - fallande</option>
+			
+		    <select ng-model="orderProp" ng-change="newSearchOrder()">
+		        <option value="{{option.value}}" ng-repeat="option in options">{{option.name}}</option>
 			</select>
 		</div>
 	</form>	
