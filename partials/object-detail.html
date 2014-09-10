@@ -1,31 +1,25 @@
 
-<div class="content">
-	<div class="detailsThumbnail search-listing" >
-		<div>
-			<h1 id="listItemTitle">
-				{{listing.location.address.streetAddress}}, {{listing.location.namedAreas[0]}}
+<div class="content"  data-ng-init="init()">
+	<div class="detailsThumbnail">
+		<img src="http://api.bcdn.se/cache/primary_{{listing.booliId}}_140x94.jpg" id="listItemImage" />
+		<div id="listItemTitle">	
+			<h1>
+				{{listing.location.address.streetAddress}}
 			</h1>
-			<p id="listItemDate">
-				{{listing.published}} 
-			</p>
-		</div>
-			<img src="http://api.bcdn.se/cache/primary_{{listing.booliId}}_140x94.jpg" id="listItemImage" />
-		<div id="listItemInfo">
-			<br><b>Typ: </b> {{listing.objectType}} 
-			<br><b>Pris: </b> {{listing.listPrice | nfcurrency }}
-			<br><b>Rum: </b> {{listing.rooms}} 
-			<br><b>Boyta: </b> {{listing.livingArea | kvm }}  
-			<br><b>Biyta: </b> {{listing.additionalArea | kvm }}  
-			<br><b>Tomt: </b> {{listing.plotArea | kvm }}  
-			<br><b>Byggår: </b> {{listing.constructionYear}}
-			<br><b>Våning: </b> {{listing.floor}}
-			<br><b>Hyra: </b>{{listing.rent | nfcurrency }}
-			<br><b>Källa: </b>{{listing.source.name}}
-			<br>
+			<div ng-repeat="area in listing.location.namedAreas">{{area}}</div>
+			{{listing.objectType}} -  
 			<a href="{{listing.url}}" target="_blank">
 				Mäklarbeskrivning
 			</a>
-		</div>			
+			
+		</div>
+		<p id="listItemDate">
+			{{listing.published}} 
+		</p>
+		
+		<div id="listItemInfo" ng-include src="detailsUrl">		
+		</div>
+			
 		<div id="mapContainer">
 			<div id="map-canvas"></div>
 			<div>

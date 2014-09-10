@@ -3,7 +3,7 @@ var sortOrder = '-published';
 
 function ListController($scope, $http, $filter, $q, BooliService) {
 
-	$scope.soldObjects = false;
+	$scope.soldObjects = true;
 	$scope.keywords = 'Lund, Lund';
 	
 	$scope.currentPage = 0;

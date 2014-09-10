@@ -36,10 +36,12 @@ filters.filter('pagination', function () {
 	}
 });
 
+filters.filter('kvmprice', function($filter) {
+	return function(input) {
+		return setString($filter('number')(input, 0), ' kr/m²');
+	};
+});
+
 function setString(input, text) {
 	return isEmpty(input) ? ' - ' + text : input + text;
-}
-
-function isEmpty(str) {
-	return (!str || 0 === str.length);
 }

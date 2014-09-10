@@ -11,26 +11,46 @@ function BooliService(){
 		
 	this.getListings = function($scope, $http) {	
 		soldObjects = $scope.soldObjects;
-		
-		return $http({ 
-			method: 'GET', 
-			url: 'http://www.corsproxy.com/' + getBooliAPI($scope, this.showSoldObjects() ? 1 : 0),  
-			params : { format: "json" }, 
-			headers: {'Accept': 'application/json' }
-		});
+		return findListings($scope, $http);
 	};
 	
-	this.getListing = function($scope, $routeParams, $http) { 
-		$scope.booliId = $routeParams.booliId;
-
-		return $http({ 
-			method: 'GET', 
-			url: 'http://www.corsproxy.com/' + getBooliAPI($scope, this.showSoldObjects() ? 3 : 2),  
-			params : { format: "json" }, 
-			headers: {'Accept': 'application/json' }
+	this.getListing = function($scope, $http, booliId) { 
+		$scope.booliId = booliId;
+		
+		var p = findListing($scope, $http)
+		
+		p = p.catch(function() {
+			soldObjects = !soldObjects;
+			p = findListing($scope, $http);
+			return p;
 		});
+			
+		p = p.catch(function () {
+			return "Failure";
+		});
+		
+		return p;		
 	};
 }
+
+function findListing($scope, $http) {	
+	return $http({
+		method: 'GET',
+		url: 'http://www.corsproxy.com/' + getBooliAPI($scope, soldObjects ? 3 : 2),
+		params : { format: "json" },
+		headers: {'Accept': 'application/json' }
+	});
+}
+
+function findListings($scope, $http) {
+	return $http({ 
+		method: 'GET', 
+		url: 'http://www.corsproxy.com/' + getBooliAPI($scope, soldObjects ? 1 : 0),  
+		params : { format: "json" }, 
+		headers: {'Accept': 'application/json' }
+	});
+}
+
 
 function getBooliAPI($scope, param) {	
 	var offset = $scope.nbr === 0 ? 0 : $scope.nbr * 250;
@@ -41,9 +61,9 @@ function getBooliAPI($scope, param) {
 	case 1:
 		return "api.booli.se/sold?q=" + $scope.keywords + "&" + $auth($scope) + "&offset=" + offset;
 	case 2:
-		return "api.booli.se/listings/" + $scope.booliId + "?" + $auth($scope) + "&offset=" + offset;
+		return "api.booli.se/listings/" + $scope.booliId + "?" + $auth($scope);
 	case 3:
-		return "api.booli.se/sold/" + $scope.booliId + "?" + $auth($scope) + "&offset=" + offset;
+		return "api.booli.se/sold/" + $scope.booliId + "?" + $auth($scope);
 	}	
 }
 
@@ -63,25 +83,19 @@ var $getAreas = function($scope) {
 	return function(request, response) {
 		$scope.keywords = request.term;
 		var api = "http://www.corsproxy.com/api.booli.se/areas?q=" + request.term + "&" + $auth();
-		$.getJSON(api, {}, 
-			function(data) {
-				var array = data.error ? [] : $.map(data.areas, function(m) {
-					return {
-						label: m.fullName
-					};
-				});
-				response(array);
+		$.getJSON(api, {}, function(data) {
+			var array = data.error ? [] : $.map(data.areas, function(m) {
+				return {
+					label: m.fullName
+				};
 			});
+			response(array);
+		});
 	}
 }	
 
 var $time = Date.now || function() {
 	return +new Date;
-};
-
-function isEmpty(str) {
-	return (!str || 0 === str.length);
-}		
-			
-	
+};	
+				
 
