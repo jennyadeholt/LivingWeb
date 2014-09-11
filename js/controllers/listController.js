@@ -11,7 +11,7 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 	
 	$scope.updateSoldStatus = function() {
 		$scope.options = getOptions($scope);
-		$scope.orderProp = $scope.options[2].value;
+		$scope.orderProp = $scope.options[0].value;
 		$scope.search();	
 	}	
 	
@@ -48,7 +48,6 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 	$scope.init = function () {
 		$scope.soldObjects = true;
 		$scope.keywords = 'Lund, Lund';
-		$scope.orderProp = '-listPrice';
 		$scope.currentPage = 0;
 		$scope.pageSize = 25;
 		$scope.count = 0;
@@ -58,7 +57,7 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 		$scope.totalCount = 0;
 	
 		$scope.options = getOptions($scope);
-        $scope.orderProp = '-listPrice';
+        $scope.orderProp = $scope.options[0].value;
 		
 		setUpAutoComplete($scope, $http, BooliService);	
 		$scope.search();
@@ -75,7 +74,7 @@ function runSearch($scope, $http, $filter, BooliService) {
 			$scope.listings = objects;
 			$scope.currentPage = 0;
 			google.maps.event.addDomListener(window, 'load', $initializeListMap($scope, $filter));
-		} else {
+		} else if (objects){
 			$.each(objects, function(i, object) {
 				$scope.listings.push(object);
 			});
@@ -101,15 +100,18 @@ function pageListings($scope, $filter, next) {
 function getOptions($scope){
 	if ($scope.soldObjects) {
 		return [
+		{'name': 'Störst vinst',  'value' : '(listPrice-soldPrice)/listPrice'},
+		{'name': 'Lägst vinst',  'value' : '(soldPrice-listPrice)/listPrice'},
+		{'name': 'Senast såld',  'value' : '-soldDate'},
 		{'name': 'A-Ö', 'value' : 'location.address.streetAddress'},
 		{'name': 'Pris - stigande',  'value' : 'listPrice'},
 		{'name': 'Pris - fallande',  'value' : '-listPrice'}
 		];
 	} else { 
 		return  [
-		{'name': 'A-Ö', 'value' : 'location.address.streetAddress'},
-		{'name': 'Längst på Booli',  'value' : 'published'},
 		{'name': 'Senast publicerad',  'value' : '-published'},
+		{'name': 'Längst på Booli',  'value' : 'published'},
+		{'name': 'A-Ö', 'value' : 'location.address.streetAddress'},
 		{'name': 'Pris - stigande',  'value' : 'listPrice'},
 		{'name': 'Pris - fallande',  'value' : '-listPrice'}
 		];
