@@ -1,7 +1,8 @@
 
 var soldObjects;
 
-function BooliService(){   
+angular.module('livingWebApp') 
+.service('BooliService',function BooliService(){   
 	
 	soldObjects = false;
 	
@@ -11,8 +12,13 @@ function BooliService(){
 		
 	this.getListings = function($scope, $http) {	
 		soldObjects = $scope.soldObjects;
-		return findListings($scope, $http);
-	};
+		return $http({ 
+			method: 'GET', 
+			url: 'http://www.corsproxy.com/' + getBooliAPI($scope, soldObjects ? 1 : 0),  
+			params : { format: "json" }, 
+			headers: {'Accept': 'application/json' }
+		});
+	}
 	
 	this.getProfits = function($scope, $http) {	
 		return $http({ 
@@ -21,7 +27,7 @@ function BooliService(){
 			params : { format: "json" }, 
 			headers: {'Accept': 'application/json' }
 		});
-	};
+	}
 	
 	this.getListing = function($scope, $http, booliId) { 
 		$scope.booliId = booliId;
@@ -39,8 +45,8 @@ function BooliService(){
 		});
 		
 		return p;		
-	};
-}
+	}	
+});
 
 function findListing($scope, $http) {	
 	return $http({
@@ -51,19 +57,10 @@ function findListing($scope, $http) {
 	});
 }
 
-function findListings($scope, $http) {
-	return $http({ 
-		method: 'GET', 
-		url: 'http://www.corsproxy.com/' + getBooliAPI($scope, soldObjects ? 1 : 0),  
-		params : { format: "json" }, 
-		headers: {'Accept': 'application/json' }
-	});
-}
-
 
 function getBooliAPI($scope, param) {	
 	var offset = $scope.nbr === 0 ? 0 : $scope.nbr * 250;
-	
+
 	switch(param) {
 	case 0:
 		return "api.booli.se/listings?q=" + $scope.keywords + "&" + $auth($scope) + "&offset=" + offset;
@@ -75,6 +72,8 @@ function getBooliAPI($scope, param) {
 		return "api.booli.se/sold/" + $scope.booliId + "?" + $auth($scope);
 	}	
 }
+
+
 
 var $auth = function($scope) {
 	var callerId = "EasyLiving";

@@ -64,6 +64,7 @@ function drawCirles(objects, $filter) {
 		var location = getLocation(listing);		
 		var color = '#000000';
 		var opacity = 0.1;
+		var rooms = listing.rooms ? listing.rooms : 1;
 		if (listing.listPrice && listing.soldPrice) {
 			opacity = getOpacity(listing);
 			color = getColor(listing);
@@ -77,7 +78,7 @@ function drawCirles(objects, $filter) {
 			fillOpacity: opacity,
 			map: map,
 			center: location,
-			radius: 50
+			radius: 10 * rooms
 		};
 		var circle = new google.maps.Circle(populationOptions);
 	

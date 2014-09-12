@@ -3,10 +3,8 @@
 
 var App = angular.module('livingWebApp', [
 'ngRoute',
-//'controllers',
 'animations',
-'filters',
-'services'
+'filters'
 ])
 		
 App.config(['$routeProvider',
