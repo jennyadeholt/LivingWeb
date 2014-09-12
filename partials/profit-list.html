@@ -1,0 +1,66 @@
+<div class="header" data-ng-init="init()">
+	<form class="well form-search">
+		<div id="customInputText">
+			<input ng-model="keywords" class="input-medium search-query" id="autocomplete" size="12" name="searchField" type="text" placeholder="Gata, ort eller kommun"></input>
+		</div>
+		<button type="submit" id="searchButton" ng-click="searchObjects()">Search</button>
+	</form>	
+</div>
+<div class="content">
+	<div class="data">
+		<p id="listItemTitle">{{keywords}}, {{profits.length}} st</p>
+		<div id="listItemInfo">
+			<div id="item" ng-click=itemClicked(highest)>
+				<b>Störst vinst: </b> <br>	
+				{{highest.location.address.streetAddress}} : {{ highest.soldPrice-highest.listPrice |nfcurrency}}<br>	
+				<div id="price" ng-class="{negative: ((highest.soldPrice-highest.listPrice) < 0)}">
+					{{(highest.soldPrice - highest.listPrice)/highest.listPrice | procent}} 
+				</div>
+			</div>
+			
+			<div id="item" ng-click=itemClicked(lowest)>
+				<b>Minst vinst: </b> <br>
+				{{lowest.location.address.streetAddress}} : {{ lowest.soldPrice-lowest.listPrice | nfcurrency}}<br>	
+				<div id="price" ng-class="{negative: ((lowest.soldPrice-lowest.listPrice) < 0)}">
+					{{((lowest.soldPrice-lowest.listPrice)/lowest.listPrice) | procent}}
+				</div> 
+			</div>
+			
+			<div id="item" ng-click=itemClicked(highestPrice)>
+				<b>Dyrast: </b> <br>
+				{{highestPrice.location.address.streetAddress}} : {{ highestPrice.soldPrice |nfcurrency}}<br>	
+				<div id="price" ng-class="{negative: ((highestPrice.soldPrice-highestPrice.listPrice) < 0)}">
+					{{(highestPrice.soldPrice - highestPrice.listPrice)/highestPrice.listPrice | procent}} 
+				</div>
+			</div>
+			
+			<div id="item" ng-click=itemClicked(lowestPrice)>
+				<b>Billigast: </b> <br>
+				{{lowestPrice.location.address.streetAddress}} : {{ lowestPrice.soldPrice | nfcurrency}}<br>	
+				<div id="price" ng-class="{negative: ((lowestPrice.soldPrice-lowestPrice.listPrice) < 0)}">
+					{{((lowestPrice.soldPrice-lowestPrice.listPrice)/lowestPrice.listPrice) | procent}}
+				</div>
+			
+			</div>
+			
+			<div id="item"  ng-click=itemClicked(highestKvm)>
+				<b>Dyrast kvadratmeterpris: </b> <br>
+				{{highestKvm.location.address.streetAddress}} : {{ highestKvm.soldPrice/highestKvm.livingArea | kvmprice}}<br>	
+				<div id="price" ng-class="{negative: ((highestKvm.soldPrice-highestKvm.listPrice) < 0)}">
+					{{(highestKvm.soldPrice - highestKvm.listPrice)/highestKvm.listPrice | procent}} 
+				</div>
+			</div>
+			
+			<div id="item" ng-click=itemClicked(lowestKvm)>
+				<b>Billigast kvadratmeterpris: </b> <br>
+				{{lowestKvm.location.address.streetAddress}} : {{ lowestKvm.soldPrice/lowestKvm.livingArea | kvmprice}}<br>	
+				<div id="price" ng-class="{negative: ((lowestKvm.soldPrice-lowestKvm.listPrice) < 0)}">
+					{{(lowestKvm.soldPrice - lowestKvm.listPrice)/lowestKvm.listPrice | procent}} 
+				</div>
+			</div>			
+		</div>
+	</div>
+	<div id="mapContainerProfit">
+		<div id="map"></div>
+	</div>
+</div>

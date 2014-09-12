@@ -1,0 +1,51 @@
+.data {
+	width: 400px;
+	height: 577px;
+	border-radius: 4px;
+	background: none repeat scroll 0 0 #fff;
+	border: 1px solid #ddd;
+}
+
+.data #listItemTitle {
+	left: 15px;
+	position: relative;
+	top: 15px;
+}
+
+.data #listItemInfo {
+	left: 15px;
+	top: 25px;
+	position: relative;
+}
+
+.data #item {
+	left: 0px;
+	top: 25px;
+	position: relative;
+	font-size: 12px;
+	margin-top: auto;
+	margin-bottom: 15px;
+}
+
+
+.data #price {
+    float: right;
+    font-size: 20px;
+    position: relative;
+    right: 40px;
+    top: -28px
+}
+
+#mapContainerProfit #map {
+    width: 700px;
+    height: 577px;
+}
+
+#mapContainerProfit {
+	position: relative;
+	float: right;
+	right: 0;
+	top: -577px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}

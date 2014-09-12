@@ -14,6 +14,15 @@ function BooliService(){
 		return findListings($scope, $http);
 	};
 	
+	this.getProfits = function($scope, $http) {	
+		return $http({ 
+			method: 'GET', 
+			url: 'http://www.corsproxy.com/' + getBooliAPI($scope, 1),  
+			params : { format: "json" }, 
+			headers: {'Accept': 'application/json' }
+		});
+	};
+	
 	this.getListing = function($scope, $http, booliId) { 
 		$scope.booliId = booliId;
 		

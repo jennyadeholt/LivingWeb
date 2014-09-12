@@ -1,0 +1,72 @@
+.listThumbnail {
+	background-color: #fff;
+	border-bottom: 1px solid #ddd;
+	display: block;
+	position:relative;
+	height: 96px;
+	line-height: 1.42857;
+	width: 100%;
+	padding: 20px;
+	transition: all 0.2s ease-in-out 0s;
+}
+
+.listThumbnail #listItemTitle {
+	position: absolute;
+	left: 150px;
+	top: 5px;
+}
+
+.listThumbnail #listItemImage {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+.listThumbnail #listItemInfo {
+	left: 150px;
+	top: 25px;
+	position: absolute;
+	font-size: 12px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.listThumbnail #price {
+	right: 20px;
+	bottom: 20px;
+	position: absolute;
+	font-size: 18px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+#paginationView {
+	left: 390px;
+	position: relative;
+	top: 10px;
+}
+
+#map-canvas-list {
+	height: 577px;
+	width: 565px;
+	margin: 0;
+	padding: 0px
+}
+
+#mapContainerList {
+	float: right;
+	position: relative;
+	right: 0;
+	top: -577px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+#listItemTitle {
+	color: 666;
+	font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
+	font-size: 16px;
+	line-height: 1.42857;
+	padding-bottom: 10px;
+}
+

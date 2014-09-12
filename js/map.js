@@ -1,4 +1,5 @@
 var map;
+
 var mapOptions;
 
 var currentInfoWindow;
@@ -119,6 +120,7 @@ function getLocation(listing) {
 	var location  = listing.location.position;
 	return new google.maps.LatLng(location.latitude, location.longitude);	 
 }
+
 
 function getInfoWindow(listing, $filter) {
 	return new google.maps.InfoWindow({

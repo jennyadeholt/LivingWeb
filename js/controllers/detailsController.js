@@ -1,5 +1,6 @@
 
-function DetailsController($scope, $routeParams, $http, $location, BooliService) {			
+angular.module('livingWebApp') 
+.controller('DetailsCtrl', function DetailsController($scope, $routeParams, $http, $location, BooliService) {			
 	$scope.init = function () {
 		BooliService.getListing($scope, $http, $routeParams.booliId).then(function(response) {
 			$scope.listing = response.data.sold ? response.data.sold[0] :response.data.listings[0] ;
@@ -14,4 +15,4 @@ function DetailsController($scope, $routeParams, $http, $location, BooliService)
 	$scope.openUrl = function(url){
 		window.open(url), "_blank";
 	};
-}	
+});	

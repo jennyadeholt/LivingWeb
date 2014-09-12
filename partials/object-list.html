@@ -4,12 +4,11 @@
 			<input ng-model="keywords" class="input-medium search-query" id="autocomplete" size="12" name="searchField" type="text" placeholder="Gata, ort eller kommun"></input>
 			
 		</div>
-		<input type="checkbox" ng-model="soldObjects" name="soldItems" id="sold-checkbox" ng-change="updateSoldStatus()">Visa slutpriser </input>
+		<input type="checkbox" ng-model="soldObjects" name="soldItems" id="sold-checkbox" ng-change="updateSoldStatus()">Visa slutpriser</input>
 		<button type="submit" id="searchButton" ng-click="search()">Search</button>
 		
 		<div id="sortingDiv"> 
-			Sortering: 
-			
+			Sortering: 			
 		    <select ng-model="orderProp" ng-change="newSearchOrder()">
 		        <option value="{{option.value}}" ng-repeat="option in options">{{option.name}}</option>
 			</select>
@@ -27,7 +26,11 @@
 	</div>
 	<div id="paginationView">
 		<button ng-click="previousPage()" ng-hide="currentPage == 0">Föregående</button>
-		{{currentPage +1 }} / {{numberOfPages()}}
+		{{ currentPage +1 }} / {{numberOfPages()}}
 		<button ng-hide="currentPage >= totalCount/pageSize - 1" ng-click="nextPage()">Nästa</button>
 	</div>
 </div>
+
+		<a href="#/profit">
+			Vinstkarta
+		</a>

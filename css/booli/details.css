@@ -1,0 +1,58 @@
+
+.detailsThumbnail {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	display: block;
+	position:relative;
+	height: 500px;
+	line-height: 1.42857;
+	margin-bottom: 20px;
+	max-width: 100%;
+	padding: 20px;
+	transition: all 0.2s ease-in-out 0s;
+}
+
+
+.detailsThumbnail #listItemInfo {
+	font-size: 12px;
+	left: 30px;
+	margin-bottom: auto;
+	margin-top: auto;
+	position: absolute;
+	top: 130px;
+}
+
+.detailsThumbnail img {
+	left: 30px;
+	position: absolute;
+	top: 30px;
+}
+
+.detailsThumbnail #listItemTitle {
+	left: 190px;
+	position: absolute;
+	top: 32px;
+}
+
+.detailsThumbnail #price {
+	font-size: 30px;
+	margin-bottom: auto;
+	margin-top: auto;
+	position: absolute;
+	right: -450px;
+	top: -70px
+}
+
+#mapContainer {
+	position:absolute; 
+	top: 53px; 
+	right: 20px;
+}
+
+#map-canvas {
+	height: 400px;
+	width: 400px;
+	margin: 0;
+	padding: 0px
+}

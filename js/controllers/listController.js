@@ -1,5 +1,6 @@
 
-function ListController($scope, $http, $filter, $q, BooliService) {
+angular.module('livingWebApp') 
+.controller('ListCtrl', function ListController($scope, $http, $filter, $q, BooliService) {
 		
 	$scope.numberOfPages = function(){
 		return Math.ceil($scope.totalCount/$scope.pageSize);                
@@ -10,6 +11,7 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 	}
 	
 	$scope.updateSoldStatus = function() {
+		$scope.currentPage = 0;
 		$scope.options = getOptions($scope);
 		$scope.orderProp = $scope.options[0].value;
 		$scope.search();	
@@ -36,17 +38,16 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 	}
 	
 	$scope.getView = function(listing) {
-		var template;
-		if (!listing.soldPrice || 0 === listing.soldPrice.length) {
-			template = 'listing';
-		} else {
-			template = 'sold';
-		}
-		return "templates/" + template + ".html";
+		var temp = isEmpty(listing.soldPrice) ? 'listing' : 'sold';
+		return "templates/" + temp + ".html";
+	}	
+	
+	$scope.getListView = function() {
+		return "templates/objectList.html";
 	}	
 	
 	$scope.init = function () {
-		$scope.soldObjects = true;
+		$scope.soldObjects = false;
 		$scope.keywords = 'Lund, Lund';
 		$scope.currentPage = 0;
 		$scope.pageSize = 25;
@@ -57,12 +58,12 @@ function ListController($scope, $http, $filter, $q, BooliService) {
 		$scope.totalCount = 0;
 	
 		$scope.options = getOptions($scope);
-        $scope.orderProp = $scope.options[0].value;
+		$scope.orderProp = $scope.options[0].value;
 		
 		setUpAutoComplete($scope, $http, BooliService);	
 		$scope.search();
 	}	
-} 
+}); 
 
 function runSearch($scope, $http, $filter, BooliService) {
 	BooliService.getListings($scope, $http).then(function(response){			
@@ -140,4 +141,8 @@ function setUpAutoComplete($scope, BooliService) {
 			$(this).autocomplete('close');
 		}
 	});	
+}
+
+function isEmpty(str) {
+	return (!str || 0 === str.length);
 }
