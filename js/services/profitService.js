@@ -22,7 +22,7 @@ angular.module('livingWebApp')
 	}
 	
 	var roundNumber = function(number) { 
-		return Math.round(number * Math.pow(10, 0)) / Math.pow(10, 0);
+		return parseInt(number);
 	}
 	
 	var getKvmValues = function(objects){
@@ -45,6 +45,17 @@ angular.module('livingWebApp')
 			return curr.data.length < acc.data.length ? acc : curr;
 		});
 		
+		result = numbers.map(function(number){
+			return {
+				number : number, 
+				data   : result.data.filter(function(item){
+			 	   	var n = getKvm(item);
+					return  roundNumber((n - roundNumber(n / 1000) * 1000)/100) == number;
+				})
+			};
+		}).reduce(function(acc, curr) {
+			return curr.data.length < acc.data.length ? acc : curr;
+		});
 		
 		
 		return result;
@@ -116,11 +127,8 @@ angular.module('livingWebApp')
 	}
 	
 	this.getTypeValue = function(objects) {
-		var result = getTypeValue(objects, 1000);
-		return this.getKvmPrice(result.data);
-	}
-	
-	
+		return this.getKvmPrice(getTypeValue(objects, 1000).data);
+	}	
 });
 
 
