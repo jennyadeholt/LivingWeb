@@ -25,12 +25,15 @@ angular.module('livingWebApp')
 			}	
 			
 			if ($scope.profits) {
-				$scope.highest = ProfitService.getHighest($scope);
-				$scope.lowest = ProfitService.getLowest($scope);
-				$scope.highestPrice = ProfitService.getHighestPrice($scope);
-				$scope.lowestPrice = ProfitService.getLowestPrice($scope);
-				$scope.highestKvm = ProfitService.getHighestKvm($scope);
-				$scope.lowestKvm = ProfitService.getLowestKvm($scope);
+				$scope.highest = ProfitService.getProcent($scope.profits, true);
+				$scope.lowest = ProfitService.getProcent($scope.profits, false);
+				$scope.highestPrice = ProfitService.getPrice($scope.profits, true);
+				$scope.lowestPrice = ProfitService.getPrice($scope.profits, false);
+				$scope.highestKvm = ProfitService.getKvm($scope.profits, true);
+				$scope.lowestKvm = ProfitService.getKvm($scope.profits, false);
+				$scope.kvmPrice = ProfitService.getKvmPrice($scope.profits);
+				$scope.medianKvm = ProfitService.getMedianKvm($scope.profits);
+				$scope.typeValue = ProfitService.getTypeValue($scope.profits);
 			}		
 					
 		}, function(error) {
@@ -67,7 +70,7 @@ angular.module('livingWebApp')
 	}
 	
 	$scope.init = function () {
-		$scope.keywords = 'Malmö Centrum, Centrum Malmö, Malmö';
+		$scope.keywords = 'Davidshall, Malmö';
 		$scope.profits = [];
 		$scope.data = [];
 		$scope.nbr = 0;

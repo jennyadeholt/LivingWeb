@@ -9,10 +9,46 @@
 <div class="content">
 	<div class="data">
 		<p id="listItemTitle">{{keywords}}, {{profits.length}} st</p>
+		
+		<div id="kvmInfo">
+			<b>Kvadratmeterpris</b> <br> 
+			<div ng-click=itemClicked(highestKvm)>
+				Dyrast ({{highestKvm.location.address.streetAddress}}):
+				<div id="kvmPrice">
+					{{ highestKvm.soldPrice/highestKvm.livingArea | kvmprice}} 
+				</div>
+			</div> 
+			<div ng-click=itemClicked(lowestKvm)>
+				Billigast ({{lowestKvm.location.address.streetAddress}}): 
+				<div id="kvmPrice">
+					{{ lowestKvm.soldPrice/lowestKvm.livingArea | kvmprice}}
+				</div>
+			</div>
+			Medelvärde: 
+			<div id="kvmPrice">
+				{{kvmPrice | kvmprice}} 
+			</div> 
+			<br>
+			Medianvärde: 
+			<div id="kvmPrice">
+				{{medianKvm | kvmprice }} 
+			</div> 
+			<br>
+			Typvärde: 
+			<div id="kvmPrice">
+				{{ typeValue | kvmprice }} 
+			</div>
+			<br>
+			Variationsbredd: 
+			<div id="kvmPrice">
+				{{ highestKvm.soldPrice/highestKvm.livingArea - lowestKvm.soldPrice/lowestKvm.livingArea | kvmprice }} 
+			</div> 
+			<br>
+		</div>
 		<div id="listItemInfo">
 			<div id="item" ng-click=itemClicked(highest)>
 				<b>Störst vinst: </b> <br>	
-				{{highest.location.address.streetAddress}} : {{ highest.soldPrice-highest.listPrice |nfcurrency}}<br>	
+				{{highest.location.address.streetAddress}} : {{ highest.soldPrice-highest.listPrice | nfcurrency}}<br>	
 				<div id="price" ng-class="{negative: ((highest.soldPrice-highest.listPrice) < 0)}">
 					{{(highest.soldPrice - highest.listPrice)/highest.listPrice | procent}} 
 				</div>
@@ -41,23 +77,7 @@
 					{{((lowestPrice.soldPrice-lowestPrice.listPrice)/lowestPrice.listPrice) | procent}}
 				</div>
 			
-			</div>
-			
-			<div id="item"  ng-click=itemClicked(highestKvm)>
-				<b>Dyrast kvadratmeterpris: </b> <br>
-				{{highestKvm.location.address.streetAddress}} : {{ highestKvm.soldPrice/highestKvm.livingArea | kvmprice}}<br>	
-				<div id="price" ng-class="{negative: ((highestKvm.soldPrice-highestKvm.listPrice) < 0)}">
-					{{(highestKvm.soldPrice - highestKvm.listPrice)/highestKvm.listPrice | procent}} 
-				</div>
-			</div>
-			
-			<div id="item" ng-click=itemClicked(lowestKvm)>
-				<b>Billigast kvadratmeterpris: </b> <br>
-				{{lowestKvm.location.address.streetAddress}} : {{ lowestKvm.soldPrice/lowestKvm.livingArea | kvmprice}}<br>	
-				<div id="price" ng-class="{negative: ((lowestKvm.soldPrice-lowestKvm.listPrice) < 0)}">
-					{{(lowestKvm.soldPrice - lowestKvm.listPrice)/lowestKvm.listPrice | procent}} 
-				</div>
-			</div>			
+			</div>		
 		</div>
 	</div>
 	<div id="mapContainerProfit">

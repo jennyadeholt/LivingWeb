@@ -18,6 +18,13 @@
 	position: relative;
 }
 
+.data #kvmInfo {
+	left: 15px;
+	top: 25px;
+	position: relative;
+	line-height: 22px;
+}
+
 .data #item {
 	left: 0px;
 	top: 25px;
@@ -27,18 +34,33 @@
 	margin-bottom: 15px;
 }
 
+.data #address {
+	left: 0px;
+	top: 25px;
+	position: relative;
+	font-size: 12px;
+	margin-top: auto;
+	margin-bottom: 15px;
+}
+
+.data #kvmPrice {
+	float: right;
+	position: relative;
+	right: 40px;
+	top: 0;
+}
 
 .data #price {
-    float: right;
-    font-size: 20px;
-    position: relative;
-    right: 40px;
-    top: -28px
+	float: right;
+	font-size: 20px;
+	position: relative;
+	right: 40px;
+	top: -28px
 }
 
 #mapContainerProfit #map {
-    width: 700px;
-    height: 577px;
+	width: 700px;
+	height: 577px;
 }
 
 #mapContainerProfit {

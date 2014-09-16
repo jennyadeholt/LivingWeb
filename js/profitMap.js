@@ -28,7 +28,10 @@ var $initializeProfitMap = function($scope, $filter) {
 var $updateProfitInfoWindow = function($listing, $filter) {
 	$.each(ids, function(i, id) {
 		if (id == $listing.booliId) {
-			showInfoWindow($listing, circles[i], $filter);
+			var circle = circles[i];
+			if (circle) {
+				showInfoWindow($listing, circles[i], $filter);
+			}
 		}
 	});	
 }
@@ -55,8 +58,7 @@ var $redrawProfitMap = function($scope, $filter) {
 		profitMapBounds = new google.maps.LatLngBounds();		
 	
 		drawCirles(objects, $filter);
-	}		
-	
+	}			
 }
 
 function drawCirles(objects, $filter) {
@@ -85,7 +87,6 @@ function drawCirles(objects, $filter) {
 		profitMapBounds.extend(location);
 		
 		google.maps.event.addListener(circle, 'click', function() {
-			console.log("clicked on cirle " + listing.location.address.streetAddress);
 			showInfoWindow(listing, circle, $filter);
 		});	
 		
