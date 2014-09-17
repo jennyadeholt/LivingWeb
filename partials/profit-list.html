@@ -4,55 +4,71 @@
 			<input ng-model="keywords" class="input-medium search-query" id="autocomplete" size="12" name="searchField" type="text" placeholder="Gata, ort eller kommun"></input>
 		</div>
 		<button type="submit" id="searchButton" ng-click="searchObjects()">Search</button>
-	</form>	
+	</form>
 </div>
 <div class="content">
 	<div class="data">
 		<p id="listItemTitle">{{keywords}}, {{profits.length}} st</p>
-		
+
 		<div id="kvmInfo">
-			<b>Kvadratmeterpris</b> <br> 
+			<b>Kvadratmeterpris</b> <br>
 			<div ng-click=itemClicked(highestKvm)>
-				Dyrast ({{highestKvm.location.address.streetAddress}}):
+				Dyrast ({{highestKvm.location.address.streetAddress}})
 				<div id="kvmPrice">
-					{{ highestKvm.soldPrice/highestKvm.livingArea | kvmprice}} 
+					{{ highestKvm.soldPrice/highestKvm.livingArea | kvmprice}}
 				</div>
-			</div> 
+			</div>
 			<div ng-click=itemClicked(lowestKvm)>
-				Billigast ({{lowestKvm.location.address.streetAddress}}): 
+				Billigast ({{lowestKvm.location.address.streetAddress}})
 				<div id="kvmPrice">
 					{{ lowestKvm.soldPrice/lowestKvm.livingArea | kvmprice}}
 				</div>
 			</div>
-			Medelvärde: 
+			Medelvärde
 			<div id="kvmPrice">
-				{{kvmPrice | kvmprice}} 
-			</div> 
-			<br>
-			Medianvärde: 
-			<div id="kvmPrice">
-				{{medianKvm | kvmprice }} 
-			</div> 
-			<br>
-			Typvärde: 
-			<div id="kvmPrice">
-				{{ typeValue | kvmprice }} 
+				{{kvmPrice | kvmprice}}
 			</div>
 			<br>
-			Variationsbredd: 
+			Medianvärde
 			<div id="kvmPrice">
-				{{ highestKvm.soldPrice/highestKvm.livingArea - lowestKvm.soldPrice/lowestKvm.livingArea | kvmprice }} 
-			</div> 
+				{{medianKvm | kvmprice }}
+			</div>
+			<br>
+			Variationsbredd
+			<div id="kvmPrice">
+				{{ highestKvm.soldPrice/highestKvm.livingArea - lowestKvm.soldPrice/lowestKvm.livingArea | kvmprice }}
+			</div>
 			<br>
 		</div>
 		<div class="list">
 			<div ng-repeat="broker in brokers">
-				<b>{{broker.broker}}</b> {{broker.listings.length}} <br>
-				Medelvärde {{broker.averageKvmPrice | kvmprice }} <br>
-				Medianvärde  {{broker.medianKvmPrice | kvmprice }} <br>
-				Högsta värde {{broker.highestKvmPrice | kvmprice }} <br>
-			    Lägsta värde {{broker.lowestKvmPrice | kvmprice }} <br>
-				Variation {{broker.variationKvmPrice | kvmprice }} <br>
+				<div id="broker">
+					<b>{{broker.broker}}</b>, {{broker.listings.length}} st<br>
+					Dyrast
+					<div id="kvmPrice" ng-class="{negative: ((broker.highestKvmPrice-kvmPrice) < 0), positive: ((broker.highestKvmPrice-highestKvm.soldPrice/highestKvm.livingArea) == 0)}">
+						{{broker.highestKvmPrice | kvmprice }}
+					</div>
+					<br>
+					Billigast
+					<div id="kvmPrice" ng-class="{positive: ((broker.lowestKvmPrice-kvmPrice) > 0)}">
+						{{broker.lowestKvmPrice | kvmprice }}
+					</div>
+					<br>
+					Medelvärde
+					<div id="kvmPrice" ng-class="{negative: ((broker.averageKvmPrice-kvmPrice) < 0), positive: ((broker.averageKvmPrice-kvmPrice) > 0)}">
+						{{broker.averageKvmPrice | kvmprice }}
+					</div>
+					<br>
+					Medianvärde
+					<div id="kvmPrice" ng-class="{negative: ((broker.medianKvmPrice-medianKvm) < 0), positive: ((broker.medianKvmPrice-medianKvm) > 0)}">
+						{{broker.medianKvmPrice | kvmprice }}
+					</div>
+					<br>
+					Variationsbredd
+					<div id="kvmPrice" ng-class="{negative: ((broker.variationKvmPrice-(highestKvm.soldPrice/highestKvm.livingArea - lowestKvm.soldPrice/lowestKvm.livingArea))) < 0)}">
+						{{broker.variationKvmPrice | kvmprice }}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

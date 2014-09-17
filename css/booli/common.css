@@ -105,7 +105,7 @@ p#listItemDate {
 .list {
 	width: 565px;
 	height: 577px;
-	overflow-y: scroll; 
+	overflow-y: scroll;
 	border-radius: 4px;
 	background: none repeat scroll 0 0 #fff;
 	border: 1px solid #ddd;
@@ -196,9 +196,12 @@ p#listItemDate {
 	color: #B80000 ;
 }
 
+.positive {
+	font-weight: bold;
+}
+
 #autocomplete.ui-autocomplete-loading {
 	background-image: url(loading.gif);
 	background-position: right center;
 	background-repeat: no-repeat;
 }
-	

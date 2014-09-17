@@ -1,30 +1,30 @@
-angular.module('livingWebApp') 
-.service('ProfitService', function ProfitService(){  
-	
+angular.module('livingWebApp')
+.service('ProfitService', function ProfitService(){
+
 	this.getPercent = function(objects, high) {
 		return objects.reduce(high ? getHigh(getProcent) : getLow(getProcent));
 	}
-	
+
 	this.getPrice = function(objects, high) {
-		return getKvmValues(objects).reduce(high ? getHigh(getSoldPrice) : getLow(getSoldPrice));		
+		return getKvmValues(objects).reduce(high ? getHigh(getSoldPrice) : getLow(getSoldPrice));
 	}
-	
+
 	this.getKvmPrice = function (objects, high) {
 		return getKvmValues(objects).reduce(high ? getHigh(getKvmPrice) : getLow(getKvmPrice));
-	}	
-		
+	}
+
 	this.getAverageKvmPrice = function (objects) {
 		return getAverageKvmPrice(objects);
 	}
-	
+
 	this.getMedianKvmPrice = function(objects) {
 		return getMedianKvmPrice(objects);
 	}
-	
+
 	this.getTypeValueKvmPrice = function(objects) {
 		return getTypeValueForKvmPrice(objects);
 	}
-		
+
 	this.getBrokers = function(objects) {
 		var brokers = objects.map(function(listing){
 			return listing.source.name;
@@ -34,9 +34,9 @@ angular.module('livingWebApp')
 			}
 			return a;
 		},[]).map(function(broker){
-			var brokerObjects = getBrokerObjects(objects, broker);	
+			var brokerObjects = getBrokerObjects(objects, broker);
 			var highestKvmPrice = getKvmPrice(brokerObjects.reduce(getHigh(getKvmPrice)));
-			var lowestKvmPrice = getKvmPrice(brokerObjects.reduce(getLow(getKvmPrice)));		
+			var lowestKvmPrice = getKvmPrice(brokerObjects.reduce(getLow(getKvmPrice)));
 			return {
 				broker : broker,
 				listings : brokerObjects,
@@ -44,24 +44,24 @@ angular.module('livingWebApp')
 				medianKvmPrice : getMedianKvmPrice(brokerObjects),
 				highestKvmPrice : highestKvmPrice,
 				lowestKvmPrice : lowestKvmPrice,
-				variationKvmPrice : highestKvmPrice - lowestKvmPrice 				
+				variationKvmPrice : highestKvmPrice - lowestKvmPrice
 			}
 		})
-		
-		return brokers.sort(function(x, y) { 
+
+		return brokers.sort(function(x, y) {
 			return x.listings.length < y.listings.length ? 1 : -1;
 		});
 	}
 
-	var getBrokerObjects = function(objects, broker){	
+	var getBrokerObjects = function(objects, broker){
 		return objects.filter(function(listing) {
 			return listing.source.name == broker;
 		});
 	}
-				
+
 	var getTypeValueForKvmPrice = function(objects){
 		var numbers = Array.apply(null, {length: 100}).map(Number.call, Number);
-		
+
 		var result = numbers.map(function(number){
 			return {
 				number : number,
@@ -70,22 +70,22 @@ angular.module('livingWebApp')
 				})
 			};
 		}).reduce(getLength);
-		
+
 		result = numbers.map(function(number){
 			return {
-				number : number, 
+				number : number,
 				data   : result.data.filter(function(item){
 					return roundNumber((item - roundNumber(item / 1000) * 1000) / 100) == number;
 				})
 			};
 		}).reduce(getLength);
-		
+
 		return result.data.reduce(getSum) / result.data.length;
 	}
-	
-	var getMedianKvmPrice = function(objects) {
-		var objects = getKvmValues(objects).map(getKvmPrice).sort(orderBySize);
-		
+
+	var getMedianKvmPrice = function(objects) { 	var objects =
+	getKvmValues(objects).map(getKvmPrice).sort(orderBySize);
+
 		if (objects.length == 1) {
 			return objects[0];
 		} else if (objects.length % 2 == 0) {
@@ -95,46 +95,46 @@ angular.module('livingWebApp')
 			return  (objects[i] + objects[i - 1]) / 2;
 		}
 	}
-	
-	var getAverageKvmPrice = function(objects) {	
+
+	var getAverageKvmPrice = function(objects) {
 		var result = getKvmValues(objects);
 		return result.map(getKvmPrice).reduce(getSum, []) / result.length;
 	}
-	
+
 	var getHigh = function(x) {
 		return function(acc, curr) {
 			return x(acc) < x(curr) ?  curr : acc;
 		}
 	}
-	
+
 	var getLow = function(x) {
 		return function(acc, curr) {
 			return x(acc) < x(curr) ? acc : curr;
 		}
 	}
-	
+
 	var getKvmValues = function(objects){
 		return objects.filter(function(listing) {
 			return hasKvmPrice(listing);
 		});
 	}
-	
+
 	var hasKvmPrice = function(object){
 		return hasValue(getSoldPrice(object)) && hasValue(getLivingArea(object));
 	}
-	
+
 	var getSum = function(acc, curr) {
 		return (+acc) + (+curr);
 	}
-	
+
 	var getLength = function(acc, curr){
 		return curr.data.length < acc.data.length ? acc : curr;
 	}
-	
-	var orderBySize = function(x, y) { 
+
+	var orderBySize = function(x, y) {
 		return x < y ? 1 : -1;
 	}
-	
+
 	var hasValue = function(str) {
 		return str && 0 != str.length && !isNaN(str);
 	}
@@ -146,27 +146,25 @@ angular.module('livingWebApp')
 	var getProcent = function(object) {
 		return getDifference(object) / getListPrice(object);
 	}
-	
-	var roundNumber = function(number) { 
+
+	var roundNumber = function(number) {
 		return parseInt(number);
 	}
-	
+
 	var getKvmPrice = function(object) {
 		return getSoldPrice(object) / getLivingArea(object);
 	}
-	
+
 	var getSoldPrice = function(object) {
 		return object.soldPrice;
 	}
-	
+
 	var getListPrice = function(object) {
 		return object.listPrice;
 	}
-	
+
 	var getLivingArea = function(object) {
 		return object.livingArea;
 	}
+
 });
-
-
-	

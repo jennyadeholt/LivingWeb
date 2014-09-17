@@ -60,12 +60,21 @@
 }
 
 .data .list {
-	height: 400px;
-	width: 400px;	
-	overflow-y: scroll; 
+	height: 352px;
+	width: 399px;
+	overflow-y: scroll;
 	border-radius: 4px;
 	background: none repeat scroll 0 0 #fff;
 	border: 1px solid #ddd;
+}
+
+.data #broker #kvmPrice {
+	right: 10px;
+}
+
+.data #broker {
+	padding: 15px;
+	border-bottom: 1px solid #ddd;
 }
 
 #mapContainerProfit #map {
