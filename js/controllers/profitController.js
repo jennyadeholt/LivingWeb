@@ -36,6 +36,7 @@ angular.module('livingWebApp')
 				$scope.kvmPrice = ProfitService.getAverageKvmPrice($scope.profits);
 				$scope.medianKvm = ProfitService.getMedianKvmPrice($scope.profits);
 				$scope.typeValue = ProfitService.getTypeValueKvmPrice($scope.profits);
+				
 			}		
 					
 		}, function(error) {
@@ -76,6 +77,7 @@ angular.module('livingWebApp')
 		$scope.profits = [];
 		$scope.data = [];
 		$scope.nbr = 0;
+		$scope.orderProp = '-highestKvmPrice';
 		
 		$scope.setUpAutoComplete($scope, $http, BooliService);	
 		$scope.searchObjects();

@@ -2,15 +2,17 @@ angular.module('livingWebApp')
 .service('ProfitService', function ProfitService(){
 
 	this.getPercent = function(objects, high) {
-		return objects.reduce(high ? getHigh(getProcent) : getLow(getProcent));
+		return high ? getHigh(objects, getProcent) : getLow(objects, getProcent);
 	}
 
 	this.getPrice = function(objects, high) {
-		return getKvmValues(objects).reduce(high ? getHigh(getSoldPrice) : getLow(getSoldPrice));
+		objects = getKvmValues(objects);
+		return high ? getHigh(objects, getSoldPrice) : getLow(objects, getSoldPrice);
 	}
 
 	this.getKvmPrice = function (objects, high) {
-		return getKvmValues(objects).reduce(high ? getHigh(getKvmPrice) : getLow(getKvmPrice));
+		objects = getKvmValues(objects);
+		return high ? getHigh(objects, getKvmPrice) : getLow(objects, getKvmPrice);
 	}
 
 	this.getAverageKvmPrice = function (objects) {
@@ -35,8 +37,8 @@ angular.module('livingWebApp')
 			return a;
 		},[]).map(function(broker){
 			var brokerObjects = getBrokerObjects(objects, broker);
-			var highestKvmPrice = getKvmPrice(brokerObjects.reduce(getHigh(getKvmPrice)));
-			var lowestKvmPrice = getKvmPrice(brokerObjects.reduce(getLow(getKvmPrice)));
+			var highestKvmPrice = getKvmPrice(getHigh(brokerObjects, getKvmPrice));
+			var lowestKvmPrice = getKvmPrice(getLow(brokerObjects, getKvmPrice));
 			return {
 				broker : broker,
 				listings : brokerObjects,
@@ -48,9 +50,11 @@ angular.module('livingWebApp')
 			}
 		})
 
-		return brokers.sort(function(x, y) {
-			return x.listings.length < y.listings.length ? 1 : -1;
-		});
+
+		return brokers;	
+		//return brokers.sort(function(x, y) {
+		//	return x.listings.length < y.listings.length ? 1 : -1;
+		//});
 	}
 
 	var getBrokerObjects = function(objects, broker){
@@ -100,17 +104,17 @@ angular.module('livingWebApp')
 		var result = getKvmValues(objects);
 		return result.map(getKvmPrice).reduce(getSum, []) / result.length;
 	}
-
-	var getHigh = function(x) {
-		return function(acc, curr) {
+	
+	var getHigh = function(objects, x) {
+		return objects.reduce(function(acc, curr){
 			return x(acc) < x(curr) ?  curr : acc;
-		}
+		})
 	}
 
-	var getLow = function(x) {
-		return function(acc, curr) {
+	var getLow = function(objects, x) {
+		return objects.reduce(function(acc, curr) {
 			return x(acc) < x(curr) ? acc : curr;
-		}
+		})
 	}
 
 	var getKvmValues = function(objects){
