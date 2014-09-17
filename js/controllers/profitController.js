@@ -70,7 +70,7 @@ angular.module('livingWebApp')
 	}
 	
 	$scope.init = function () {
-		$scope.keywords = 'Davidshall, Malmö';
+		$scope.keywords = 'Karups Nygård, Sjöbo';
 		$scope.profits = [];
 		$scope.data = [];
 		$scope.nbr = 0;

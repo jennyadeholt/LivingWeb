@@ -12,26 +12,15 @@ angular.module('livingWebApp')
 	this.getKvmPrice = function (objects, high) {
 		return getKvmValues(objects).reduce(high ? getHigh(getKvmPrice) : getLow(getKvmPrice));
 	}	
-	
-	
-	this.getAverageKvmPrice = function (objects) {
-		var nbr = 0;
-		var total = getKvmValues(objects).map(function(object) {
-			nbr++;
-			return getKvmPrice(object);
-		}).reduce(function(acc, curr) {
-			return curr + acc;
-		});
 		
-		return total/nbr;	
+	this.getAverageKvmPrice = function (objects) {
+		var result = getKvmValues(objects);
+		var count = result.length;		
+		return result.map(getKvmPrice).reduce(getSum) / count;
 	}
 	
 	this.getMedianKvmPrice = function(objects) {
-		var objects = getKvmValues(objects).map(function(object) {
-			return getKvmPrice(object);
-		}).sort(function(x, y){ 
-			return x < y ? 1 : -1;
-		});
+		var objects = getKvmValues(objects).map(getKvmPrice).sort(orderBySize);
 		
 		if (objects.length % 2 == 0) {
 			return objects[objects.length / 2];
@@ -96,6 +85,14 @@ angular.module('livingWebApp')
 	
 	var hasKvmPrice = function(object){
 		return hasValue(getSoldPrice(object)) && hasValue(getLivingArea(object));
+	}
+	
+	var getSum = function(acc, curr) {
+		return curr + acc;
+	}
+	
+	var orderBySize = function(x, y) { 
+		return x < y ? 1 : -1;
 	}
 	
 	var hasValue = function(str) {
