@@ -45,39 +45,15 @@
 			</div> 
 			<br>
 		</div>
-		<div id="listItemInfo">
-			<div id="item" ng-click=itemClicked(highest)>
-				<b>Störst vinst: </b> <br>	
-				{{highest.location.address.streetAddress}} : {{ highest.soldPrice-highest.listPrice | nfcurrency}}<br>	
-				<div id="price" ng-class="{negative: ((highest.soldPrice-highest.listPrice) < 0)}">
-					{{(highest.soldPrice - highest.listPrice)/highest.listPrice | procent}} 
-				</div>
+		<div class="list">
+			<div ng-repeat="broker in brokers">
+				<b>{{broker.broker}}</b> {{broker.listings.length}} <br>
+				Medelvärde {{broker.averageKvmPrice | kvmprice }} <br>
+				Medianvärde  {{broker.medianKvmPrice | kvmprice }} <br>
+				Högsta värde {{broker.highestKvmPrice | kvmprice }} <br>
+			    Lägsta värde {{broker.lowestKvmPrice | kvmprice }} <br>
+				Variation {{broker.variationKvmPrice | kvmprice }} <br>
 			</div>
-			
-			<div id="item" ng-click=itemClicked(lowest)>
-				<b>Minst vinst: </b> <br>
-				{{lowest.location.address.streetAddress}} : {{ lowest.soldPrice-lowest.listPrice | nfcurrency}}<br>	
-				<div id="price" ng-class="{negative: ((lowest.soldPrice-lowest.listPrice) < 0)}">
-					{{((lowest.soldPrice-lowest.listPrice)/lowest.listPrice) | procent}}
-				</div> 
-			</div>
-			
-			<div id="item" ng-click=itemClicked(highestPrice)>
-				<b>Dyrast: </b> <br>
-				{{highestPrice.location.address.streetAddress}} : {{ highestPrice.soldPrice |nfcurrency}}<br>	
-				<div id="price" ng-class="{negative: ((highestPrice.soldPrice-highestPrice.listPrice) < 0)}">
-					{{(highestPrice.soldPrice - highestPrice.listPrice)/highestPrice.listPrice | procent}} 
-				</div>
-			</div>
-			
-			<div id="item" ng-click=itemClicked(lowestPrice)>
-				<b>Billigast: </b> <br>
-				{{lowestPrice.location.address.streetAddress}} : {{ lowestPrice.soldPrice | nfcurrency}}<br>	
-				<div id="price" ng-class="{negative: ((lowestPrice.soldPrice-lowestPrice.listPrice) < 0)}">
-					{{((lowestPrice.soldPrice-lowestPrice.listPrice)/lowestPrice.listPrice) | procent}}
-				</div>
-			
-			</div>		
 		</div>
 	</div>
 	<div id="mapContainerProfit">

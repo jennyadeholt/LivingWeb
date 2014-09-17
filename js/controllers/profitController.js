@@ -25,8 +25,10 @@ angular.module('livingWebApp')
 			}	
 			
 			if ($scope.profits) {
-				$scope.highest = ProfitService.getProcent($scope.profits, true);
-				$scope.lowest = ProfitService.getProcent($scope.profits, false);
+				
+				$scope.brokers = ProfitService.getBrokers($scope.profits);
+				$scope.highest = ProfitService.getPercent($scope.profits, true);
+				$scope.lowest = ProfitService.getPercent($scope.profits, false);
 				$scope.highestPrice = ProfitService.getPrice($scope.profits, true);
 				$scope.lowestPrice = ProfitService.getPrice($scope.profits, false);
 				$scope.highestKvm = ProfitService.getKvmPrice($scope.profits, true);
