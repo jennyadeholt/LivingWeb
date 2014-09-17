@@ -1,109 +1,24 @@
 angular.module('livingWebApp') 
 .service('ProfitService', function ProfitService(){  
 	
-	var hasKvmValues = function(object){
-		return hasValue(object.soldPrice) && hasValue(object.livingArea);
-	}
-	
-	var hasValue = function(str) {
-		return str && 0 != str.length && !isNaN(str);
-	}
-
-	var getKvm = function(object) {
-		return object.soldPrice/object.livingArea;
-	}
-
-	var getDifference = function(object) {
-		return object.soldPrice - object.listPrice
-	}
-
-	var getProcent = function(object) {
-		return getDifference(object)/object.listPrice;
-	}
-	
-	var roundNumber = function(number) { 
-		return parseInt(number);
-	}
-	
-	var getKvmValues = function(objects){
-		return objects.filter(function(listing) {
-			return hasKvmValues(listing);
-		});
-	}
-	
-	var getTypeValue = function(objects, divider){
-		var numbers = Array.apply(null, {length: 100}).map(Number.call, Number);
-		
-		var result = numbers.map(function(number){
-			return {
-				number : number,
-				data   : getKvmValues(objects).filter(function(object){
-					return roundNumber(getKvm(object) / divider) == number;
-				})
-			};
-		}).reduce(function(acc, curr){
-			return curr.data.length < acc.data.length ? acc : curr;
-		});
-		
-		result = numbers.map(function(number){
-			return {
-				number : number, 
-				data   : result.data.filter(function(item){
-			 	   	var n = getKvm(item);
-					return  roundNumber((n - roundNumber(n / 1000) * 1000)/100) == number;
-				})
-			};
-		}).reduce(function(acc, curr) {
-			return curr.data.length < acc.data.length ? acc : curr;
-		});
-		
-		
-		return result;
-	}
-	
 	this.getProcent = function(objects, high) {
-		if (high) {
-			return objects.reduce(function(acc, curr) {
-				return getProcent(acc) < getProcent(curr) ?  curr : acc;
-			});
-		} else {
-			return objects.reduce(function(acc, curr) {
-				return getProcent(acc) < getProcent(curr) ? acc : curr;
-			});
-	
-		}	
+		return objects.reduce(high ? getHigh(getProcent) : getLow(getProcent));
 	}
 	
 	this.getPrice = function(objects, high) {
-		if (high) {
-			return objects.reduce(function(acc, curr) {
-				return acc.soldPrice < curr.soldPrice ? curr : acc;
-			});	
-		} else {
-			return objects.reduce(function(acc, curr) {
-				return acc.soldPrice < curr.soldPrice ? acc : curr;
-			});
-		}
+		return getKvmValues(objects).reduce(high ? getHigh(getSoldPrice) : getLow(getSoldPrice));		
 	}
 	
-	this.getKvm = function (objects, high) {
-		if (high) {
-		return getKvmValues(objects).reduce(function(acc, curr) {
-			return getKvm(acc) < getKvm(curr) ? curr : acc;
-		});		
-		} else {
-			return getKvmValues(objects).reduce(function(acc, curr) {
-				return getKvm(acc) < getKvm(curr) ? acc : curr;
-			});		
-		}	
+	this.getKvmPrice = function (objects, high) {
+		return getKvmValues(objects).reduce(high ? getHigh(getKvmPrice) : getLow(getKvmPrice));
 	}	
 	
 	
-	this.getKvmPrice = function (objects) {
+	this.getAverageKvmPrice = function (objects) {
 		var nbr = 0;
 		var total = getKvmValues(objects).map(function(object) {
 			nbr++;
-			return getKvm(object);
+			return getKvmPrice(object);
 		}).reduce(function(acc, curr) {
 			return curr + acc;
 		});
@@ -111,9 +26,9 @@ angular.module('livingWebApp')
 		return total/nbr;	
 	}
 	
-	this.getMedianKvm = function(objects) {
+	this.getMedianKvmPrice = function(objects) {
 		var objects = getKvmValues(objects).map(function(object) {
-			return getKvm(object);
+			return getKvmPrice(object);
 		}).sort(function(x, y){ 
 			return x < y ? 1 : -1;
 		});
@@ -126,9 +41,95 @@ angular.module('livingWebApp')
 		}
 	}
 	
-	this.getTypeValue = function(objects) {
-		return this.getKvmPrice(getTypeValue(objects, 1000).data);
+	this.getTypeValueKvmPrice = function(objects) {
+		return this.getAverageKvmPrice(getTypeValue(objects, 1000).data);
 	}	
+	
+	
+	var getHigh = function(x) {
+		return function(acc, curr) {
+			return x(acc) < x(curr) ?  curr : acc;
+		}
+	}
+	
+	var getLow = function(x) {
+		return function(acc, curr) {
+			return x(acc) < x(curr) ? acc : curr;
+		}
+	}
+	
+	var getTypeValue = function(objects, divider){
+		var numbers = Array.apply(null, {length: 100}).map(Number.call, Number);
+		
+		var result = numbers.map(function(number){
+			return {
+				number : number,
+				data   : getKvmValues(objects).filter(function(object){
+					return roundNumber(getKvmPrice(object) / divider) == number;
+				})
+			};
+		}).reduce(function(acc, curr){
+			return curr.data.length < acc.data.length ? acc : curr;
+		});
+		
+		result = numbers.map(function(number){
+			return {
+				number : number, 
+				data   : result.data.filter(function(item){
+					var n = getKvmPrice(item);
+					return  roundNumber((n - roundNumber(n / 1000) * 1000)/100) == number;
+				})
+			};
+		}).reduce(function(acc, curr) {
+			return curr.data.length < acc.data.length ? acc : curr;
+		});
+		
+		
+		return result;
+	}
+	
+	var getKvmValues = function(objects){
+		return objects.filter(function(listing) {
+			return hasKvmPrice(listing);
+		});
+	}
+	
+	var hasKvmPrice = function(object){
+		return hasValue(getSoldPrice(object)) && hasValue(getLivingArea(object));
+	}
+	
+	var hasValue = function(str) {
+		return str && 0 != str.length && !isNaN(str);
+	}
+
+	var getDifference = function(object) {
+		return getSoldPrice(object) - getListPrice(object);
+	}
+
+	var getProcent = function(object) {
+		return getDifference(object) / getListPrice(object);
+	}
+	
+	var roundNumber = function(number) { 
+		return parseInt(number);
+	}
+	
+	var getKvmPrice = function(object) {
+		return getSoldPrice(object) / getLivingArea(object);
+	}
+	
+	var getSoldPrice = function(object) {
+		return object.soldPrice;
+	}
+	
+	var getListPrice = function(object) {
+		return object.listPrice;
+	}
+	
+	var getLivingArea = function(object) {
+		return object.livingArea;
+	}
+	
 });
 
 

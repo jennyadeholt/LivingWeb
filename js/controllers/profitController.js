@@ -29,11 +29,11 @@ angular.module('livingWebApp')
 				$scope.lowest = ProfitService.getProcent($scope.profits, false);
 				$scope.highestPrice = ProfitService.getPrice($scope.profits, true);
 				$scope.lowestPrice = ProfitService.getPrice($scope.profits, false);
-				$scope.highestKvm = ProfitService.getKvm($scope.profits, true);
-				$scope.lowestKvm = ProfitService.getKvm($scope.profits, false);
-				$scope.kvmPrice = ProfitService.getKvmPrice($scope.profits);
-				$scope.medianKvm = ProfitService.getMedianKvm($scope.profits);
-				$scope.typeValue = ProfitService.getTypeValue($scope.profits);
+				$scope.highestKvm = ProfitService.getKvmPrice($scope.profits, true);
+				$scope.lowestKvm = ProfitService.getKvmPrice($scope.profits, false);
+				$scope.kvmPrice = ProfitService.getAverageKvmPrice($scope.profits);
+				$scope.medianKvm = ProfitService.getMedianKvmPrice($scope.profits);
+				$scope.typeValue = ProfitService.getTypeValueKvmPrice($scope.profits);
 			}		
 					
 		}, function(error) {
