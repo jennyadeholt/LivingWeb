@@ -36,12 +36,8 @@
 }
 
 .data #address {
-	left: 0px;
-	top: 25px;
-	position: relative;
 	font-size: 12px;
-	margin-top: auto;
-	margin-bottom: 15px;
+	font-style: normal;
 }
 
 .data #kvmPrice {
@@ -60,7 +56,7 @@
 }
 
 .data .list {
-	height: 352px;
+	height: 372px;
 	width: 399px;
 	overflow-y: scroll;
 	border-radius: 4px;
