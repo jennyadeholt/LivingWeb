@@ -7,12 +7,22 @@
 
 		this.getPrice = function(objects, high) {
 			objects = getKvmValues(objects);
-			return high ? getHigh(objects, getSoldPrice) : getLow(objects, getSoldPrice);
+			var object = high ? getHigh(objects, getSoldPrice) : getLow(objects, getSoldPrice);
+
+			return {
+					price: getKvmPrice(object),
+					listing: object
+			};
 		}
 
 		this.getKvmPrice = function (objects, high) {
 			objects = getKvmValues(objects);
-			return high ? getHigh(objects, getKvmPrice) : getLow(objects, getKvmPrice);
+			var object = high ? getHigh(objects, getKvmPrice) : getLow(objects, getKvmPrice);
+
+			return {
+					price: getKvmPrice(object),
+					listing: object
+			};			
 		}
 
 		this.getAverageKvmPrice = function (objects) {

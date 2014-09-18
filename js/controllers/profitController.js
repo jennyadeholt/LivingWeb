@@ -27,13 +27,13 @@ angular.module('livingWebApp')
 			if ($scope.profits) {
 
 				$scope.brokers = ProfitService.getBrokers($scope.profits);
-				$scope.highest = ProfitService.getPercent($scope.profits, true);
-				$scope.lowest = ProfitService.getPercent($scope.profits, false);
+
+
 				$scope.highestPrice = ProfitService.getPrice($scope.profits, true);
 				$scope.lowestPrice = ProfitService.getPrice($scope.profits, false);
 				$scope.highestKvm = ProfitService.getKvmPrice($scope.profits, true);
 				$scope.lowestKvm = ProfitService.getKvmPrice($scope.profits, false);
-				$scope.kvmPrice = ProfitService.getAverageKvmPrice($scope.profits);
+				$scope.averageKvmPrice = ProfitService.getAverageKvmPrice($scope.profits);
 				$scope.medianKvm = ProfitService.getMedianKvmPrice($scope.profits);
 				$scope.typeValue = ProfitService.getTypeValueKvmPrice($scope.profits);
 			}
@@ -72,7 +72,7 @@ angular.module('livingWebApp')
 	}
 
 	$scope.init = function () {
-		$scope.keywords = 'Davidshall, Malmö';
+		$scope.keywords = 'Lund, Lund';
 		$scope.profits = [];
 		$scope.data = [];
 		$scope.nbr = 0;
