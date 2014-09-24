@@ -2,8 +2,26 @@
 angular.module('livingWebApp')
 .controller('ProfitCtrl', function ProfitController($scope, $http, $filter, $q, BooliService, ProfitService) {
 
+	function updateProfits() {
+		if ($scope.profits) {
+			localStorage['profits'] = $scope.profits;
+
+			$scope.brokers = ProfitService.getBrokers($scope.profits);
+
+			$scope.highestPrice = ProfitService.getPrice($scope.profits, true);
+			$scope.lowestPrice = ProfitService.getPrice($scope.profits, false);
+			$scope.highestKvm = ProfitService.getKvmPrice($scope.profits, true);
+			$scope.lowestKvm = ProfitService.getKvmPrice($scope.profits, false);
+			$scope.averageKvmPrice = ProfitService.getAverageKvmPrice($scope.profits);
+			$scope.medianKvm = ProfitService.getMedianKvmPrice($scope.profits);
+			$scope.typeValue = ProfitService.getTypeValueKvmPrice($scope.profits);
+		}
+	};
+
 	$scope.searchObjects = function() {
 		document.getElementById("result").style.visibility = "visible";
+
+		localStorage['search'] = $scope.keywords;
 
 		BooliService.getProfits($scope, $http).then(function(response){
 
@@ -26,18 +44,7 @@ angular.module('livingWebApp')
 				$scope.nbr = 0;
 			}
 
-			if ($scope.profits) {
-
-				$scope.brokers = ProfitService.getBrokers($scope.profits);
-
-				$scope.highestPrice = ProfitService.getPrice($scope.profits, true);
-				$scope.lowestPrice = ProfitService.getPrice($scope.profits, false);
-				$scope.highestKvm = ProfitService.getKvmPrice($scope.profits, true);
-				$scope.lowestKvm = ProfitService.getKvmPrice($scope.profits, false);
-				$scope.averageKvmPrice = ProfitService.getAverageKvmPrice($scope.profits);
-				$scope.medianKvm = ProfitService.getMedianKvmPrice($scope.profits);
-				$scope.typeValue = ProfitService.getTypeValueKvmPrice($scope.profits);
-			}
+			updateProfits();
 
 		}, function(error) {
 			console.log(error);
@@ -73,17 +80,17 @@ angular.module('livingWebApp')
 	}
 
 	$scope.init = function () {
-		$scope.keywords = 'Lund, Lund';
+		$scope.keywords = localStorage['search'] || '' ;
 		$scope.profits = [];
+
 		$scope.data = [];
 		$scope.nbr = 0;
 		$scope.orderProp = '-highestKvm.price';
-
 		$scope.setUpAutoComplete($scope, $http, BooliService);
-		//$scope.searchObjects();
+		document.getElementById("result").style.visibility = "hidden";
 
-
-		 document.getElementById("result").style.visibility = "hidden";
-
+		if ($scope.keywords) {
+			$scope.searchObjects();
+		}
 	}
 });
