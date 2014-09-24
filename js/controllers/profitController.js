@@ -52,7 +52,7 @@ angular.module('livingWebApp')
 		var autocomplete = 	$("#autocomplete");
 		autocomplete.autocomplete({
 			delay: 0,
-			minLength: 1,
+			minLength: 3,
 			source: $getAreas($scope),
 			focus: function(event, ui) {
 				event.preventDefault();

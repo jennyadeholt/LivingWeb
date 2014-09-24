@@ -5,6 +5,10 @@
 			return high ? getHigh(objects, getProcent) : getLow(objects, getProcent);
 		}
 
+		this.getProcent = function(object) {
+			return getProcent(object);
+		}
+
 		this.getPrice = function(objects, high) {
 			objects = getKvmValues(objects);
 			var object = high ? getHigh(objects, getSoldPrice) : getLow(objects, getSoldPrice);
@@ -22,7 +26,7 @@
 			return {
 					price: getKvmPrice(object),
 					listing: object
-			};			
+			};
 		}
 
 		this.getAverageKvmPrice = function (objects) {
