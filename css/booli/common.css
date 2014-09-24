@@ -92,10 +92,10 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
 }
 
 p#listItemDate {
-	right: 20px;
-	position: absolute;
-	top: 22px;
 	font-size: 9px;
+	position: absolute;
+	right: 13px;
+  top: 13px;
 }
 
 .nopadding {
@@ -110,8 +110,6 @@ p#listItemDate {
 	background: none repeat scroll 0 0 #fff;
 	border: 1px solid #ddd;
 }
-
-
 
 .header {
 	height: 50px;

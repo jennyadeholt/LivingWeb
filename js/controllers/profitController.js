@@ -2,7 +2,9 @@
 angular.module('livingWebApp')
 .controller('ProfitCtrl', function ProfitController($scope, $http, $filter, $q, BooliService, ProfitService) {
 
-	$scope.searchObjects = function(){
+	$scope.searchObjects = function() {
+		document.getElementById("result").style.visibility = "visible";
+
 		BooliService.getProfits($scope, $http).then(function(response){
 
 			var objects = response.data.sold;
@@ -27,7 +29,6 @@ angular.module('livingWebApp')
 			if ($scope.profits) {
 
 				$scope.brokers = ProfitService.getBrokers($scope.profits);
-
 
 				$scope.highestPrice = ProfitService.getPrice($scope.profits, true);
 				$scope.lowestPrice = ProfitService.getPrice($scope.profits, false);
@@ -79,6 +80,10 @@ angular.module('livingWebApp')
 		$scope.orderProp = '-highestKvm.price';
 
 		$scope.setUpAutoComplete($scope, $http, BooliService);
-		$scope.searchObjects();
+		//$scope.searchObjects();
+
+
+		 document.getElementById("result").style.visibility = "hidden";
+
 	}
 });

@@ -4,11 +4,11 @@
 		<a href="#/bostad/{{listing.booliId}}">
 			<p id="listItemTitle">{{listing.location.address.streetAddress}}</p>
 		</a>
-		<p id="listItemDate">{{listing.published | date }} </p>
+		<p id="listItemDate">{{listing.published | published }} </p>
 	</div>
 	<div id="listItemInfo">
 		{{listing.location.namedAreas[0]}} <br>
 		{{listing.listPrice | nfcurrency }} <br>
-		{{listing.livingArea | kvm }},  {{listing.rooms | room}} 	
+		{{listing.livingArea | kvm }},  {{listing.rooms | room}}
 	</div>
-</div>		
+</div>

@@ -2,24 +2,24 @@
 	<form class="well form-search">
 		<div id="customInputText">
 			<input ng-model="keywords" class="input-medium search-query" id="autocomplete" size="12" name="searchField" type="text" placeholder="Gata, ort eller kommun"></input>
-			
+
 		</div>
 		<input type="checkbox" ng-model="soldObjects" name="soldItems" id="sold-checkbox" ng-change="updateSoldStatus()">Visa slutpriser</input>
 		<button type="submit" id="searchButton" ng-click="search()">Search</button>
-		
-		<div id="sortingDiv"> 
-			Sortering: 			
+
+		<div id="sortingDiv">
+			Sortering:
 			<select ng-model="orderProp" ng-change="newSearchOrder()">
 				<option value="{{option.value}}" ng-repeat="option in options">{{option.name}}</option>
 			</select>
 		</div>
-	</form>	
+	</form>
 </div>
 <div class="content">
 	<div class="list">
-		<div ng-repeat="listing in listings | filter:query | orderBy:orderProp | pagination: getPagination() | limitTo: pageSize" class="listThumbnail" ng-click=itemClicked(listing) ng-include src="getView(listing)"> 
+		<div ng-repeat="listing in listings | filter:query | orderBy:orderProp | pagination: getPagination() | limitTo: pageSize" class="listThumbnail search-listing" ng-click=itemClicked(listing) ng-include src="getView(listing)">
 		</div>
-	</div>	
+	</div>
 
 	<div id="mapContainerList">
 		<div id="map-canvas-list"></div>
@@ -30,5 +30,3 @@
 		<button ng-hide="currentPage >= totalCount/pageSize - 1" ng-click="nextPage()">Nästa</button>
 	</div>
 </div>
-
-<a href="#/profit">Vinstkarta</a>

@@ -3,24 +3,20 @@
 
 var App = angular.module('livingWebApp', [
 'ngRoute',
-'animations',
+'ngAnimate',
 'filters'
 ])
-		
+
 App.config(['$routeProvider',
 function($routeProvider) {
 	$routeProvider.
 	when('/', {
-		templateUrl: 'partials/object-list.html',
-		controller: 'ListCtrl'
+		templateUrl: 'partials/profit-list.html',
+		controller: 'ProfitCtrl'
 	}).
 	when('/bostad', {
 		templateUrl: 'partials/object-list.html',
 		controller: 'ListCtrl'
-	}).
-	when('/profit', {
-		templateUrl: 'partials/profit-list.html',
-		controller: 'ProfitCtrl'
 	}).
 	when('/bostad/:booliId', {
 		templateUrl: 'partials/object-detail.html',
@@ -30,6 +26,3 @@ function($routeProvider) {
 		redirectTo: '/'
 	});
 }]);
-
-
-

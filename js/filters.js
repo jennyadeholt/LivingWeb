@@ -8,9 +8,20 @@ filters.filter('nfcurrency', ['$filter', '$locale', function ($filter, $locale) 
 		if (isEmpty(value)) {
 			value = "- kr";
 		}
-		return  value.replace(new RegExp('\\' + formats.DECIMAL_SEP + '\\d{2}'), ''); 
-	}       
+		return  value.replace(new RegExp('\\' + formats.DECIMAL_SEP + '\\d{2}'), '');
+	}
 }]);
+
+filters.filter('published', function($filter, $locale) {
+	return function(input) {
+		if (isEmpty(input)) {
+			return "";
+		}
+		var date = moment(input).toDate();
+		var _date = $filter('date')(date, 'MMMM d, y'), formats = $locale.DATETIME_FORMATS;
+		return _date;
+	};
+});
 
 filters.filter('kvm', function() {
 	return function(input) {

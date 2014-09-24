@@ -31,18 +31,18 @@ angular.module("ngLocale", [], ["$provide", function($provide) {
 			"l\u00f6rdag"
 			],
 			"MONTH": [
-			"januari",
-			"februari",
-			"mars",
-			"april",
-			"maj",
-			"juni",
-			"juli",
-			"augusti",
-			"september",
-			"oktober",
-			"november",
-			"december"
+			"Januari",
+			"Februari",
+			"Mars",
+			"April",
+			"Maj",
+			"Juni",
+			"Juli",
+			"Augusti",
+			"September",
+			"Oktober",
+			"November",
+			"December"
 			],
 			"SHORTDAY": [
 			"s\u00f6n",

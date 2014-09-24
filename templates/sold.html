@@ -4,14 +4,14 @@
 		<a href="#/bostad/{{listing.booliId}}">
 			<p id="listItemTitle">{{listing.location.address.streetAddress}}</p>
 		</a>
-		<p id="listItemDate">{{listing.published | date }} </p>
+		<p id="listItemDate">{{listing.published | published }} </p>
 	</div>
 	<div id="listItemInfo">
 		{{listing.location.namedAreas[0]}} <br>
         <b ng-class="{negative: ((listing.soldPrice-listing.listPrice) < 0)}"> {{listing.soldPrice | nfcurrency }} </b>  - {{listing.listPrice | nfcurrency }} <br>
-		{{listing.livingArea | kvm }},  {{listing.rooms | room}} 		
+		{{listing.livingArea | kvm }},  {{listing.rooms | room}}
 	</div>
 	<div id="price" ng-class="{negative: ((listing.soldPrice-listing.listPrice) < 0)}">
 			{{((listing.soldPrice-listing.listPrice)/listing.listPrice) | procent}}
 	</div>
-</div>		
+</div>
