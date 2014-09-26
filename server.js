@@ -1,15 +1,31 @@
 'use strict';
 
-var express = require('express')
-var app = express();
+var debug = require('debug')('Living:server');
+var http = require('http');
 
-app.set('port', (process.env.PORT || 5000))
-app.use(express.static(__dirname + "/client"))
+var app = require('./lib/app');
 
-app.get('/', function(request, response) {
-  response.send('Hello World!')
-})
+process.on('oncaugtException', function(err) {
+  console.log("UncaughtException", err, err.stack);
+  process.exit(1);
+});
 
-app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'))
-})
+function start() {
+  var port = process.env.PORT || 3000;
+
+  server.listen(port, function() {
+    console.log("Port", port);
+    console.log("URL", 'http://localhost:' + port);
+  })
+}
+
+
+var server = http.createServer(app);
+server.app = app;
+server.start = start;
+
+module.exports = server;
+
+if (require.main === module) {
+  start();
+}

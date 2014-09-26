@@ -6,21 +6,15 @@ angular.module('livingWebApp')
 
 	soldObjects = false;
 
-	var location = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
-
-	var getListing = function($scope, $http, booliId) {
+	var findListing = function($scope, $http) {
 		return $http({
-				method: 'GET',
-				url:  location + '/api/booli/listing/' + booliId
-			});
+			method: 'GET',
+			url: 'http://www.corsproxy.com/' + getBooliAPI($scope, soldObjects ? 3 : 2),
+			params : { format: "json" },
+			headers: {'Accept': 'application/json' }
+		});
 	}
 
-	var getListings = function($scope, $http, q) {
-		return $http({
-				method: 'GET',
-				url: location + '/api/booli/listings/' + q
-			});
-	}
 
 	var getBooliAPI = function($scope, param) {
 		var offset = $scope.nbr === 0 ? 0 : $scope.nbr * 250;
@@ -44,25 +38,31 @@ angular.module('livingWebApp')
 
 	this.getListings = function($scope, $http) {
 		soldObjects = $scope.soldObjects;
-
-		return getListings($scope, $http, $scope.keywords);
+		return $http({
+			method: 'GET',
+			url: 'http://www.corsproxy.com/' + getBooliAPI($scope, soldObjects ? 1 : 0),
+			params : { format: "json" },
+			headers: {'Accept': 'application/json' }
+		});
 	}
 
 	this.getProfits = function($scope, $http) {
 		return $http({
-				method: 'GET',
-				url:  location + '/api/booli/sold/' + $scope.keywords
-			});
+			method: 'GET',
+			url: 'http://www.corsproxy.com/' + getBooliAPI($scope, 1),
+			params : { format: "json" },
+			headers: {'Accept': 'application/json' }
+		});
 	}
 
 	this.getListing = function($scope, $http, booliId) {
 		$scope.booliId = booliId;
 
-		var p = getListing($scope, $http, booliId);
+		var p = findListing($scope, $http)
 
 		p = p.catch(function() {
 			soldObjects = !soldObjects;
-			p = getListing($scope, $http);
+			p = findListing($scope, $http);
 			return p;
 		});
 
@@ -74,13 +74,12 @@ angular.module('livingWebApp')
 	}
 });
 
-var $getAreas = function($scope, $http) {
+var $getAreas = function($scope) {
 	return function(request, response) {
-		$http({
-				method: 'GET',
-				url: window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/api/booli/areas/' + request.term
-			}).then(function(content) {
-			var array = content.data.error ? [] : content.data.areas.map(function(m) {
+		$scope.keywords = request.term;
+		var api = "http://www.corsproxy.com/api.booli.se/areas?q=" + request.term + "&" + $auth();
+		$.getJSON(api, {}, function(data) {
+			var array = data.error ? [] : $.map(data.areas, function(m) {
 				return {
 					label: m.fullName
 				};
