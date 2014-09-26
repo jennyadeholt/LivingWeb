@@ -51,8 +51,9 @@ angular.module('livingWebApp')
 		});
 	}
 
-	$scope.itemClicked = function($listing) {
-		$updateProfitInfoWindow($listing, $filter);
+	$scope.itemClicked = function(listing) {
+		console.log(listing.location.address.streetAddress);
+		$updateProfitInfoWindow(listing, $filter);
 	}
 
 	$scope.setUpAutoComplete = function($scope, $http, BooliService) {

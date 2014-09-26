@@ -31,15 +31,7 @@ angular.module('livingWebApp')
 
 	this.getListing = function($scope, $http, booliId) {
 		$scope.booliId = booliId;
-
 		var p = getHttp($http, '/api/booli/listing/' + booliId);
-
-		p = p.catch(function() {
-			soldObjects = !soldObjects;
-			p = getHttp($http, '/api/booli/sold/' + booliId);
-			return p;
-		});
-
 		p = p.catch(function () {
 			return "Failure";
 		});

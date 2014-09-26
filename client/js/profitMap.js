@@ -26,14 +26,20 @@ var $initializeProfitMap = function($scope, $filter) {
 }
 
 var $updateProfitInfoWindow = function($listing, $filter) {
+	var result = false;
 	$.each(ids, function(i, id) {
 		if (id == $listing.booliId) {
 			var circle = circles[i];
 			if (circle) {
 				showProfitInfoWindow($listing, circles[i], $filter);
+				result = true;
 			}
 		}
 	});
+
+	if (!result) {
+		drawCircle($listing, $filter);
+	}
 }
 
 var $updateProfitMap = function($scope, $filter) {
@@ -63,38 +69,42 @@ var $redrawProfitMap = function($scope, $filter) {
 
 function drawCirles(objects, $filter) {
 	$.each(objects, function(i, listing) {
-		var location = getLocation(listing);
-		var color = '#000000';
-		var opacity = 0.1;
-		var rooms = listing.rooms ? listing.rooms : 1;
-		if (listing.listPrice && listing.soldPrice) {
-			opacity = getOpacity(listing);
-			color = getColor(listing);
-		}
-
-		var populationOptions = {
-			strokeColor: color ,
-			strokeOpacity: opacity,
-			strokeWeight: 2,
-			fillColor: color ,
-			fillOpacity: opacity,
-			map: map,
-			center: location,
-			radius: 10 * rooms
-		};
-		var circle = new google.maps.Circle(populationOptions);
-
-		profitMapBounds.extend(location);
-
-		google.maps.event.addListener(circle, 'click', function() {
-			showProfitInfoWindow(listing, circle, $filter);
-		});
-
-		circles.push(circle);
-		ids.push(listing.booliId);
-
+		drawCircle(listing, $filter);
 	})
 	map.fitBounds(profitMapBounds);
+}
+
+function drawCircle(listing, $filter) {
+	var location = getLocation(listing);
+	var color = '#000000';
+	var opacity = 0.1;
+	var rooms = listing.rooms ? listing.rooms : 1;
+	
+	if (listing.listPrice && listing.soldPrice) {
+		opacity = getOpacity(listing);
+		color = getColor(listing);
+	}
+
+	var populationOptions = {
+		strokeColor: color ,
+		strokeOpacity: opacity,
+		strokeWeight: 2,
+		fillColor: color ,
+		fillOpacity: opacity,
+		map: map,
+		center: location,
+		radius: 10 * rooms
+	};
+	var circle = new google.maps.Circle(populationOptions);
+
+	profitMapBounds.extend(location);
+
+	google.maps.event.addListener(circle, 'click', function() {
+		showProfitInfoWindow(listing, circle, $filter);
+	});
+
+	circles.push(circle);
+	ids.push(listing.booliId);
 }
 
 function getColor(listing) {
