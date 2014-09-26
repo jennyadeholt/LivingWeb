@@ -83,7 +83,7 @@ function runSearch($scope, $http, $filter, BooliService) {
 		$scope.nbr++;
 
 		if ($scope.totalCount - $scope.listings.length << 0) {
-			//$scope.search();
+			$scope.search();
 		} else {
 			$scope.nbr = 0;
 		}
@@ -91,7 +91,6 @@ function runSearch($scope, $http, $filter, BooliService) {
 		console.log(error);
 	});
 }
-
 
 function pageListings($scope, $filter, next) {
 	$scope.currentPage = $scope.currentPage + (next ? 1 : -1);
@@ -123,8 +122,8 @@ function setUpAutoComplete($scope, $http, BooliService) {
 	var autocomplete = 	$("#autocomplete");
 	autocomplete.autocomplete({
 		delay: 0,
-		minLength: 1,
-		source: $getAreas($scope, $http),
+		minLength: 3,
+		source: BooliService.getAreas($scope, $http),
 		focus: function(event, ui) {
 			event.preventDefault();
 		},

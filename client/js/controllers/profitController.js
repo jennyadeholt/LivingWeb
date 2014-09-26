@@ -60,7 +60,7 @@ angular.module('livingWebApp')
 		autocomplete.autocomplete({
 			delay: 0,
 			minLength: 3,
-			source: $getAreas($scope, $http),
+			source: BooliService.getAreas($scope, $http),
 			focus: function(event, ui) {
 				event.preventDefault();
 			},
