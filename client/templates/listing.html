@@ -7,8 +7,15 @@
 		<p id="listItemDate">{{listing.published | published }} </p>
 	</div>
 	<div id="listItemInfo">
-		{{listing.location.namedAreas[0]}} <br>
-		{{listing.listPrice | nfcurrency }} <br>
-		{{listing.livingArea | kvm }},  {{listing.rooms | room}}
+
+		<div>
+			{{listing.location.namedAreas[0]}}
+		</div>
+		<div ng-class="{hidden: !listing.listPrice}">
+			{{listing.listPrice | nfcurrency }} <br>
+		</div>
+		<div ng-class="{hidden: !listing.livingArea}">
+			{{listing.livingArea | kvm }},  {{listing.rooms | room}}
+		</div>
 	</div>
 </div>

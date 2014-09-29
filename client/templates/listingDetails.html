@@ -1,9 +1,38 @@
-<br><b>Pris: </b> {{listing.listPrice | nfcurrency }}
-<br><b>Rum: </b> {{listing.rooms}} 
-<br><b>Boyta: </b> {{listing.livingArea | kvm }}  
-<br><b>Biyta: </b> {{listing.additionalArea | kvm }}  
-<br><b>Tomt: </b> {{listing.plotArea | kvm }}  
-<br><b>Byggår: </b> {{listing.constructionYear}}
-<br><b>Våning: </b> {{listing.floor}}
-<br><b>Hyra: </b>{{listing.rent | nfcurrency }}
-<br><b>Källa: </b>{{listing.source.name}}
+<br>
+
+<div ng-class="{hidden: !listing.listPrice}">
+  <b>Pris: </b>
+  {{listing.listPrice | nfcurrency }}
+</div>
+<div ng-class="{hidden: !listing.rooms}">
+  <b>Rum: </b>
+  {{listing.rooms}}
+</div>
+<div ng-class="{hidden: !listing.livingArea}">
+  <b>Boyta: </b>
+  {{listing.livingArea | kvm }}
+</div>
+<div ng-class="{hidden: !listing.additionalArea}">
+  <b>Biyta: </b>
+  {{listing.additionalArea | kvm }}
+</div>
+<div ng-class="{hidden: !listing.plotArea}">
+  <b>Tomt: </b>
+  {{listing.plotArea | kvm }}
+</div>
+<div ng-class="{hidden: !listing.constructionYear}">
+  <b>Byggår: </b>
+  {{listing.constructionYear}}
+</div>
+<div ng-class="{hidden: !listing.floor}">
+  <b>Våning: </b>
+  {{listing.floor}}
+</div>
+<div ng-class="{hidden: !listing.rent}">
+  <b>Hyra: </b>
+  {{listing.rent | nfcurrency }}
+</div>
+<div ng-class="{hidden: !listing.source.name}">
+  <b>Källa: </b>
+  {{listing.source.name}}
+</div>

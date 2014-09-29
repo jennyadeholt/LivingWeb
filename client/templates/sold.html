@@ -8,10 +8,14 @@
 	</div>
 	<div id="listItemInfo">
 		{{listing.location.namedAreas[0]}} <br>
-        <b ng-class="{negative: ((listing.soldPrice-listing.listPrice) < 0)}"> {{listing.soldPrice | nfcurrency }} </b>  - {{listing.listPrice | nfcurrency }} <br>
-		{{listing.livingArea | kvm }},  {{listing.rooms | room}}
+		<div ng-class="{hidden: !listing.soldPrice}">
+			<b ng-class="{negative: ((listing.soldPrice-listing.listPrice) < 0)}"> {{listing.soldPrice | nfcurrency }} </b>, {{listing.listPrice | nfcurrency }}
+		</div>
+		<div ng-class="{hidden: !listing.livingArea}">
+			{{listing.livingArea | kvm }},  {{listing.rooms | room}}
+		</div>
 	</div>
-	<div id="price" ng-class="{negative: ((listing.soldPrice-listing.listPrice) < 0)}">
-			{{((listing.soldPrice-listing.listPrice)/listing.listPrice) | procent}}
+	<div id="price" ng-class="{negative: ((listing.soldPrice-listing.listPrice) < 0), hidden: (!listing.soldPrice || !listing.listPrice)}">
+		{{((listing.soldPrice-listing.listPrice)/listing.listPrice) | procent}}
 	</div>
 </div>

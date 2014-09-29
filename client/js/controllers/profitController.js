@@ -52,7 +52,6 @@ angular.module('livingWebApp')
 	}
 
 	$scope.itemClicked = function(listing) {
-		console.log(listing.location.address.streetAddress);
 		$updateProfitInfoWindow(listing, $filter);
 	}
 

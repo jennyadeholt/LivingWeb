@@ -95,7 +95,7 @@ p#listItemDate {
 	font-size: 9px;
 	position: absolute;
 	right: 13px;
-  top: 13px;
+	top: 13px;
 }
 
 .nopadding {
@@ -196,6 +196,11 @@ p#listItemDate {
 
 .positive {
 	font-weight: bold;
+}
+
+.hidden {
+	height: 0;
+	visibility: hidden;
 }
 
 #autocomplete.ui-autocomplete-loading {

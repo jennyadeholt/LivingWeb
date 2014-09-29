@@ -1,18 +1,14 @@
-<br><b>Utropspris: </b> {{listing.listPrice | nfcurrency }}
-<br><b>Sista bud: </b> {{listing.soldPrice | nfcurrency }}
-<br><b>Kvadratmeterpris: </b> {{(listing.soldPrice/listing.livingArea) | kvmprice }}
-
-<br>
-<br><b>Rum: </b> {{listing.rooms}} 
-<br><b>Boyta: </b> {{listing.livingArea | kvm }}  
-<br><b>Biyta: </b> {{listing.additionalArea | kvm }}  
-<br><b>Tomt: </b> {{listing.plotArea | kvm }}  
-<br><b>Byggår: </b> {{listing.constructionYear}}
-<br><b>Våning: </b> {{listing.floor}}
-<br><b>Hyra: </b>{{listing.rent | nfcurrency }}
-<br><b>Källa: </b>{{listing.source.name}}
-<br>
+<div ng-class="{hidden: !listing.soldPrice}">
+	<b>Sista bud: </b>
+	{{listing.soldPrice | nfcurrency }}
+</div>
+<div ng-class="{hidden: !listing.livingArea}">
+	<b>Kvadratmeterpris: </b>
+	{{(listing.soldPrice/listing.livingArea) | kvmprice }}
+</div>
 
 <div id="price" ng-class="{negative: ((listing.soldPrice-listing.listPrice) < 0)}">
 	{{((listing.soldPrice-listing.listPrice)/listing.listPrice) | procent}}
 </div>
+
+<div ng-include src="'templates/listingDetails.html'" />

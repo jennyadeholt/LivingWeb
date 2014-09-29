@@ -10,8 +10,13 @@ angular.module('livingWebApp')
 		var location = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
 		return $http({
 				method: 'GET',
-				url:  location + url
+				url:  location + '/api/booli/' + url
 		});
+	}
+
+	var fetchListings = function($scope, $http, url) {
+		var offset = $scope.nbr === 0 ? 0 : $scope.nbr * 500;
+		return getHttp($http, url + $scope.keywords + "&offset=" + offset);
 	}
 
 	this.showSoldObjects = function () {
@@ -19,19 +24,17 @@ angular.module('livingWebApp')
 	}
 
 	this.getProfits = function($scope, $http) {
-		var offset = $scope.nbr === 0 ? 0 : $scope.nbr * 500;
-		return getHttp($http, '/api/booli/solds/' + $scope.keywords + "&offset=" + offset);
+		return fetchListings($scope, $http, 'solds/');
 	}
 
 	this.getListings = function($scope, $http) {
 		soldObjects = $scope.soldObjects;
-		var offset = $scope.nbr === 0 ? 0 : $scope.nbr * 500;
-		return getHttp($http,  '/api/booli/' + (soldObjects ? 'solds/' : 'listings/') + $scope.keywords + "&offset=" + offset);
+		return fetchListings($scope, $http, (soldObjects ? 'solds/' : 'listings/') );
 	}
 
 	this.getListing = function($scope, $http, booliId) {
 		$scope.booliId = booliId;
-		var p = getHttp($http, '/api/booli/listing/' + booliId);
+		var p = getHttp($http, 'listing/' + booliId);
 		p = p.catch(function () {
 			return "Failure";
 		});
@@ -41,7 +44,7 @@ angular.module('livingWebApp')
 
 	this.getAreas = function($scope, $http) {
 		return function(request, response) {
-			getHttp($http, '/api/booli/areas/' + request.term)
+			getHttp($http, 'areas/' + request.term)
 			.then(function(content) {
 				var array = content.data.error ? [] : content.data.areas.map(function(m) {
 					return {

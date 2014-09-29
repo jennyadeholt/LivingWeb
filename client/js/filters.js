@@ -6,7 +6,7 @@ filters.filter('nfcurrency', ['$filter', '$locale', function ($filter, $locale) 
 	return function (amount, symbol) {
 		var value = currency(amount, symbol);
 		if (isEmpty(value)) {
-			value = "- kr";
+			return "";
 		}
 		return  value.replace(new RegExp('\\' + formats.DECIMAL_SEP + '\\d{2}'), '');
 	}
@@ -54,5 +54,5 @@ filters.filter('kvmprice', function($filter) {
 });
 
 function setString(input, text) {
-	return isEmpty(input) ? ' - ' + text : input + text;
+	return isEmpty(input) ? '' : input + text;
 }
