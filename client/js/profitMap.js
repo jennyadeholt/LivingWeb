@@ -79,7 +79,7 @@ function drawCircle(listing, $filter) {
 	var color = '#000000';
 	var opacity = 0.1;
 	var rooms = listing.rooms ? listing.rooms : 1;
-	
+
 	if (listing.listPrice && listing.soldPrice) {
 		opacity = getOpacity(listing);
 		color = getColor(listing);
@@ -155,7 +155,7 @@ function getWindowContent(listing, $filter) {
 	'<p>' + listing.objectType + '</p>' +
 	'<p>' + $filter("kvm")(listing.livingArea) + ", " + $filter("room")(listing.rooms) +'</p>' +
 	'</div>'+
-	'<div id="price" ' + (negative ? " class=negative" : "") +'><p>' + $filter("procent")(getProcent(listing)) + '</p></div>' +
+	'<div id="price" ' + (negative ? " class=negative" : "") +'><p>' + $filter("procent")((listing.soldPrice-listing.listPrice)/listing.listPrice) + '</p></div>' +
 	'<p><a href="'+ listing.url + '" target="_blank">Mäklarbeskrivning</a></p>'+
 	'</div>'+
 	'</div>';
