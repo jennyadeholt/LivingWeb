@@ -29,6 +29,15 @@
 			};
 		}
 
+		this.getDate = function (objects, high) {
+			var object = high ? getHigh(objects, getDate) : getLow(objects, getDate);
+
+			return {
+				date: object.soldDate,
+				listing: object
+			};
+		}
+
 		this.getAverageKvmPrice = function (objects) {
 			return getAverageKvmPrice(objects);
 		}
@@ -147,6 +156,10 @@
 
 		var hasKvmPrice = function(object){
 			return hasValue(getSoldPrice(object)) && hasValue(getLivingArea(object));
+		}
+
+		var getDate = function(object){
+			return object.soldDate;
 		}
 
 		var getSum = function(acc, curr) {

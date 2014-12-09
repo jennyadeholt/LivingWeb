@@ -18,7 +18,18 @@ filters.filter('published', function($filter, $locale) {
 			return "";
 		}
 		var date = moment(input).toDate();
-		var _date = $filter('date')(date, 'MMMM d, y'), formats = $locale.DATETIME_FORMATS;
+		var _date = $filter('date')(date, 'd MMMM y'), formats = $locale.DATETIME_FORMATS;
+		return _date;
+	};
+});
+
+filters.filter('searchDate', function($filter, $locale) {
+	return function(input) {
+		if (isEmpty(input)) {
+			return "";
+		}
+		var date = moment(input).toDate();
+		var _date = $filter('date')(date, 'yyyyMMdd'), formats = $locale.DATETIME_FORMATS;
 		return _date;
 	};
 });

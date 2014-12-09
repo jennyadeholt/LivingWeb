@@ -1,8 +1,16 @@
 <div class="header" data-ng-init="init()">
 	<form class="well form-search">
 		<div id="customInputText">
-			<input ng-model="keywords" class="input-medium search-query" id="autocomplete" size="12" name="searchField" type="text" placeholder="Gata, ort eller kommun"></input>
+			<input type="text" ng-model="searchWords" value="'{{searchWords}}'"
+			class="input-medium search-query" placeholder="Gata, ort eller kommun"
+			autocomplete size="12" name="searchWords" />
 		</div>
+
+		<div ng-controller="DatePickerCtrl as ctrl"  id="filterDate">
+			Från <input ng-model="ctrl.startDate" id="startDate" ui-date="ctrl.startDateOptions" type="text" >
+			till <input ng-model="ctrl.endDate" id="endDate" ui-date="ctrl.endDateOptions" type="text" >
+		</div>
+
 		<button type="submit" id="searchButton" ng-click="searchObjects()">Sök</button>
 
 		<div id="sortingDiv">
@@ -19,7 +27,7 @@
 </div>
 <div class="content" id="result">
 	<div class="data">
-		<p id="listItemTitle">{{keywords}}, {{profits.length}} st</p>
+		<p id="listItemTitle">{{keywords}} - {{profits.length}} st</p>
 
 		<div id="kvmInfo">
 			<b>Kvadratmeterpris</b> <br>

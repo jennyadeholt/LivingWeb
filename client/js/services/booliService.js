@@ -16,7 +16,12 @@ angular.module('livingWebApp')
 
 	var fetchListings = function($scope, $http, url) {
 		var offset = $scope.nbr === 0 ? 0 : $scope.nbr * 500;
-		return getHttp($http, url + $scope.keywords + "&offset=" + offset);
+			return getHttp($http, url + $scope.keywords + "&offset=" + offset);
+	}
+
+	var fetchListingsInIntervall = function($scope, $http, url, minSoldDate, maxSoldDate) {
+		var offset = $scope.nbr === 0 ? 0 : $scope.nbr * 500;
+		return getHttp($http, url + $scope.keywords + "&offset=" + offset + "&minSoldDate=" + minSoldDate + "&maxSoldDate=" + maxSoldDate);
 	}
 
 	this.showSoldObjects = function () {
@@ -24,7 +29,7 @@ angular.module('livingWebApp')
 	}
 
 	this.getProfits = function($scope, $http) {
-		return fetchListings($scope, $http, 'solds/');
+		return fetchListingsInIntervall($scope, $http, 'solds/',  $scope.filterStartDate, 	$scope.filterEndDate);
 	}
 
 	this.getListings = function($scope, $http) {

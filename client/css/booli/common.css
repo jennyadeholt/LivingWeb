@@ -119,13 +119,20 @@ p#listItemDate {
 
 .header input[type="text"] {
 	font-size: 20px;
-	height: 30px;
+	height: 35px;
 	width: 400px;
 	margin-bottom: 2px;
 }
 
+.header #startDate, .header #endDate {
+	font-size: 16px;
+	height: 30px;
+	margin: 4px;
+	width: 167px;
+}
+
 .content {
-	padding: 65px 0 0 0 ;
+	padding: 80px 0 0 0 ;
 	height: 577px;
 	width: 1170px;
 	margin: auto;
@@ -168,10 +175,10 @@ p#listItemDate {
 	font-size: 20px;
 	line-height: 1.25em;
 	margin: 0;
-	padding: 6px 0.5em 7px;
+	padding: 9px 0.5em;
 	position: relative;
 	right: 0;
-	top: -26px;
+	top: -78px;
 	width: 200px;
 }
 
@@ -186,8 +193,8 @@ p#listItemDate {
 	margin: 0;
 	padding: 6px 0.5em 7px;
 	position: relative;
-	right: 16px;
-	top: -30px;
+	right: 300px;
+	top: -33px;
 }
 
 .negative {

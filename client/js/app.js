@@ -1,28 +1,29 @@
 
-"use strict";
+	"use strict";
 
-var App = angular.module('livingWebApp', [
-'ngRoute',
-'ngAnimate',
-'filters'
-])
+	var App = angular.module('livingWebApp', [
+	'ngRoute',
+	'ngAnimate',
+	'filters',
+	'ui.date'
+	])
 
-App.config(['$routeProvider',
-function($routeProvider) {
-	$routeProvider.
-	when('/', {
-		templateUrl: 'partials/profit-list.html',
-		controller: 'ProfitCtrl'
-	}).
-	when('/bostad', {
-		templateUrl: 'partials/object-list.html',
-		controller: 'ListCtrl'
-	}).
-	when('/bostad/:booliId', {
-		templateUrl: 'partials/object-detail.html',
-		controller: 'DetailCtrl'
-	}).
-	otherwise({
-		redirectTo: '/'
-	});
-}]);
+	App.config(['$routeProvider',
+	function($routeProvider) {
+		$routeProvider.
+		when('/', {
+			templateUrl: 'partials/profit-list.html',
+			controller: 'ProfitCtrl'
+		}).
+		when('/bostad', {
+			templateUrl: 'partials/object-list.html',
+			controller: 'ListCtrl'
+		}).
+		when('/bostad/:booliId', {
+			templateUrl: 'partials/object-detail.html',
+			controller: 'DetailCtrl'
+		}).
+		otherwise({
+			redirectTo: '/'
+		});
+	}]);
