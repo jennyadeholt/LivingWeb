@@ -16,9 +16,8 @@ angular.module('livingWebApp')
 			$scope.medianKvm = ProfitService.getMedianKvmPrice($scope.profits);
 			$scope.typeValue = ProfitService.getTypeValueKvmPrice($scope.profits);
 
-			$scope.startDate = ProfitService.getDate($scope.profits, false);
-			$scope.endDate = ProfitService.getDate($scope.profits, true);
-
+			$scope.startDate = DateServic.getDate(ProfitService.getDate($scope.profits, false));
+			$scope.endDate = DateServic.getDate(ProfitService.getDate($scope.profits, true));
 		}
 	};
 

@@ -34,6 +34,11 @@ angular.module('livingWebApp')
 		return $filter('searchDate')(date);
 	}
 
+	this.getDate = function(date) {
+		return getDate(date);
+	}
+
+
 	function getDate(input) {
 		return moment(input).toDate();
 	}
