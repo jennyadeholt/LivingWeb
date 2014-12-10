@@ -38,7 +38,7 @@ body {
 }
 
 a {
-	color: #317dec;
+	color: #04567C;
 	text-decoration: none;
 }
 
@@ -69,7 +69,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
 	outline: medium none;
 	padding: 0.2em;
 	transition: border 0.1s linear 0s;
-	color: #317dec;
+	color: #04567C;
 }
 
 input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="tel"]:focus {
@@ -132,7 +132,7 @@ p#listItemDate {
 }
 
 .content {
-	padding: 80px 0 0 0 ;
+	padding: 115px 0 0 0 ;
 	height: 577px;
 	width: 1170px;
 	margin: auto;
@@ -164,8 +164,8 @@ p#listItemDate {
 }
 
 #searchButton {
-	background-color: #317dec;
-	border-color: #d6d0c8;
+	background-color: #04567C;
+	border-color: #04567C;
 	border-image: none;
 	border-radius: 6px;
 	border-style: solid solid solid none;

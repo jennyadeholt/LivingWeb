@@ -19,6 +19,10 @@
 			templateUrl: 'partials/object-list.html',
 			controller: 'ListCtrl'
 		}).
+		when('/chart', {
+			templateUrl: 'partials/chart.html',
+			controller: 'ChartCtrl'
+		}).
 		when('/bostad/:booliId', {
 			templateUrl: 'partials/object-detail.html',
 			controller: 'DetailCtrl'

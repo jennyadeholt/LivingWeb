@@ -1,0 +1,27 @@
+.tab {
+  float: left;
+  margin: 0;
+  width: 100%;
+}
+.tab ul li {
+  background-color: white;
+  padding: 5px 20px;
+  float: right;
+  margin: 0 0px 0 4px;
+  list-style: none;
+}
+.tab ul li:nth-child(1) {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.tab ul li:nth-child(2) {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.tab ul li a {
+  color: #83D5FB;
+  text-decoration: none;
+}
+.tab ul .active a {
+  color: #04567c;
+}

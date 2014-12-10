@@ -34,6 +34,17 @@ filters.filter('searchDate', function($filter, $locale) {
 	};
 });
 
+filters.filter('chartDate', function($filter, $locale) {
+	return function(input) {
+		if (isEmpty(input)) {
+			return "";
+		}
+		var date = moment(input).toDate();
+		var _date = $filter('date')(date, 'yyyy MMM'), formats = $locale.DATETIME_FORMATS;
+		return _date;
+	};
+});
+
 filters.filter('kvm', function() {
 	return function(input) {
 		return setString(input, ' kvm');

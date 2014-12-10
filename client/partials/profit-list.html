@@ -93,7 +93,26 @@
 			</div>
 		</div>
 	</div>
-	<div id="mapContainerProfit">
-		<div id="map"></div>
+	<div id="tabs">
+		<section class="tab" ng-controller="TabController as panel">
+			<ul>
+				<li ng-class="{active:panel.isSelected(2)  }">
+					<a href ng-click="panel.selectTab(2)">Diagram</a>
+				</li>
+				<li ng-class="{active:panel.isSelected(1) }">
+					<a href ng-click="panel.selectTab(1)">Karta</a>
+				</li>
+			</ul>
+			<br />
+			<div id="border">
+			<div ng-show="panel.isSelected(1)">
+				<div id="map"></div>
+			</div>
+			<div ng-show="panel.isSelected(2)">
+				<div id="chart_div" style="width: 700px; height: 577px; position: relative;" data-ng-init="init()"  ng-controller="ChartCtrl"/>
+			</div>
+		</div>
+
+		</section>
 	</div>
 </div>

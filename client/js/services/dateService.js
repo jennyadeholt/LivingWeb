@@ -38,6 +38,9 @@ angular.module('livingWebApp')
 		return getDate(date);
 	}
 
+	this.getMonthAndYear = function(input) {
+		return $filter('chartDate')(getDate(input));
+	}
 
 	function getDate(input) {
 		return moment(input).toDate();

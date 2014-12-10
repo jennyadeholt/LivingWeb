@@ -1,5 +1,18 @@
+
+var profits = [];
+
+
 	angular.module('livingWebApp')
-	.service('ProfitService', function ProfitService(){
+	.service('ProfitService', function ProfitService(DateService, $filter){
+
+		this.getProfits = function() {
+			return profits;
+		}
+
+		this.storeProfits = function(profits) {
+			this.profits = profits;
+			localStorage.profits = profits;
+		}
 
 		this.getPercent = function(objects, high) {
 			return high ? getHigh(objects, getProcent) : getLow(objects, getProcent);
@@ -48,6 +61,35 @@
 
 		this.getTypeValueKvmPrice = function(objects) {
 			return getTypeValueForKvmPrice(objects);
+		}
+
+		this.getAveragePerMonths = function(objects){
+			objects = getKvmValues(objects);
+			var prices = objects.reduce(function(acc, listing) {
+				var key =  DateService.getMonthAndYear(listing.soldDate);
+				if (acc[key]) {
+					acc[key].price += getKvmPrice(listing);
+					acc[key].total++;
+				} else {
+					acc[key] = {};
+					acc[key].price = getKvmPrice(listing);
+					acc[key].total = 1;
+				}
+				return acc;
+			}, { });
+
+			var result = [];
+
+			for (var key in prices) {
+				if (prices.hasOwnProperty(key)) {
+					var price = prices[key];
+					result.push([key, parseInt(price.price / price.total, 10)]);
+				}
+			}
+
+			result.push(["Månad", "Medelvärde"]);
+
+			return result.reverse();
 		}
 
 		this.getBrokers = function(objects) {
@@ -119,15 +161,15 @@
 		}
 
 		var getMedianKvmPrice = function(objects) {
-			var objects = getKvmValues(objects).map(getKvmPrice).sort(orderBySize);
+			var result = getKvmValues(objects).map(getKvmPrice).sort(orderBySize);
 
-			if (objects.length == 1) {
-				return objects[0];
-			} else if (objects.length % 2 == 0) {
-				return objects[objects.length / 2];
+			if (result.length == 1) {
+				return result[0];
+			} else if (result.length % 2 == 0) {
+				return result[result.length / 2];
 			} else {
-				var i = objects.length / 2 + 0.5;
-				return  (objects[i] + objects[i - 1]) / 2;
+				var i = result.length / 2 + 0.5;
+				return  (result[i] + result[i - 1]) / 2;
 			}
 		}
 
@@ -175,7 +217,7 @@
 		}
 
 		var hasValue = function(str) {
-			return str && 0 != str.length && !isNaN(str);
+			return str && 0 !== str.length && !isNaN(str);
 		}
 
 		var getDifference = function(object) {

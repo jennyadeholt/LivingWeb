@@ -4,7 +4,8 @@ angular.module('livingWebApp')
 
 	function updateProfits() {
 		if ($scope.profits) {
-			localStorage['profits'] = $scope.profits;
+
+			ProfitService.storeProfits($scope.profits);
 
 			$scope.brokers = ProfitService.getBrokers($scope.profits);
 
@@ -16,8 +17,8 @@ angular.module('livingWebApp')
 			$scope.medianKvm = ProfitService.getMedianKvmPrice($scope.profits);
 			$scope.typeValue = ProfitService.getTypeValueKvmPrice($scope.profits);
 
-			$scope.startDate = DateServic.getDate(ProfitService.getDate($scope.profits, false));
-			$scope.endDate = DateServic.getDate(ProfitService.getDate($scope.profits, true));
+			$scope.startDate = DateService.getDate(ProfitService.getDate($scope.profits, false));
+			$scope.endDate = DateService.getDate(ProfitService.getDate($scope.profits, true));
 		}
 	};
 
@@ -70,6 +71,7 @@ angular.module('livingWebApp')
 		}
 
 		$scope.profits = [];
+		ProfitService.storeProfits($scope.profits);
 
 		$scope.data = [];
 		$scope.nbr = 0;
@@ -78,7 +80,7 @@ angular.module('livingWebApp')
 		document.getElementById("result").style.visibility = "hidden";
 
 		if ($scope.keywords) {
-			$scope.searchObjects();
+				$scope.searchObjects();
 		}
 	}
 });
