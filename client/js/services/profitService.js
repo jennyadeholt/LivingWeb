@@ -63,8 +63,34 @@ var profits = [];
 			return getTypeValueForKvmPrice(objects);
 		}
 
+		this.getAveragePerMonths2 = function(objects) {
+			var average = parseInt(getAverageKvmPrice(objects), 10);
+
+			var dates = objects.map(function(listing){
+				return DateService.getMonthAndYear(listing.soldDate);
+			}).reduce(function(a , b){
+				if (a.indexOf(b) < 0 ) {
+					a.push(b);
+				}
+				return a;
+			},[]).map(function(month){
+				var monthObjects = getMonthObjects(objects, month);
+				var averagePerMonth = parseInt(getAverageKvmPrice(monthObjects), 10);
+				var type = parseInt(getTypeValueForKvmPrice(monthObjects), 10);
+
+				return [month, averagePerMonth, type, average];
+
+			});
+
+			dates.push(["Månad", "Medelvärde", "Typvärde", "Tot. medelvärde"]);
+
+			return dates.reverse();
+		}
+
 		this.getAveragePerMonths = function(objects){
 			objects = getKvmValues(objects);
+			var average = parseInt(getAverageKvmPrice(objects), 10);
+
 			var prices = objects.reduce(function(acc, listing) {
 				var key =  DateService.getMonthAndYear(listing.soldDate);
 				if (acc[key]) {
@@ -83,11 +109,11 @@ var profits = [];
 			for (var key in prices) {
 				if (prices.hasOwnProperty(key)) {
 					var price = prices[key];
-					result.push([key, parseInt(price.price / price.total, 10)]);
+					result.push([key, parseInt(price.price / price.total, 10), 0,  average]);
 				}
 			}
 
-			result.push(["Månad", "Medelvärde"]);
+			result.push(["Månad", "Medelvärde", "", ""]);
 
 			return result.reverse();
 		}
@@ -110,20 +136,23 @@ var profits = [];
 				var highestKvmPrice = hasValues ? getKvmPrice(highestKvmPriceObject) : 0;
 				var lowestKvmPrice = hasValues ? getKvmPrice(lowestKvmPriceObject) : 0;
 
+				var typeValue = hasValues ?  getTypeValueForKvmPrice(brokerObjects) : 0;
+
 				return {
 					broker : 					broker,
 					listings : 				brokerObjects,
 					averageKvmPrice : hasValues ? getAverageKvmPrice(brokerObjects) : 0,
 					medianKvmPrice : 	hasValues ? getMedianKvmPrice(brokerObjects) : 0,
 					highestKvm : {
-							price : 		hasValues ? highestKvmPrice : 0,
+							price : 		highestKvmPrice,
 							listing: 		highestKvmPriceObject
 					},
 					lowestKvm : {
-						price : hasValues ? lowestKvmPrice : 0,
+						price : lowestKvmPrice,
 						listing: lowestKvmPriceObject
 					},
-					variationKvmPrice : hasValues ? highestKvmPrice - lowestKvmPrice : 0
+					variationKvmPrice : hasValues ? highestKvmPrice - lowestKvmPrice : 0,
+					typeValue : typeValue
 				}
 			});
 
@@ -134,6 +163,12 @@ var profits = [];
 			return objects.filter(function(listing) {
 				return listing.source.name == broker;
 			});
+		}
+
+		var getMonthObjects = function(objects, month) {
+			return objects.filter(function(listing) {
+				return DateService.getMonthAndYear(listing.soldDate) == month;
+			})
 		}
 
 		var getTypeValueForKvmPrice = function(objects){
@@ -157,7 +192,7 @@ var profits = [];
 				};
 			}).reduce(getLength);
 
-			return result.data.reduce(getSum) / result.data.length;
+			return result.data.length > 0 ? result.data.reduce(getSum) / result.data.length : 0;
 		}
 
 		var getMedianKvmPrice = function(objects) {

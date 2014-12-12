@@ -21,6 +21,7 @@
 				<option value="lowestKvm.price">Lägst kvadratmeterspris</option>
 				<option value="-averageKvmPrice">Medelvärde</option>
 				<option value="-medianKvmPrice">Medianvärde</option>
+				<option value="-typeValue">Typvärde</option>
 			</select>
 		</div>
 	</form>
@@ -58,6 +59,11 @@
 				{{ highestKvm.price - lowestKvm.price | kvmprice }}
 			</div>
 			<br>
+			Typvärde
+			<div id="kvmPrice">
+				{{ typeValue | kvmprice }}
+			</div>
+			<br>
 		</div>
 		<div class="list">
 			<div ng-repeat="broker in brokers | orderBy:orderProp" >
@@ -89,7 +95,13 @@
 					<div id="kvmPrice">
 						{{broker.variationKvmPrice | kvmprice }}
 					</div>
+					<br>
+					Typvärde
+					<div id="kvmPrice"  ng-class="{negative: (broker.typeValue != 0 && broker.typeValue-typeValue < 0), positive: (broker.typeValue-typeValue > 0)}">
+						{{broker.typeValue | kvmprice }}
+					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>

@@ -4,15 +4,23 @@
 var libLoaded = false;
 
 var options = {
-	title: 'Kvadratmeterpris - medelvärde',
-	height: 577,
+	title: 'Kvadratmeterpris / månad',
+	height: 599,
 	width: 700,
-	legend: 'none',
+	legend: {position: 'right'},
+	titlePosition: 'top',
+	orientation: 'vertical',
 	annotations: {
 		alwaysOutside: true
 	},
+	seriesType: "bars",
 	series: {
-		0: { color: '#04567C' }
+		0: { color: '#04567C'},
+		1: { color: '#68cbfa'},
+		2: {
+			type: "line",
+			color: 'red'
+		}
 	}
 };
 
@@ -22,7 +30,7 @@ google.setOnLoadCallback(function () {
 });
 
 angular.module('livingWebApp').controller('ChartCtrl',
-	function ChartController($scope, ProfitService, $filter) {
+function ChartController($scope, ProfitService, $filter) {
 
 	$scope.$watch(
 		function() {
@@ -33,30 +41,35 @@ angular.module('livingWebApp').controller('ChartCtrl',
 		}
 	);
 
-	$scope.init = function () {
+	$scope.init = function () {}
 
+		/*{
+		calc: getValueAt.bind(undefined, 1),
+		sourceColumn: 1,
+		type: "string",
+		role: "annotation"
+	}*/
+
+function drawChart() {
+	var objects = $scope.profits;
+	if (objects && objects.length > 0) {
+		var data = google.visualization.arrayToDataTable(ProfitService.getData(objects));
+
+		var view = new google.visualization.DataView(data);
+
+		view.setColumns([0, 1, {
+			calc: getValueAt.bind(undefined, 1),
+			sourceColumn: 1,
+			type: "string",
+			role: "annotation"
+		}, 2, 3]);
+
+		var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+		chart.draw(view, options);
 	}
+}
 
-	function drawChart() {
-		var objects = $scope.profits;
-		if (objects && objects.length > 0) {
-			var data = google.visualization.arrayToDataTable(ProfitService.getAveragePerMonths(objects));
-
-			var view = new google.visualization.DataView(data);
-
-			view.setColumns([0, 1, {
-					calc: getValueAt.bind(undefined, 1),
-					sourceColumn: 1,
-					type: "string",
-					role: "annotation"
-				}]);
-
-				var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-				chart.draw(view, options);
-			}
-		}
-
-		function getValueAt(column, dataTable, row) {
-			return $filter('kvmprice')(dataTable.getFormattedValue(row, column));
-		}
+function getValueAt(column, dataTable, row) {
+	return $filter('kvmprice')(dataTable.getFormattedValue(row, column)) + $filter('kvmprice')(dataTable.getFormattedValue(row, column + 1));
+}
 });

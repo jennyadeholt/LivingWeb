@@ -17,7 +17,7 @@ angular.module('livingWebApp')
 
 	this.getStartDate = function() {
 		if(!startDate) {
-			startDate = getDate(moment().subtract(6, 'month'));
+			startDate = getDate(moment().subtract(2, 'year'));
 		}
 		return startDate;
 	}
