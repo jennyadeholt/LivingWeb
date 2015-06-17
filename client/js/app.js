@@ -25,10 +25,6 @@ App.config(['$routeProvider',
                 templateUrl: 'partials/object-detail.html',
                 controller: 'DetailCtrl'
             }).
-            when('/search', {
-                templateUrl: 'search.html',
-                controller: 'SearchCtrl'
-            }).
             otherwise({
                 redirectTo: '/'
             });
