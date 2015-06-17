@@ -7,6 +7,8 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "angular-route": "~1.4.0",
+    "angular": "~1.4.0",
     "express": "~4.9.x",
     "debug": "^1.0.4"
   },

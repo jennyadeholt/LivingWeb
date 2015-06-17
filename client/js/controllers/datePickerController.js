@@ -1,4 +1,3 @@
-
 angular.module('livingWebApp')
 .controller('DatePickerCtrl', function DatePickerController($scope, $filter, DateService) {
 	var self = this;

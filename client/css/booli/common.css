@@ -132,7 +132,7 @@ p#listItemDate {
 }
 
 .content {
-	padding: 115px 0 0 0 ;
+	padding: 3px 0 0 0 ;
 	height: 577px;
 	width: 1170px;
 	margin: auto;
@@ -208,6 +208,10 @@ p#listItemDate {
 .hidden {
 	height: 0;
 	visibility: hidden;
+}
+
+#refineWrap {
+	display: none;
 }
 
 #autocomplete.ui-autocomplete-loading {

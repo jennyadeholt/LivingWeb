@@ -1,130 +1,339 @@
 <div class="header" data-ng-init="init()">
-	<form class="well form-search">
-		<div id="customInputText">
-			<input type="text" ng-model="searchWords" value="'{{searchWords}}'"
-			class="input-medium search-query" placeholder="Gata, ort eller kommun"
-			autocomplete size="12" name="searchWords" />
-		</div>
+    <form class="well form-search">
+        <div id="customInputText">
+            <input type="text" ng-model="searchWords" value="'{{searchWords}}'"
+                   class="input-medium search-query" placeholder="Gata, ort eller kommun"
+                   autocomplete size="12" name="searchWords"/>
+        </div>
 
-		<div ng-controller="DatePickerCtrl as ctrl"  id="filterDate">
-			Från <input ng-model="ctrl.startDate" id="startDate" ui-date="ctrl.startDateOptions" type="text" >
-			till <input ng-model="ctrl.endDate" id="endDate" ui-date="ctrl.endDateOptions" type="text" >
-		</div>
+        <div ng-controller="DatePickerCtrl as ctrl" id="filterDate">
+            Från <input ng-model="ctrl.startDate" id="startDate" ui-date="ctrl.startDateOptions" type="text">
+            till <input ng-model="ctrl.endDate" id="endDate" ui-date="ctrl.endDateOptions" type="text">
+        </div>
 
-		<button type="submit" id="searchButton" ng-click="searchObjects()">Sök</button>
+        <button type="submit" id="searchButton" ng-click="searchObjects()">Sök</button>
 
-		<div id="sortingDiv">
-			Sortering:
-			<select ng-model="orderProp" ng-change="newSearchOrder()">
-				<option value="-listings.length">Antal objekt</option>
-				<option value="-highestKvm.price">Högst kvadratmeterspris</option>
-				<option value="lowestKvm.price">Lägst kvadratmeterspris</option>
-				<option value="-averageKvmPrice">Medelvärde</option>
-				<option value="-medianKvmPrice">Medianvärde</option>
-				<option value="-typeValue">Typvärde</option>
-			</select>
-		</div>
-	</form>
-</div>
-<div class="content" id="result">
-	<div class="data">
-		<p id="listItemTitle">{{keywords}} - {{profits.length}} st</p>
+        <div id="sortingDiv">
+            Sortering:
+            <select ng-model="orderProp" ng-change="newSearchOrder()">
+                <option value="-listings.length">Antal objekt</option>
+                <option value="-highestKvm.price">Högst kvadratmeterspris</option>
+                <option value="lowestKvm.price">Lägst kvadratmeterspris</option>
+                <option value="-averageKvmPrice">Medelvärde</option>
+                <option value="-medianKvmPrice">Medianvärde</option>
+                <option value="-typeValue">Typvärde</option>
+            </select>
+        </div>
 
-		<div id="kvmInfo">
-			<b>Kvadratmeterpris</b> <br>
-			<div ng-click=itemClicked(highestKvm.listing)>
-				Dyrast, <i id="address">{{highestKvm.listing.location.address.streetAddress}}</i>
-				<div id="kvmPrice">
-					{{ highestKvm.price | kvmprice}}
-				</div>
-			</div>
-			<div ng-click=itemClicked(lowestKvm.listing)>
-				Billigast, <i id="address">{{lowestKvm.listing.location.address.streetAddress}}</i>
-				<div id="kvmPrice">
-					{{ lowestKvm.price | kvmprice}}
-				</div>
-			</div>
-			Medelvärde
-			<div id="kvmPrice">
-				{{averageKvmPrice | kvmprice}}
-			</div>
-			<br>
-			Medianvärde
-			<div id="kvmPrice">
-				{{medianKvm | kvmprice }}
-			</div>
-			<br>
-			Variationsbredd
-			<div id="kvmPrice">
-				{{ highestKvm.price - lowestKvm.price | kvmprice }}
-			</div>
-			<br>
-			Typvärde
-			<div id="kvmPrice">
-				{{ typeValue | kvmprice }}
-			</div>
-			<br>
-		</div>
-		<div class="list">
-			<div ng-repeat="broker in brokers | orderBy:orderProp" >
-				<div id="broker">
-					<b>{{broker.broker}}</b>, {{broker.listings.length}} st<br>
-					<div ng-click=itemClicked(broker.highestKvm.listing)>
-						Dyrast, <i id="address">{{broker.highestKvm.listing.location.address.streetAddress}}</i>
-						<div id="kvmPrice" ng-class="{negative: (broker.highestKvm.price != 0 && broker.highestKvm.price-averageKvmPrice < 0), positive: (broker.highestKvm.price-highestKvm.price == 0)}">
-							{{broker.highestKvm.price | kvmprice }}
-						</div>
-					</div>
-					<div ng-click=itemClicked(broker.lowestKvm.listing)>
-						Billigast, <i id="address">{{broker.lowestKvm.listing.location.address.streetAddress}}</i>
-						<div id="kvmPrice" ng-class="{positive: (broker.lowestKvm.price-averageKvmPrice > 0)}">
-							{{broker.lowestKvm.price | kvmprice }}
-						</div>
-					</div>
-					Medelvärde
-					<div id="kvmPrice" ng-class="{negative: (broker.averageKvmPrice != 0 && broker.averageKvmPrice-averageKvmPrice < 0), positive: (broker.averageKvmPrice-averageKvmPrice > 0)}">
-						{{broker.averageKvmPrice | kvmprice }}
-					</div>
-					<br>
-					Medianvärde
-					<div id="kvmPrice" ng-class="{negative: (broker.medianKvmPrice != 0 && broker.medianKvmPrice-medianKvm < 0), positive: (broker.medianKvmPrice-medianKvm > 0)}">
-						{{broker.medianKvmPrice | kvmprice }}
-					</div>
-					<br>
-					Variationsbredd
-					<div id="kvmPrice">
-						{{broker.variationKvmPrice | kvmprice }}
-					</div>
-					<br>
-					Typvärde
-					<div id="kvmPrice"  ng-class="{negative: (broker.typeValue != 0 && broker.typeValue-typeValue < 0), positive: (broker.typeValue-typeValue > 0)}">
-						{{broker.typeValue | kvmprice }}
-					</div>
-				</div>
+        <div>
+        Detaljerad sökning <input type="checkbox"  ng-click=toggleVisibility() />
+        </div>
 
-			</div>
-		</div>
-	</div>
-	<div id="tabs">
-		<section class="tab" ng-controller="TabController as panel">
-			<ul>
-				<li ng-class="{active:panel.isSelected(2)  }">
-					<a href ng-click="panel.selectTab(2)">Diagram</a>
-				</li>
-				<li ng-class="{active:panel.isSelected(1) }">
-					<a href ng-click="panel.selectTab(1)">Karta</a>
-				</li>
-			</ul>
-			<br />
-			<div id="border">
-			<div ng-show="panel.isSelected(1)">
-				<div id="map"></div>
-			</div>
-			<div ng-show="panel.isSelected(2)">
-				<div id="chart_div" style="width: 700px; height: 577px; position: relative;" data-ng-init="init()"  ng-controller="ChartCtrl"/>
-			</div>
-		</div>
+        <div class="refineSuggestWrap">
+            <div id="refineWrap">
+                <div id="refineBox" class="twelvecol">
+                    <div class="twelvecol phone">
+                        <a href="#" class="typeOfSearch toggleListings">Till salu</a>
+                        <a href="#" class="typeOfSearch toggleSold">Slutpriser</a>
+                    </div>
+                    <div class="objectTypes">
+                        <div class="col1">
+                            <strong>Bostadstyp: </strong>
+                            <br>
+                            <label for="objectType1">Lägenheter</label>
+                            <input name="objectType" id="objectType1" value="lägenhet" tabindex="2" type="checkbox">
+                            <label for="objectType2">Villor</label>
+                            <input name="objectType" id="objectType2" value="villa" tabindex="3" type="checkbox">
+                            <label for="objectType3">Par/Rad/Kedjehus</label>
+                            <input name="objectType" id="objectType3" value="parhus,radhus,kedjehus" tabindex="4" type="checkbox">
+                            <label for="objectType4">Fritidshus</label>
+                            <input name="objectType" id="objectType4" value="fritidshus" tabindex="5" type="checkbox">
+                            <label for="objectType5">Gårdar</label>
+                            <input name="objectType" id="objectType5" value="gård" tabindex="6" type="checkbox">
+                            <label for="objectType6">Tomt/Mark</label>
+                            <input name="objectType" id="objectType6" value="tomt/mark" tabindex="7" type="checkbox">
+                        </div>
+                    </div>
 
-		</section>
-	</div>
+                    <div class="listings col3">
+                        <strong>Pris: </strong>
+                        <br>
+                        <input name="minListPrice" placeholder="Min" autocomplete="off"
+                               class="listings price autocomplete" tabindex="8" type="tel">
+                        <input name="maxListPrice" placeholder="Max" autocomplete="off"
+                               class="listings price autocomplete" tabindex="9" type="tel">
+                        <em>kr</em>
+
+                        <div class="twelvecol">
+                            <input name="priceDecrease" id="priceDecrease" value="1" tabindex="10" type="checkbox">
+                            <label for="priceDecrease">Endast prissänkta</label>
+                        </div>
+                    </div>
+
+                    <div class="sold col3">
+                        <strong>Slutpris</strong>
+                        <input name="minSoldPrice" placeholder="Min" autocomplete="off" class="sold price autocomplete"
+                               tabindex="11" type="tel">
+                        <input name="maxSoldPrice" placeholder="Max" autocomplete="off" class="sold price autocomplete"
+                               tabindex="12" type="tel">
+                        <em>kr</em>
+                    </div>
+
+                    <div class="listings col4">
+                        <strong>Boendekostnad</strong>
+                        <input name="monthlyPayment" placeholder="Max" class="listings monthlyPayment autocomplete"
+                               tabindex="13" type="tel">
+                        <em>kr/mån</em>
+                    </div>
+
+                    <div class="sold col4">
+                        <strong>Avgift</strong>
+                        <input name="maxRent" placeholder="Max" class="sold rent autocomplete" tabindex="14" type="tel">
+                        <em>kr/mån</em>
+                    </div>
+
+                    <div class="rooms col5">
+                        <strong>Rum</strong>
+                        <input name="rooms" id="rooms1" value="1" tabindex="15" type="checkbox">
+                        <label for="rooms1">1</label>
+                        <input name="rooms" id="rooms2" value="2" tabindex="16" type="checkbox">
+                        <label for="rooms2">2</label>
+                        <input name="rooms" id="rooms3" value="3" tabindex="17" type="checkbox">
+                        <label for="rooms3">3</label>
+                        <input name="rooms" id="rooms4" value="4" tabindex="18" type="checkbox">
+                        <label for="rooms4">4</label>
+                        <input name="rooms" id="rooms5" value="5" tabindex="19" type="checkbox">
+                        <label for="rooms5">5+</label>
+                    </div>
+
+                    <div class="col6">
+                        <strong>Boarea</strong>
+                        <input name="minLivingArea" placeholder="Min" class="short" tabindex="20" type="tel">
+                        <input name="maxLivingArea" placeholder="Max" class="short" tabindex="21" type="tel">
+                        <em>m²</em>
+                    </div>
+
+                    <div id="extendedRefine" style="display:none">
+                        <div class="listings col1">
+                            <strong>Nyproduktion</strong>
+                            <select name="isNewConstruction" tabindex="22" class="listings">
+                                <option value="">Allt</option>
+                                <option value="0">Visa inte nyprod.</option>
+                                <option value="1">Visa endast nyprod.</option>
+                            </select>
+                        </div>
+                        <div class="sold col1">
+                            <strong>Byggår</strong>
+                            <input name="minConstructionYear" placeholder="Min" class="sold short" tabindex="23"
+                                   type="tel">
+                            <input name="maxConstructionYear" placeholder="Max" class="sold short" tabindex="24"
+                                   type="tel">
+                        </div>
+
+                        <div class="empty col2">&nbsp;</div>
+
+                        <div class="listings col3">
+                            <strong>Kvadratmeterpris</strong>
+                            <input name="minListSqmPrice" placeholder="Min" class="listings sqmPrice autocomplete"
+                                   tabindex="25" type="tel">
+                            <input name="maxListSqmPrice" placeholder="Max" class="listings sqmPrice autocomplete"
+                                   tabindex="26" type="tel">
+                            <em>kr/m²</em>
+                        </div>
+                        <div class="sold col3">
+                            <strong>Kvadratmeterpris</strong>
+                            <input name="minSoldSqmPrice" placeholder="Min" class="sold sqmPrice autocomplete"
+                                   tabindex="27" type="tel">
+                            <input name="maxSoldSqmPrice" placeholder="Max" class="sold sqmPrice autocomplete"
+                                   tabindex="28" type="tel">
+                            <em>kr/m²</em>
+                        </div>
+
+                        <div class="listings col4">
+                            <strong>Avgift</strong>
+                            <input name="maxRent" placeholder="Max" class="listings rent autocomplete" tabindex="29"
+                                   type="tel">
+                            <em>kr/mån</em>
+                        </div>
+                        <div class="sold col4">
+                            <strong>Tomtarea</strong>
+                            <input name="minPlotArea" placeholder="Min" class="sold short" tabindex="30" type="tel">
+                            <input name="maxPlotArea" placeholder="Max" class="sold short" tabindex="31" type="tel">
+                            <em>m²</em>
+                        </div>
+
+                        <div class="listings col5">
+                            <strong>Tomtarea</strong>
+                            <input name="minPlotArea" placeholder="Min" class="listings short" tabindex="32" type="tel">
+                            <input name="maxPlotArea" placeholder="Max" class="listings short" tabindex="33" type="tel">
+                            <em>m²</em>
+                        </div>
+                        <div class="sold col5">
+                            <strong>Slutprisdatum</strong>
+                            <input name="minSoldDate" placeholder="2010-01-01" tabindex="34" class="sold" type="text">
+                            <input name="maxSoldDate" placeholder="2010-01-03" tabindex="35" class="sold" type="text">
+                        </div>
+
+                        <div class="listings col6">
+                            <strong>Avstånd till hav</strong>
+                            <select name="maxDistanceToOcean" tabindex="36" class="listings">
+                                <option value="">Alla</option>
+                                <option value="100">100m</option>
+                                <option value="500">500m</option>
+                                <option value="1000">1km</option>
+                                <option value="5000">5km</option>
+                            </select>
+                        </div>
+
+                        <div class="listings col1">
+                            <strong>Privatsålda</strong>
+                            <input name="private" value="0" tabindex="37" class="listings" id="private" type="checkbox">
+                            <label for="private">Inte privatsålda</label>
+                        </div>
+
+                        <div class="empty col2">&nbsp;</div>
+
+                        <div class="listings constYear col3">
+                            <strong>Byggår</strong>
+                            <input name="minConstructionYear" placeholder="Min" class="listings short" tabindex="38"
+                                   type="tel">
+                            <input name="maxConstructionYear" placeholder="Max" class="listings short" tabindex="39"
+                                   type="tel">
+                        </div>
+
+                        <div class="listings col4">
+                            <strong>Inkommet</strong>
+                            <select name="daysActive" tabindex="40" class="listings">
+                                <option value="">Alla</option>
+                                <option value="1">Senaste dygnet</option>
+                                <option value="3">Senaste tre dagarna</option>
+                                <option value="7">Senaste veckan</option>
+                                <option value="14">Senaste två veckorna</option>
+                                <option value="31">Senaste månaden</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="closeRefine" class="closeRefine phone">×</div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+    <div class="content" id="result">
+        <div class="data">
+            <p id="listItemTitle">{{keywords}} - {{profits.length}} st</p>
+
+            <div id="kvmInfo">
+                <b>Kvadratmeterpris</b> <br>
+
+                <div ng-click=itemClicked(highestKvm.listing)>
+                    Dyrast, <i id="address">{{highestKvm.listing.location.address.streetAddress}}</i>
+
+                    <div id="kvmPrice">
+                        {{ highestKvm.price | kvmprice}}
+                    </div>
+                </div>
+                <div ng-click=itemClicked(lowestKvm.listing)>
+                    Billigast, <i id="address">{{lowestKvm.listing.location.address.streetAddress}}</i>
+
+                    <div id="kvmPrice">
+                        {{ lowestKvm.price | kvmprice}}
+                    </div>
+                </div>
+                Medelvärde
+                <div id="kvmPrice">
+                    {{averageKvmPrice | kvmprice}}
+                </div>
+                <br>
+                Medianvärde
+                <div id="kvmPrice">
+                    {{medianKvm | kvmprice }}
+                </div>
+                <br>
+                Variationsbredd
+                <div id="kvmPrice">
+                    {{ highestKvm.price - lowestKvm.price | kvmprice }}
+                </div>
+                <br>
+                Typvärde
+                <div id="kvmPrice">
+                    {{ typeValue | kvmprice }}
+                </div>
+                <br>
+            </div>
+            <div class="list">
+                <div ng-repeat="broker in brokers | orderBy:orderProp">
+                    <div id="broker">
+                        <b>{{broker.broker}}</b>, {{broker.listings.length}} st<br>
+
+                        <div ng-click=itemClicked(broker.highestKvm.listing)>
+                            Dyrast, <i id="address">{{broker.highestKvm.listing.location.address.streetAddress}}</i>
+
+                            <div id="kvmPrice"
+                                 ng-class="{negative: (broker.highestKvm.price != 0 && broker.highestKvm.price-averageKvmPrice < 0), positive: (broker.highestKvm.price-highestKvm.price == 0)}">
+                                {{broker.highestKvm.price | kvmprice }}
+                            </div>
+                        </div>
+                        <div ng-click=itemClicked(broker.lowestKvm.listing)>
+                            Billigast, <i id="address">{{broker.lowestKvm.listing.location.address.streetAddress}}</i>
+
+                            <div id="kvmPrice" ng-class="{positive: (broker.lowestKvm.price-averageKvmPrice > 0)}">
+                                {{broker.lowestKvm.price | kvmprice }}
+                            </div>
+                        </div>
+                        Medelvärde
+                        <div id="kvmPrice"
+                             ng-class="{negative: (broker.averageKvmPrice != 0 && broker.averageKvmPrice-averageKvmPrice < 0), positive: (broker.averageKvmPrice-averageKvmPrice > 0)}">
+                            {{broker.averageKvmPrice | kvmprice }}
+                        </div>
+                        <br>
+                        Medianvärde
+                        <div id="kvmPrice"
+                             ng-class="{negative: (broker.medianKvmPrice != 0 && broker.medianKvmPrice-medianKvm < 0), positive: (broker.medianKvmPrice-medianKvm > 0)}">
+                            {{broker.medianKvmPrice | kvmprice }}
+                        </div>
+                        <br>
+                        Variationsbredd
+                        <div id="kvmPrice">
+                            {{broker.variationKvmPrice | kvmprice }}
+                        </div>
+                        <br>
+                        Typvärde
+                        <div id="kvmPrice"
+                             ng-class="{negative: (broker.typeValue != 0 && broker.typeValue-typeValue < 0), positive: (broker.typeValue-typeValue > 0)}">
+                            {{broker.typeValue | kvmprice }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="tabs">
+            <section class="tab" ng-controller="TabController as panel">
+                <ul>
+                    <li ng-class="{active:panel.isSelected(2)  }">
+                        <a href ng-click="panel.selectTab(2)">Diagram</a>
+                    </li>
+                    <li ng-class="{active:panel.isSelected(1) }">
+                        <a href ng-click="panel.selectTab(1)">Karta</a>
+                    </li>
+                </ul>
+                <br/>
+
+                <div id="border">
+                    <div ng-show="panel.isSelected(1)">
+                        <div id="map"></div>
+                    </div>
+                    <div ng-show="panel.isSelected(2)">
+                        <div id="chart_div" style="width: 700px; height: 577px; position: relative;"
+                             data-ng-init="init()"
+                             ng-controller="ChartCtrl"/>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
 </div>

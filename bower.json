@@ -1,0 +1,14 @@
+{
+  "name": "LivingWeb2",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jennynilsson/LivingWeb",
+  "authors": [
+    "jennynilsson <jenny.nilsson@jayway.com>"
+  ],
+  "main": "server.js",
+  "license": "MIT",
+  "dependencies": {
+    "angular-route": "~1.4.0",
+    "angular": "~1.4.0"
+  }
+}

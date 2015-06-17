@@ -20,10 +20,12 @@ angular.module('livingWebApp')
 	$scope.previousPage = function() {
 		pageListings($scope, $filter, false);
 	}
+
 	$scope.nextPage = function(){
 		pageListings($scope, $filter, true);
 
 	};
+
 	$scope.itemClicked = function($listing) {
 		$updateInfoWindow($listing, $filter);
 	}

@@ -1,6 +1,4 @@
 
-
-
 var libLoaded = false;
 
 var options = {
@@ -53,7 +51,7 @@ function ChartController($scope, ProfitService, $filter) {
 function drawChart() {
 	var objects = $scope.profits;
 	if (objects && objects.length > 0) {
-		var data = google.visualization.arrayToDataTable(ProfitService.getData(objects));
+		var data = google.visualization.arrayToDataTable(ProfitService.getAveragePerMonths(objects));
 
 		var view = new google.visualization.DataView(data);
 
