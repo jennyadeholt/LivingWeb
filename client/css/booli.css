@@ -1469,6 +1469,11 @@ img, object, embed {
 	width: 100%;
 	z-index: 2;
 }
+
+#refineBox .col {
+	margin: 10px;
+}
+
 .showRefine .refineSuggestWrap, .showSuggest .refineSuggestWrap {
 	transform: none;
 	transition: none 0s ease 0s ;

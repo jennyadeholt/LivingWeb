@@ -214,6 +214,14 @@ p#listItemDate {
 	display: none;
 }
 
+#refineBox .col {
+	margin: 6px 0;
+}
+
+#refineBox .objectTypes .col input {
+	margin: 0 15px 0 0;
+}
+
 #autocomplete.ui-autocomplete-loading {
 	background-image: url(loading.gif);
 	background-position: right center;

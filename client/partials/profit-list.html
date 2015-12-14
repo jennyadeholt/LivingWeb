@@ -26,51 +26,43 @@
         </div>
 
         <div>
-        Detaljerad sökning <input type="checkbox"  ng-click=toggleVisibility() />
+            <div id="refineBox" class="twelvecol">
+                <div class="objectTypes">
+                    <div class="col">
+                        <strong>Bostadstyp: </strong>
+                        <label for="objectType1">Lägenheter</label>
+                        <input name="objectType" id="objectType1" value="lägenhet" tabindex="2" type="checkbox">
+                        <label for="objectType2">Villor</label>
+                        <input name="objectType" id="objectType2" value="villa" tabindex="3" type="checkbox">
+                        <label for="objectType3">Par/Rad/Kedjehus</label>
+                        <input name="objectType" id="objectType3" value="parhus,radhus,kedjehus" tabindex="4" type="checkbox">
+                        <label for="objectType4">Fritidshus</label>
+                        <input name="objectType" id="objectType4" value="fritidshus" tabindex="5" type="checkbox">
+                        <label for="objectType5">Gårdar</label>
+                        <input name="objectType" id="objectType5" value="gård" tabindex="6" type="checkbox">
+                        <label for="objectType6">Tomt/Mark</label>
+                        <input name="objectType" id="objectType6" value="tomt/mark" tabindex="7" type="checkbox">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <strong>Pris: </strong>
+                    <input name="minListPrice" placeholder="Min" autocomplete="off"
+                           class="listings price autocomplete" tabindex="8" type="tel">
+                    <input name="maxListPrice" placeholder="Max" autocomplete="off"
+                           class="listings price autocomplete" tabindex="9" type="tel">
+                    <em>kr</em>
+                        <input name="priceDecrease" id="priceDecrease" value="1" tabindex="10" type="checkbox">
+                        <label for="priceDecrease">Endast prissänkta</label>
+                </div>
         </div>
+
+        <a ng-click=toggleVisibility()>Detaljerad sökning</a>
 
         <div class="refineSuggestWrap">
             <div id="refineWrap">
-                <div id="refineBox" class="twelvecol">
-                    <div class="twelvecol phone">
-                        <a href="#" class="typeOfSearch toggleListings">Till salu</a>
-                        <a href="#" class="typeOfSearch toggleSold">Slutpriser</a>
-                    </div>
-                    <div class="objectTypes">
-                        <div class="col1">
-                            <strong>Bostadstyp: </strong>
-                            <br>
-                            <label for="objectType1">Lägenheter</label>
-                            <input name="objectType" id="objectType1" value="lägenhet" tabindex="2" type="checkbox">
-                            <label for="objectType2">Villor</label>
-                            <input name="objectType" id="objectType2" value="villa" tabindex="3" type="checkbox">
-                            <label for="objectType3">Par/Rad/Kedjehus</label>
-                            <input name="objectType" id="objectType3" value="parhus,radhus,kedjehus" tabindex="4" type="checkbox">
-                            <label for="objectType4">Fritidshus</label>
-                            <input name="objectType" id="objectType4" value="fritidshus" tabindex="5" type="checkbox">
-                            <label for="objectType5">Gårdar</label>
-                            <input name="objectType" id="objectType5" value="gård" tabindex="6" type="checkbox">
-                            <label for="objectType6">Tomt/Mark</label>
-                            <input name="objectType" id="objectType6" value="tomt/mark" tabindex="7" type="checkbox">
-                        </div>
-                    </div>
 
-                    <div class="listings col3">
-                        <strong>Pris: </strong>
-                        <br>
-                        <input name="minListPrice" placeholder="Min" autocomplete="off"
-                               class="listings price autocomplete" tabindex="8" type="tel">
-                        <input name="maxListPrice" placeholder="Max" autocomplete="off"
-                               class="listings price autocomplete" tabindex="9" type="tel">
-                        <em>kr</em>
-
-                        <div class="twelvecol">
-                            <input name="priceDecrease" id="priceDecrease" value="1" tabindex="10" type="checkbox">
-                            <label for="priceDecrease">Endast prissänkta</label>
-                        </div>
-                    </div>
-
-                    <div class="sold col3">
+                    <div class="col">
                         <strong>Slutpris</strong>
                         <input name="minSoldPrice" placeholder="Min" autocomplete="off" class="sold price autocomplete"
                                tabindex="11" type="tel">
@@ -79,20 +71,20 @@
                         <em>kr</em>
                     </div>
 
-                    <div class="listings col4">
+                    <div class="col">
                         <strong>Boendekostnad</strong>
                         <input name="monthlyPayment" placeholder="Max" class="listings monthlyPayment autocomplete"
                                tabindex="13" type="tel">
                         <em>kr/mån</em>
                     </div>
 
-                    <div class="sold col4">
+                    <div class="col">
                         <strong>Avgift</strong>
                         <input name="maxRent" placeholder="Max" class="sold rent autocomplete" tabindex="14" type="tel">
                         <em>kr/mån</em>
                     </div>
 
-                    <div class="rooms col5">
+                    <div class="col">
                         <strong>Rum</strong>
                         <input name="rooms" id="rooms1" value="1" tabindex="15" type="checkbox">
                         <label for="rooms1">1</label>
@@ -106,14 +98,14 @@
                         <label for="rooms5">5+</label>
                     </div>
 
-                    <div class="col6">
+                    <div class="col">
                         <strong>Boarea</strong>
                         <input name="minLivingArea" placeholder="Min" class="short" tabindex="20" type="tel">
                         <input name="maxLivingArea" placeholder="Max" class="short" tabindex="21" type="tel">
                         <em>m²</em>
                     </div>
 
-                    <div id="extendedRefine" style="display:none">
+                    <div id="extendedRefine" display>
                         <div class="listings col1">
                             <strong>Nyproduktion</strong>
                             <select name="isNewConstruction" tabindex="22" class="listings">
@@ -132,7 +124,7 @@
 
                         <div class="empty col2">&nbsp;</div>
 
-                        <div class="listings col3">
+                        <div class="col">
                             <strong>Kvadratmeterpris</strong>
                             <input name="minListSqmPrice" placeholder="Min" class="listings sqmPrice autocomplete"
                                    tabindex="25" type="tel">
@@ -140,7 +132,7 @@
                                    tabindex="26" type="tel">
                             <em>kr/m²</em>
                         </div>
-                        <div class="sold col3">
+                        <div class="col">
                             <strong>Kvadratmeterpris</strong>
                             <input name="minSoldSqmPrice" placeholder="Min" class="sold sqmPrice autocomplete"
                                    tabindex="27" type="tel">
@@ -149,7 +141,7 @@
                             <em>kr/m²</em>
                         </div>
 
-                        <div class="listings col4">
+                        <div class="col">
                             <strong>Avgift</strong>
                             <input name="maxRent" placeholder="Max" class="listings rent autocomplete" tabindex="29"
                                    type="tel">
