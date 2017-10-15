@@ -1,10 +1,10 @@
 "use strict";
 
-var App = angular.module('livingWebApp', [
+const App = angular.module('livingWebApp', [
     'ngRoute',
-    'filters',
-    'ui.date'
-])
+    'filters'
+
+]);
 
 App.config(['$routeProvider',
     function ($routeProvider) {
